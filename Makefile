@@ -2,7 +2,7 @@ ACM_VERSION ?= 2.15
 DOCS_REPO_DIR = rhacm-docs
 OUTPUT_DIR = "docs/acm/$(ACM_VERSION)"
 
-.PHONY: fetch-docs render-pandoc clean check-deps
+.PHONY: fetch-docs render-pandoc clean check-deps update-docs
 
 check-deps:
 	@which git > /dev/null || (echo "Error: git is not installed" && exit 1)
@@ -30,4 +30,6 @@ render-pandoc: check-deps
 	done
 
 clean:
-	rm -rf $(OUTPUT_DIR)
+	rm -rf $(DOCS_REPO_DIR)
+
+update-docs: fetch-docs render-pandoc clean

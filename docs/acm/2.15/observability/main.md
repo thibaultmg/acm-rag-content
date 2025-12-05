@@ -219,60 +219,60 @@ environments overview* dashboard.
 View the following table of metric types that are supported by the
 framework:
 
-- Metric name: acm\_managed\_cluster\_info - Metric type: Gauge -
-  Labels/tags: hub\_cluster\_id, managed\_cluster\_id, vendor, cloud,
-  version, available, created\_via, core\_worker, socket\_worker -
-  Status: Stable
+- Metric name: acm_managed_cluster_info - Metric type: Gauge -
+  Labels/tags: hub_cluster_id, managed_cluster_id, vendor, cloud,
+  version, available, created_via, core_worker, socket_worker - Status:
+  Stable
 
-- Metric name: config\_policies\_evaluation\_duration\_seconds\_bucket -
+- Metric name: config_policies_evaluation_duration_seconds_bucket -
   Metric type: Histogram - Labels/tags: None - Status: Stable. Read
   Governance metric for more details.
 
-- Metric name: config\_policies\_evaluation\_duration\_seconds\_count -
+- Metric name: config_policies_evaluation_duration_seconds_count -
   Metric type: Histogram - Labels/tags: None - Status: Stable. Refer to
   Governance metric for more details.
 
-- Metric name: config\_policies\_evaluation\_duration\_seconds\_sum -
-  Metric type: Histogram - Labels/tags: None - Status: Stable. Read
-  Governance metric for more details.
+- Metric name: config_policies_evaluation_duration_seconds_sum - Metric
+  type: Histogram - Labels/tags: None - Status: Stable. Read Governance
+  metric for more details.
 
-- Metric name: policy\_governance\_info - Metric type: Gauge -
-  Labels/tags: type, policy, policy\_namespace, cluster\_namespace -
+- Metric name: policy_governance_info - Metric type: Gauge -
+  Labels/tags: type, policy, policy_namespace, cluster_namespace -
   Status: Stable. Review Governance metric for more details.
 
-- Metric name: cluster\_policy\_governance\_info - Metric type: Gauge -
-  Labels/tags: kind, policy, policy\_namespace, severity - Status:
+- Metric name: cluster_policy_governance_info - Metric type: Gauge -
+  Labels/tags: kind, policy, policy_namespace, severity - Status:
   Stable. Review Governance metric for more details.
 
-- Metric name: policyreport\_info - Metric type: Gauge - Labels/tags:
-  managed\_cluster\_id, category, policy, result, severity - Status:
+- Metric name: policyreport_info - Metric type: Gauge - Labels/tags:
+  managed_cluster_id, category, policy, result, severity - Status:
   Stable. Read Managing insight \_PolicyReports\_ for more details.
 
-- Metric name: search\_api\_db\_connection\_failed\_total - Metric type:
+- Metric name: search_api_db_connection_failed_total - Metric type:
   Counter - Labels/tags: None - Status: Stable. See the Search
   components section in the Searching in the console documentation.
 
-- Metric name: search\_api\_dbquery\_duration\_seconds - Metric type:
+- Metric name: search_api_dbquery_duration_seconds - Metric type:
   Histogram - Labels/tags: None - Status: Stable. See the Search
   components section in the Searching in the console documentation.
 
-- Metric name: search\_api\_requests - Metric type: Histogram -
+- Metric name: search_api_requests - Metric type: Histogram -
   Labels/tags: None - Status: Stable. See the Search components section
   in the Searching in the console documentation.
 
-- Metric name: search\_indexer\_request\_count - Metric type: Counter -
+- Metric name: search_indexer_request_count - Metric type: Counter -
   Labels/tags: None - Status: Stable. See the Search components section
   in the Searching in the console documentation.
 
-- Metric name: search\_indexer\_request\_duration - Metric type:
+- Metric name: search_indexer_request_duration - Metric type:
   Histogram - Labels/tags: None - Status: Stable. See the Search
   components section in the Searching in the console documentation.
 
-- Metric name: search\_indexer\_requests\_in\_flight - Metric type:
-  Gauge - Labels/tags: None - Status: Stable. See the Search components
-  section in the Searching in the console documentation.
+- Metric name: search_indexer_requests_in_flight - Metric type: Gauge -
+  Labels/tags: None - Status: Stable. See the Search components section
+  in the Searching in the console documentation.
 
-- Metric name: search\_indexer\_request\_size - Metric type: Histogram -
+- Metric name: search_indexer_request_size - Metric type: Histogram -
   Labels/tags: None - Status: Stable. See the Search components section
   in the Searching in the console documentation.
 
@@ -281,7 +281,9 @@ framework:
 To view the default metrics, see the `observability-metrics-allowlist`
 by running the following command:
 
-    oc -n open-cluster-management-observability get cm observability-metrics-allowlist -o yaml
+``` bash
+oc -n open-cluster-management-observability get cm observability-metrics-allowlist -o yaml
+```
 
 **Note:** You cannot change the default metrics in the allowlist.
 
@@ -401,7 +403,7 @@ methods to find the metric type:
     `operator.prometheus.io/controller-id: openshift-user-workload-monitoring/prometheus-operator`.
 
 You can also find `ServiceMonitors` in the console by going to
-**Observe** &gt; **Targets** and choosing Platform or User from the
+**Observe** \> **Targets** and choosing Platform or User from the
 **Source** filter in the top right.
 
 **Note:** The **Source** filter provides service monitor or target
@@ -419,18 +421,20 @@ cluster in the `open-cluster-management-observability` namespace. Use
 `observability-metrics-custom-allowlist` as the name. See the following
 `ConfigMap` example that you can use to monitor Platform metrics:
 
-    kind: ConfigMap
-    apiVersion: v1
-    metadata:
-      name: observability-metrics-custom-allowlist
-      namespace: open-cluster-management-observability
-      data:
-      metrics_list.yaml: |
-        names: 
-          - node_memory_MemTotal_bytes
-        recording_rules: 
-          - record: apiserver_request_duration_seconds:histogram_quantile_90
-            expr: histogram_quantile(0.90,sum(rate(apiserver_request_duration_seconds_bucket {job=\"apiserver\", verb!=\"WATCH\"}[5m])) by (verb,le))
+``` yaml
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: observability-metrics-custom-allowlist
+  namespace: open-cluster-management-observability
+  data:
+  metrics_list.yaml: |
+    names: 
+      - node_memory_MemTotal_bytes
+    recording_rules: 
+      - record: apiserver_request_duration_seconds:histogram_quantile_90
+        expr: histogram_quantile(0.90,sum(rate(apiserver_request_duration_seconds_bucket {job=\"apiserver\", verb!=\"WATCH\"}[5m])) by (verb,le))
+```
 
 - **Optional:** Add the names of the custom metrics you want to collect
   from your managed cluster.
@@ -449,18 +453,20 @@ cluster, use the following example and apply the config map on your
 managed cluster in the `open-cluster-management-addon-observability`
 namespace:
 
-    kind: ConfigMap
-    apiVersion: v1
-    metadata:
-      name: observability-metrics-custom-allowlist
-      namespace: open-cluster-management-addon-observability
-      data:
-      metrics_list.yaml: |
-        names: 
-          - node_memory_MemTotal_bytes
-            recording_rules: 
-          - record: apiserver_request_duration_seconds:histogram_quantile_90
-            expr: histogram_quantile(0.90,sum(rate(apiserver_request_duration_seconds_bucket{job="apiserver", verb!="WATCH"}[5m])) by (verb,le))
+``` yaml
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: observability-metrics-custom-allowlist
+  namespace: open-cluster-management-addon-observability
+  data:
+  metrics_list.yaml: |
+    names: 
+      - node_memory_MemTotal_bytes
+        recording_rules: 
+      - record: apiserver_request_duration_seconds:histogram_quantile_90
+        expr: histogram_quantile(0.90,sum(rate(apiserver_request_duration_seconds_bucket{job="apiserver", verb!="WATCH"}[5m])) by (verb,le))
+```
 
 - **Optional:** Add the names of the custom metrics you want to collect
   from your managed cluster.
@@ -485,15 +491,17 @@ configuration in the `open-cluster-management-addon-observability`
 namespace instead, the metrics are collected from all the namespaces of
 the managed cluster. See the following example:
 
-    kind: ConfigMap
-    apiVersion: v1
-    metadata:
-      name: observability-metrics-custom-allowlist
-      namespace: <monitored_namespace> 
-    data:
-      uwl_metrics_list.yaml:
-        names:
-          - <sample_metrics> 
+``` yaml
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: observability-metrics-custom-allowlist
+  namespace: <monitored_namespace> 
+data:
+  uwl_metrics_list.yaml:
+    names:
+      - <sample_metrics> 
+```
 
 - Add the namespace where you want to capture the metric.
 
@@ -514,19 +522,25 @@ Complete the following steps to remove a default metric:
 1.  Verify that `mco observability` is enabled by using the following
     command:
 
-        oc get mco observability -o yaml
+    ``` bash
+    oc get mco observability -o yaml
+    ```
 
 2.  Add the name of the default metric to the `metrics_list.yaml`
     parameter with a hyphen `-` at the start of the metric name. View
     the following metric example:
 
-        -cluster_infrastructure_provider
+    ``` bash
+    -cluster_infrastructure_provider
+    ```
 
 3.  Create the `observability-metrics-custom-allowlist` config map in
     the `open-cluster-management-observability` namespace with the
     following command:
 
-        oc apply -n open-cluster-management-observability -f observability-metrics-custom-allowlist.yaml
+    ``` bash
+    oc apply -n open-cluster-management-observability -f observability-metrics-custom-allowlist.yaml
+    ```
 
 4.  Verify that the observability service is not collecting the specific
     metric from your managed clusters. When you query the metric from
@@ -601,59 +615,63 @@ automatically starts collecting the metrics that are specified in the
 View the list of dynamic metrics that from the `collect_rules` section,
 in the following YAML file:
 
-    collect_rules:
-      - group: SNOResourceUsage
-        annotations:
-          description: >
-            By default, a {sno} cluster does not collect pod and container resource metrics. Once a {sno} cluster
-            reaches a level of resource consumption, these granular metrics are collected dynamically.
-            When the cluster resource consumption is consistently less than the threshold for a period of time,
-            collection of the granular metrics stops.
-        selector:
-          matchExpressions:
-            - key: clusterType
-              operator: In
-              values: ["{sno}"]
-        rules:
-        - collect: SNOHighCPUUsage
-          annotations:
-            description: >
-              Collects the dynamic metrics specified if the cluster cpu usage is constantly more than 70% for 2 minutes
-          expr: (1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m]))) * 100 > 70
-          for: 2m
-          dynamic_metrics:
-            names:
-              - container_cpu_cfs_periods_total
-              - container_cpu_cfs_throttled_periods_total
-              - kube_pod_container_resource_limits
-              - kube_pod_container_resource_requests
-              - namespace_workload_pod:kube_pod_owner:relabel
-              - node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate
-              - node_namespace_pod_container:container_cpu_usage_seconds_total:sum_rate
-        - collect: SNOHighMemoryUsage
-          annotations:
-            description: >
-              Collects the dynamic metrics specified if the cluster memory usage is constantly more than 70% for 2 minutes
-          expr: (1 - sum(:node_memory_MemAvailable_bytes:sum) / sum(kube_node_status_allocatable{resource=\"memory\"})) * 100 > 70
-          for: 2m
-          dynamic_metrics:
-            names:
-              - kube_pod_container_resource_limits
-              - kube_pod_container_resource_requests
-              - namespace_workload_pod:kube_pod_owner:relabel
-            matches:
-              - __name__="container_memory_cache",container!=""
-              - __name__="container_memory_rss",container!=""
-              - __name__="container_memory_swap",container!=""
-              - __name__="container_memory_working_set_bytes",container!=""
+``` yaml
+collect_rules:
+  - group: SNOResourceUsage
+    annotations:
+      description: >
+        By default, a {sno} cluster does not collect pod and container resource metrics. Once a {sno} cluster
+        reaches a level of resource consumption, these granular metrics are collected dynamically.
+        When the cluster resource consumption is consistently less than the threshold for a period of time,
+        collection of the granular metrics stops.
+    selector:
+      matchExpressions:
+        - key: clusterType
+          operator: In
+          values: ["{sno}"]
+    rules:
+    - collect: SNOHighCPUUsage
+      annotations:
+        description: >
+          Collects the dynamic metrics specified if the cluster cpu usage is constantly more than 70% for 2 minutes
+      expr: (1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m]))) * 100 > 70
+      for: 2m
+      dynamic_metrics:
+        names:
+          - container_cpu_cfs_periods_total
+          - container_cpu_cfs_throttled_periods_total
+          - kube_pod_container_resource_limits
+          - kube_pod_container_resource_requests
+          - namespace_workload_pod:kube_pod_owner:relabel
+          - node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate
+          - node_namespace_pod_container:container_cpu_usage_seconds_total:sum_rate
+    - collect: SNOHighMemoryUsage
+      annotations:
+        description: >
+          Collects the dynamic metrics specified if the cluster memory usage is constantly more than 70% for 2 minutes
+      expr: (1 - sum(:node_memory_MemAvailable_bytes:sum) / sum(kube_node_status_allocatable{resource=\"memory\"})) * 100 > 70
+      for: 2m
+      dynamic_metrics:
+        names:
+          - kube_pod_container_resource_limits
+          - kube_pod_container_resource_requests
+          - namespace_workload_pod:kube_pod_owner:relabel
+        matches:
+          - __name__="container_memory_cache",container!=""
+          - __name__="container_memory_rss",container!=""
+          - __name__="container_memory_swap",container!=""
+          - __name__="container_memory_working_set_bytes",container!=""
+```
 
 A `collect_rules.group` can be disabled in the `custom-allowlist` as
 shown in the following example. When a `collect_rules.group` is
 disabled, metrics collection reverts to the previous behavior. These
 metrics are collected at regularly, specified intervals:
 
-    collect_rules:
-      - group: -SNOResourceUsage
+``` yaml
+collect_rules:
+  - group: -SNOResourceUsage
+```
 
 The data is only displayed in Grafana when the rule is initiated.
 
@@ -680,14 +698,16 @@ resource. Complete the following steps:
     example, change the `workers` parameter value to `4`. Your YAML file
     might resemble the following resource:
 
-        apiVersion: observability.open-cluster-management.io/v1beta2
-        kind: MultiClusterObservability
-        metadata:
-          name: observability
-        spec:
-          observabilityAddonSpec:
-            enableMetrics: true
-            workers: 4
+    ``` yaml
+    apiVersion: observability.open-cluster-management.io/v1beta2
+    kind: MultiClusterObservability
+    metadata:
+      name: observability
+    spec:
+      observabilityAddonSpec:
+        enableMetrics: true
+        workers: 4
+    ```
 
 2.  **Optional:** If you want to override the `workers` parameter for
     specific clusters, add the
@@ -729,16 +749,18 @@ observability add-on:
     by adding a `spec.proxyConfig` parameter. View the following YAML
     example:
 
-        apiVersion: addon.open-cluster-management.io/v1alpha1
-        kind: AddOnDeploymentConfig
-        metadata:
-          name: <addon-deploy-config-name>
-          namespace: <managed-cluster-name>
-        spec:
-          agentInstallNamespace: open-cluster-management-addon-observability
-          proxyConfig:
-            httpsProxy: "http://<username>:<password>@<ip>:<port>" 
-            noProxy: ".cluster.local,.svc,172.30.0.1" 
+    ``` yaml
+    apiVersion: addon.open-cluster-management.io/v1alpha1
+    kind: AddOnDeploymentConfig
+    metadata:
+      name: <addon-deploy-config-name>
+      namespace: <managed-cluster-name>
+    spec:
+      agentInstallNamespace: open-cluster-management-addon-observability
+      proxyConfig:
+        httpsProxy: "http://<username>:<password>@<ip>:<port>" 
+        noProxy: ".cluster.local,.svc,172.30.0.1" 
+    ```
 
     - For this field, you can specify either a HTTP proxy or a HTTPS
       proxy.
@@ -748,24 +770,28 @@ observability add-on:
 3.  To get the IP address, run following command on your managed
     cluster:
 
-        oc -n default describe svc kubernetes | grep IP:
+    ``` bash
+    oc -n default describe svc kubernetes | grep IP:
+    ```
 
 4.  Go to the `ManagedClusterAddOn` resource and update it by
     referencing the `AddOnDeploymentConfig` resource that you made. View
     the following YAML example:
 
-        apiVersion: addon.open-cluster-management.io/v1alpha1
-        kind: ManagedClusterAddOn
-        metadata:
-          name: observability-controller
-          namespace: <managed-cluster-name>
-        spec:
-          installNamespace: open-cluster-management-addon-observability
-          configs:
-          - group: addon.open-cluster-management.io
-            resource: addondeploymentconfigs
-            name: <addon-deploy-config-name>
-            namespace: <managed-cluster-name>
+    ``` yaml
+    apiVersion: addon.open-cluster-management.io/v1alpha1
+    kind: ManagedClusterAddOn
+    metadata:
+      name: observability-controller
+      namespace: <managed-cluster-name>
+    spec:
+      installNamespace: open-cluster-management-addon-observability
+      configs:
+      - group: addon.open-cluster-management.io
+        resource: addondeploymentconfigs
+        name: <addon-deploy-config-name>
+        namespace: <managed-cluster-name>
+    ```
 
 5.  Verify the proxy settings. If you successfully configured the proxy
     settings, the metric collector deployed by the observability add-on
@@ -810,21 +836,23 @@ Complete the following steps:
     in the file that contains the certificate authority by using the
     following command:
 
-        oc create secret generic <tls_secret_name> --from-file=ca.crt=<path_to_file> -n open-cluster-management-observability
+    ``` bash
+    oc create secret generic <tls_secret_name> --from-file=ca.crt=<path_to_file> -n open-cluster-management-observability
+    ```
 
     1.  Alternatively, you can apply the following YAML to create the
         secret:
 
-    <!-- -->
-
-        apiVersion: v1
-        kind: Secret
-        metadata:
-          name: <tls_secret_name>
-          namespace: open-cluster-management-observability
-        type: Opaque
-        data:
-          ca.crt: <base64_encoded_ca_certificate>
+    ``` yaml
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: <tls_secret_name>
+      namespace: open-cluster-management-observability
+    type: Opaque
+    data:
+      ca.crt: <base64_encoded_ca_certificate>
+    ```
 
     **Optional:** If you want to enable mutual TLS, you need to add the
     `public.crt` and `private.key` keys in the previous secret.
@@ -832,15 +860,19 @@ Complete the following steps:
 2.  Add the TLS secret details to the `metricObjectStorage` section by
     using the following command:
 
-        oc edit mco observability -o yaml
+    ``` bash
+    oc edit mco observability -o yaml
+    ```
 
     Your file might resemble the following YAML:
 
-        metricObjectStorage:
-          key: thanos.yaml
-          name: thanos-object-storage
-          tlsSecretName: tls-certs-secret 
-          tlsSecretMountPath: /etc/<s3-directory>/certs 
+    ``` yaml
+    metricObjectStorage:
+      key: thanos.yaml
+      name: thanos-object-storage
+      tlsSecretName: tls-certs-secret 
+      tlsSecretMountPath: /etc/<s3-directory>/certs 
+    ```
 
     - The value for `tlsSecretName` is the name of the `Secret` object
       that you previously created.
@@ -855,18 +887,20 @@ Complete the following steps:
     certificate details. View the following example. Replace values
     where needed:
 
-        thanos.yaml: |
-           type: s3
-           config:
-             bucket: <bucket-name>
-             endpoint: <s3.port>
-             insecure: false 
-             access_key: <s3-access>
-             secret_key: <s3-secret>
-             http_config:
-               tls_config:
-                 ca_file: /etc/<s3-directory>/certs/ca.crt 
-                 insecure_skip_verify: false
+    ``` yaml
+    thanos.yaml: |
+       type: s3
+       config:
+         bucket: <bucket-name>
+         endpoint: <s3.port>
+         insecure: false 
+         access_key: <s3-access>
+         secret_key: <s3-secret>
+         http_config:
+           tls_config:
+             ca_file: /etc/<s3-directory>/certs/ca.crt 
+             insecure_skip_verify: false
+    ```
 
     - Set the `insecure` parameter to `false` to enable HTTPS.
 
@@ -879,22 +913,22 @@ Complete the following steps:
       the `cert_file` and `key_file` keys to the `tls_config` section.
       See the following example. Replace values where needed:
 
-    <!-- -->
-
-         thanos.yaml: |
-            type: s3
-            config:
-              bucket: <bucket-name>
-              endpoint: <s3.port>
-              insecure: false
-              access_key: <s3-access>
-              secret_key: <s3-secret>
-              http_config:
-                tls_config:
-                  ca_file: /etc/<s3-directory>/certs/ca.crt 
-                  cert_file: /etc/<s3-directory>/certs/public.crt
-                  key_file: /etc/<s3-directory>/certs/private.key
-                  insecure_skip_verify: false
+    ``` yaml
+     thanos.yaml: |
+        type: s3
+        config:
+          bucket: <bucket-name>
+          endpoint: <s3.port>
+          insecure: false
+          access_key: <s3-access>
+          secret_key: <s3-secret>
+          http_config:
+            tls_config:
+              ca_file: /etc/<s3-directory>/certs/ca.crt 
+              cert_file: /etc/<s3-directory>/certs/public.crt
+              key_file: /etc/<s3-directory>/certs/private.key
+              insecure_skip_verify: false
+    ```
 
     - The path for `ca_file`, `cert_file`, and `key_file` must match the
       `tlsSecretMountPath` from the `MultiClusterObservability` custom
@@ -904,7 +938,9 @@ Complete the following steps:
 4.  To verify that you can access the object store, check that the pods
     are deployed. Run the following command:
 
-        oc -n open-cluster-management-observability get pods -l app.kubernetes.io/name=thanos-store
+    ``` bash
+    oc -n open-cluster-management-observability get pods -l app.kubernetes.io/name=thanos-store
+    ```
 
 ### Creating custom rules
 
@@ -923,22 +959,24 @@ Complete the following steps to create a custom alert rule within the
 1.  Create the following custom alert rule to get a notification for
     when your CPU usage passes your defined value:
 
-        data:
-          custom_rules.yaml: |
-            groups:
-              - name: cluster-health
-                rules:
-                - alert: ClusterCPUHealth-jb
-                  annotations:
-                    summary: Notify when CPU utilization on a cluster is greater than the defined utilization limit
-                    description: "The cluster has a high CPU usage: {{ $value }} core for {{ $labels.cluster }} {{ $labels.clusterID }}."
-                  expr: |
-                    max(cluster:cpu_usage_cores:sum) by (clusterID, cluster, prometheus) > 0
-                  for: 5s
-                  labels:
-                    cluster: "{{ $labels.cluster }}"
-                    prometheus: "{{ $labels.prometheus }}"
-                    severity: critical
+    ``` yaml
+    data:
+      custom_rules.yaml: |
+        groups:
+          - name: cluster-health
+            rules:
+            - alert: ClusterCPUHealth-jb
+              annotations:
+                summary: Notify when CPU utilization on a cluster is greater than the defined utilization limit
+                description: "The cluster has a high CPU usage: {{ $value }} core for {{ $labels.cluster }} {{ $labels.clusterID }}."
+              expr: |
+                max(cluster:cpu_usage_cores:sum) by (clusterID, cluster, prometheus) > 0
+              for: 5s
+              labels:
+                cluster: "{{ $labels.cluster }}"
+                prometheus: "{{ $labels.prometheus }}"
+                severity: critical
+    ```
 
     **Notes:**
 
@@ -954,13 +992,15 @@ Complete the following steps to create a custom alert rule within the
 2.  Create a custom recording rule to get the sum of the container
     memory cache of a pod. See the following example:
 
-        data:
-          custom_rules.yaml: |
-            groups:
-              - name: container-memory
-                rules:
-                - record: pod:container_memory_cache:sum
-                  expr: sum(container_memory_cache{pod!=""}) BY (pod, container)
+    ``` yaml
+    data:
+      custom_rules.yaml: |
+        groups:
+          - name: container-memory
+            rules:
+            - record: pod:container_memory_cache:sum
+              expr: sum(container_memory_cache{pod!=""}) BY (pod, container)
+    ```
 
     **Note:** After you make changes to the config map, the
     configuration automatically reloads. The configuration reloads
@@ -979,10 +1019,12 @@ Locate the `MultiClusterObservability` custom resource, and update the
 `replicas` parameter value for the component where you want to change
 the replicas. Your updated YAML might resemble the following content:
 
-    spec:
-       advanced:
-          receive:
-             replicas: 6
+``` yaml
+spec:
+   advanced:
+      receive:
+         replicas: 6
+```
 
 For more information about the parameters within the `mco observability`
 custom resource, see the Observability API documentation.
@@ -1050,12 +1092,12 @@ steps:
 1.  Add your URLs to the `advanced` section of the
     `MultiClusterObservability` `spec`. See the following example:
 
-<!-- -->
-
-    spec:
-      advanced:
-        customObservabilityHubURL: <yourURL>
-        customAlertmanagerHubURL: <yourURL>
+``` yaml
+spec:
+  advanced:
+    customObservabilityHubURL: <yourURL>
+    customAlertmanagerHubURL: <yourURL>
+```
 
 **Notes:**
 
@@ -1078,50 +1120,50 @@ steps:
       `<intermediate_component_url>` with the intermediate component
       URL:
 
-<!-- -->
-
-    apiVersion: route.openshift.io/v1
-    kind: Route
-    metadata:
-      name: proxy-observatorium-api
-      namespace: open-cluster-management-observability
-    spec:
-      host: <intermediate_component_url>
-      port:
-        targetPort: public
-      tls:
-        insecureEdgeTerminationPolicy: None
-        termination: passthrough
-      to:
-        kind: Service
-        name: observability-observatorium-api
-        weight: 100
-      wildcardPolicy: None
+``` yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: proxy-observatorium-api
+  namespace: open-cluster-management-observability
+spec:
+  host: <intermediate_component_url>
+  port:
+    targetPort: public
+  tls:
+    insecureEdgeTerminationPolicy: None
+    termination: passthrough
+  to:
+    kind: Service
+    name: observability-observatorium-api
+    weight: 100
+  wildcardPolicy: None
+```
 
 1.  If you are using a `customAlertmanagerHubURL`, create a route object
     by using the following template. Replace
     `<intermediate_component_url>` with the intermediate component URL:
 
-<!-- -->
-
-    apiVersion: route.openshift.io/v1
-    kind: Route
-    metadata:
-      name: alertmanager-proxy
-      namespace: open-cluster-management-observability
-    spec:
-      host: <intermediate_component_url>
-      path: /api/v2
-      port:
-        targetPort: oauth-proxy
-      tls:
-        insecureEdgeTerminationPolicy: Redirect
-        termination: reencrypt
-      to:
-        kind: Service
-        name: alertmanager
-        weight: 100
-      wildcardPolicy: None
+``` yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: alertmanager-proxy
+  namespace: open-cluster-management-observability
+spec:
+  host: <intermediate_component_url>
+  path: /api/v2
+  port:
+    targetPort: oauth-proxy
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: reencrypt
+  to:
+    kind: Service
+    name: alertmanager
+    weight: 100
+  wildcardPolicy: None
+```
 
 ### Configuring fine-grain RBAC (Technology Preview)
 
@@ -1149,20 +1191,22 @@ following steps:
 1.  Define a `ClusterRole` resource with permissions to access metrics.
     Your resource might resemble the following YAML:
 
-        apiVersion: rbac.authorization.k8s.io/v1
-        kind: ClusterRole
-        metadata:
-         name: awesome-app-metrics-role
-        rules:
-         - apiGroups:
-             - "cluster.open-cluster-management.io"
-           resources:
-             - managedclusters: 
-           resourceNames: 
-             - devcluster1
-             - devcluster2
-           verbs: 
-             - metrics/AwesomeAppNS
+    ``` yaml
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRole
+    metadata:
+     name: awesome-app-metrics-role
+    rules:
+     - apiGroups:
+         - "cluster.open-cluster-management.io"
+       resources:
+         - managedclusters: 
+       resourceNames: 
+         - devcluster1
+         - devcluster2
+       verbs: 
+         - metrics/AwesomeAppNS
+    ```
 
     - Represents the parameter values for the managed clusters.
 
@@ -1175,18 +1219,20 @@ following steps:
     `awesome-app-metrics-role`. Your resource might resemble the
     following YAML:
 
-        kind: ClusterRoleBinding
-        apiVersion: rbac.authorization.k8s.io/v1
-        metadata:
-         name: awesome-app-metrics-role-binding
-        subjects:
-         - kind: Group
-           apiGroup: rbac.authorization.k8s.io
-           name: my-awesome-app-admins
-        roleRef:
-         apiGroup: rbac.authorization.k8s.io
-         kind: ClusterRole
-         name: awesome-app-metrics-role
+    ``` yaml
+    kind: ClusterRoleBinding
+    apiVersion: rbac.authorization.k8s.io/v1
+    metadata:
+     name: awesome-app-metrics-role-binding
+    subjects:
+     - kind: Group
+       apiGroup: rbac.authorization.k8s.io
+       name: my-awesome-app-admins
+    roleRef:
+     apiGroup: rbac.authorization.k8s.io
+     kind: ClusterRole
+     name: awesome-app-metrics-role
+    ```
 
 After completing these steps, when the users in the
 `my-awesome-app-admins` log into the Grafana console, they have the
@@ -1287,13 +1333,17 @@ Complete the following steps to enable the Observability service:
 2.  Create a namespace for the Observability service with the following
     command:
 
-        oc create namespace open-cluster-management-observability
+    ``` bash
+    oc create namespace open-cluster-management-observability
+    ```
 
 3.  Generate your pull-secret. If Red Hat Advanced Cluster Management is
     installed in the `open-cluster-management` namespace, run the
     following command:
 
-        DOCKER_CONFIG_JSON=`oc extract secret/multiclusterhub-operator-pull-secret -n open-cluster-management --to=-`
+    ``` bash
+    DOCKER_CONFIG_JSON=`oc extract secret/multiclusterhub-operator-pull-secret -n open-cluster-management --to=-`
+    ```
 
     1.  If the `multiclusterhub-operator-pull-secret` is not defined in
         the namespace, copy the `pull-secret` from the
@@ -1301,16 +1351,20 @@ Complete the following steps to enable the Observability service:
         `open-cluster-management-observability` namespace by running the
         following command:
 
-            DOCKER_CONFIG_JSON=`oc extract secret/pull-secret -n openshift-config --to=-`
+        ``` bash
+        DOCKER_CONFIG_JSON=`oc extract secret/pull-secret -n openshift-config --to=-`
+        ```
 
     2.  Create the pull-secret in the
         `open-cluster-management-observability` namespace by running the
         following command:
 
-            oc create secret generic multiclusterhub-operator-pull-secret \
-                -n open-cluster-management-observability \
-                --from-literal=.dockerconfigjson="$DOCKER_CONFIG_JSON" \
-                --type=kubernetes.io/dockerconfigjson
+        ``` bash
+        oc create secret generic multiclusterhub-operator-pull-secret \
+            -n open-cluster-management-observability \
+            --from-literal=.dockerconfigjson="$DOCKER_CONFIG_JSON" \
+            --type=kubernetes.io/dockerconfigjson
+        ```
 
     **Important:** If you modify the global pull secret for your cluster
     by using the OpenShift Container Platform documentation, be sure to
@@ -1321,7 +1375,9 @@ Complete the following steps to enable the Observability service:
     Your secret must contain the credentials to your storage solution.
     For example, run the following command:
 
-        oc create -f thanos-object-storage.yaml -n open-cluster-management-observability
+    ``` bash
+    oc create -f thanos-object-storage.yaml -n open-cluster-management-observability
+    ```
 
     View the following examples of secrets for the supported object
     stores:
@@ -1329,21 +1385,23 @@ Complete the following steps to enable the Observability service:
     - For Amazon S3 or S3 compatible, your secret might resemble the
       following file:
 
-          apiVersion: v1
-          kind: Secret
-          metadata:
-            name: thanos-object-storage
-            namespace: open-cluster-management-observability
-          type: Opaque
-          stringData:
-            thanos.yaml: |
-              type: s3
-              config:
-                bucket: YOUR_S3_BUCKET
-                endpoint: YOUR_S3_ENDPOINT 
-                insecure: true
-                access_key: YOUR_ACCESS_KEY
-                secret_key: YOUR_SECRET_KEY
+      ``` yaml
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: thanos-object-storage
+        namespace: open-cluster-management-observability
+      type: Opaque
+      stringData:
+        thanos.yaml: |
+          type: s3
+          config:
+            bucket: YOUR_S3_BUCKET
+            endpoint: YOUR_S3_ENDPOINT 
+            insecure: true
+            access_key: YOUR_ACCESS_KEY
+            secret_key: YOUR_SECRET_KEY
+      ```
 
       - Enter the URL without the protocol. Enter the URL for your
         Amazon S3 endpoint that might resemble the following URL:
@@ -1355,38 +1413,42 @@ Complete the following steps to enable the Observability service:
     - For Google Cloud Platform, your secret might resemble the
       following file:
 
-          apiVersion: v1
-          kind: Secret
-          metadata:
-            name: thanos-object-storage
-            namespace: open-cluster-management-observability
-          type: Opaque
-          stringData:
-            thanos.yaml: |
-              type: GCS
-              config:
-                bucket: YOUR_GCS_BUCKET
-                service_account: YOUR_SERVICE_ACCOUNT
+      ``` yaml
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: thanos-object-storage
+        namespace: open-cluster-management-observability
+      type: Opaque
+      stringData:
+        thanos.yaml: |
+          type: GCS
+          config:
+            bucket: YOUR_GCS_BUCKET
+            service_account: YOUR_SERVICE_ACCOUNT
+      ```
 
       For more details, see Google Cloud Storage.
 
     - For Azure your secret might resemble the following file:
 
-          apiVersion: v1
-          kind: Secret
-          metadata:
-            name: thanos-object-storage
-            namespace: open-cluster-management-observability
-          type: Opaque
-          stringData:
-            thanos.yaml: |
-              type: AZURE
-              config:
-                storage_account: YOUR_STORAGE_ACCT
-                storage_account_key: YOUR_STORAGE_KEY
-                container: YOUR_CONTAINER
-                endpoint: blob.core.windows.net 
-                max_retries: 0
+      ``` yaml
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: thanos-object-storage
+        namespace: open-cluster-management-observability
+      type: Opaque
+      stringData:
+        thanos.yaml: |
+          type: AZURE
+          config:
+            storage_account: YOUR_STORAGE_ACCT
+            storage_account_key: YOUR_STORAGE_KEY
+            container: YOUR_CONTAINER
+            endpoint: blob.core.windows.net 
+            max_retries: 0
+      ```
 
       - If you use the `msi_resource` path, the endpoint authentication
         is complete by using the system-assigned managed identity. Your
@@ -1407,21 +1469,23 @@ Complete the following steps to enable the Observability service:
     - For Red Hat OpenShift Data Foundation, your secret might resemble
       the following file:
 
-          apiVersion: v1
-          kind: Secret
-          metadata:
-            name: thanos-object-storage
-            namespace: open-cluster-management-observability
-          type: Opaque
-          stringData:
-            thanos.yaml: |
-              type: s3
-              config:
-                bucket: YOUR_RH_DATA_FOUNDATION_BUCKET
-                endpoint: YOUR_RH_DATA_FOUNDATION_ENDPOINT 
-                insecure: false
-                access_key: YOUR_RH_DATA_FOUNDATION_ACCESS_KEY
-                secret_key: YOUR_RH_DATA_FOUNDATION_SECRET_KEY
+      ``` yaml
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: thanos-object-storage
+        namespace: open-cluster-management-observability
+      type: Opaque
+      stringData:
+        thanos.yaml: |
+          type: s3
+          config:
+            bucket: YOUR_RH_DATA_FOUNDATION_BUCKET
+            endpoint: YOUR_RH_DATA_FOUNDATION_ENDPOINT 
+            insecure: false
+            access_key: YOUR_RH_DATA_FOUNDATION_ACCESS_KEY
+            secret_key: YOUR_RH_DATA_FOUNDATION_SECRET_KEY
+      ```
 
       - Enter the URL without the protocol. Enter the URL for your Red
         Hat OpenShift Data Foundation endpoint that might resemble the
@@ -1432,23 +1496,23 @@ Complete the following steps to enable the Observability service:
     - For Red Hat OpenShift on IBM (ROKS), your secret might resemble
       the following file:
 
-    <!-- -->
-
-        apiVersion: v1
-        kind: Secret
-        metadata:
-          name: thanos-object-storage
-          namespace: open-cluster-management-observability
-        type: Opaque
-        stringData:
-          thanos.yaml: |
-            type: s3
-            config:
-              bucket: YOUR_ROKS_S3_BUCKET
-              endpoint: YOUR_ROKS_S3_ENDPOINT 
-              insecure: true
-              access_key: YOUR_ROKS_ACCESS_KEY
-              secret_key: YOUR_ROKS_SECRET_KEY
+    ``` yaml
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: thanos-object-storage
+      namespace: open-cluster-management-observability
+    type: Opaque
+    stringData:
+      thanos.yaml: |
+        type: s3
+        config:
+          bucket: YOUR_ROKS_S3_BUCKET
+          endpoint: YOUR_ROKS_S3_ENDPOINT 
+          insecure: true
+          access_key: YOUR_ROKS_ACCESS_KEY
+          secret_key: YOUR_ROKS_SECRET_KEY
+    ```
 
     - Enter the URL without the protocol. Enter the URL for your Red Hat
       OpenShift Data Foundation endpoint that might resemble the
@@ -1489,115 +1553,131 @@ Security Service:
 
 1.  Set up the AWS environment. Run the following commands:
 
-        export POLICY_VERSION=$(date +"%m-%d-%y")
-        export TRUST_POLICY_VERSION=$(date +"%m-%d-%y")
-        export CLUSTER_NAME=<my-cluster>
-        export S3_BUCKET=$CLUSTER_NAME-acm-observability
-        export REGION=us-east-2
-        export NAMESPACE=open-cluster-management-observability
-        export SA=tbd
-        export SCRATCH_DIR=/tmp/scratch
-        export OIDC_PROVIDER=$(oc get authentication.config.openshift.io cluster -o json | jq -r .spec.serviceAccountIssuer| sed -e "s/^https:\/\///")
-        export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-        export AWS_PAGER=""
-        rm -rf $SCRATCH_DIR
-        mkdir -p $SCRATCH_DIR
+    ``` bash
+    export POLICY_VERSION=$(date +"%m-%d-%y")
+    export TRUST_POLICY_VERSION=$(date +"%m-%d-%y")
+    export CLUSTER_NAME=<my-cluster>
+    export S3_BUCKET=$CLUSTER_NAME-acm-observability
+    export REGION=us-east-2
+    export NAMESPACE=open-cluster-management-observability
+    export SA=tbd
+    export SCRATCH_DIR=/tmp/scratch
+    export OIDC_PROVIDER=$(oc get authentication.config.openshift.io cluster -o json | jq -r .spec.serviceAccountIssuer| sed -e "s/^https:\/\///")
+    export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+    export AWS_PAGER=""
+    rm -rf $SCRATCH_DIR
+    mkdir -p $SCRATCH_DIR
+    ```
 
 2.  Create an S3 bucket with the following command:
 
-        aws s3 mb s3://$S3_BUCKET
+    ``` bash
+    aws s3 mb s3://$S3_BUCKET
+    ```
 
 3.  Create a `s3-policy` JSON file for access to your S3 bucket. Run the
     following command:
 
-        {
-            "Version": "$POLICY_VERSION",
-            "Statement": [
-                {
-                    "Sid": "Statement",
-                    "Effect": "Allow",
-                    "Action": [
-                        "s3:ListBucket",
-                        "s3:GetObject",
-                        "s3:DeleteObject",
-                        "s3:PutObject",
-                        "s3:PutObjectAcl",
-                        "s3:CreateBucket",
-                        "s3:DeleteBucket"
-                    ],
-                    "Resource": [
-                        "arn:aws:s3:::$S3_BUCKET/*",
-                        "arn:aws:s3:::$S3_BUCKET"
-                    ]
-                }
-            ]
-         }
+    ``` json
+    {
+        "Version": "$POLICY_VERSION",
+        "Statement": [
+            {
+                "Sid": "Statement",
+                "Effect": "Allow",
+                "Action": [
+                    "s3:ListBucket",
+                    "s3:GetObject",
+                    "s3:DeleteObject",
+                    "s3:PutObject",
+                    "s3:PutObjectAcl",
+                    "s3:CreateBucket",
+                    "s3:DeleteBucket"
+                ],
+                "Resource": [
+                    "arn:aws:s3:::$S3_BUCKET/*",
+                    "arn:aws:s3:::$S3_BUCKET"
+                ]
+            }
+        ]
+     }
+    ```
 
 4.  Apply the policy with the following command:
 
-        S3_POLICY=$(aws iam create-policy --policy-name $CLUSTER_NAME-acm-obs \
-        --policy-document file://$SCRATCH_DIR/s3-policy.json \
-        --query 'Policy.Arn' --output text)
-        echo $S3_POLICY
+    ``` bash
+    S3_POLICY=$(aws iam create-policy --policy-name $CLUSTER_NAME-acm-obs \
+    --policy-document file://$SCRATCH_DIR/s3-policy.json \
+    --query 'Policy.Arn' --output text)
+    echo $S3_POLICY
+    ```
 
 5.  Create a `TrustPolicy` JSON file. Run the following command:
 
-        {
-         "Version": "$TRUST_POLICY_VERSION",
-         "Statement": [
-           {
-             "Effect": "Allow",
-             "Principal": {
-               "Federated": "arn:aws:iam::${AWS_ACCOUNT_ID}:oidc-provider/${OIDC_PROVIDER}"
-             },
-             "Action": "sts:AssumeRoleWithWebIdentity",
-             "Condition": {
-               "StringEquals": {
-                 "${OIDC_PROVIDER}:sub": [
-                   "system:serviceaccount:${NAMESPACE}:observability-thanos-query",
-                   "system:serviceaccount:${NAMESPACE}:observability-thanos-store-shard",
-                   "system:serviceaccount:${NAMESPACE}:observability-thanos-compact",
-                   "system:serviceaccount:${NAMESPACE}:observability-thanos-rule",
-                   "system:serviceaccount:${NAMESPACE}:observability-thanos-receive"
-                 ]
-               }
-             }
+    ``` json
+    {
+     "Version": "$TRUST_POLICY_VERSION",
+     "Statement": [
+       {
+         "Effect": "Allow",
+         "Principal": {
+           "Federated": "arn:aws:iam::${AWS_ACCOUNT_ID}:oidc-provider/${OIDC_PROVIDER}"
+         },
+         "Action": "sts:AssumeRoleWithWebIdentity",
+         "Condition": {
+           "StringEquals": {
+             "${OIDC_PROVIDER}:sub": [
+               "system:serviceaccount:${NAMESPACE}:observability-thanos-query",
+               "system:serviceaccount:${NAMESPACE}:observability-thanos-store-shard",
+               "system:serviceaccount:${NAMESPACE}:observability-thanos-compact",
+               "system:serviceaccount:${NAMESPACE}:observability-thanos-rule",
+               "system:serviceaccount:${NAMESPACE}:observability-thanos-receive"
+             ]
            }
-         ]
-        }
+         }
+       }
+     ]
+    }
+    ```
 
 6.  Create a role for AWS Prometheus and CloudWatch with the following
     command:
 
-        S3_ROLE=$(aws iam create-role \
-          --role-name "$CLUSTER_NAME-acm-obs-s3" \
-          --assume-role-policy-document file://$SCRATCH_DIR/TrustPolicy.json \
-          --query "Role.Arn" --output text)
-        echo $S3_ROLE
+    ``` bash
+    S3_ROLE=$(aws iam create-role \
+      --role-name "$CLUSTER_NAME-acm-obs-s3" \
+      --assume-role-policy-document file://$SCRATCH_DIR/TrustPolicy.json \
+      --query "Role.Arn" --output text)
+    echo $S3_ROLE
+    ```
 
 7.  Attach the policies to the role. Run the following command:
 
-        aws iam attach-role-policy \
-          --role-name "$CLUSTER_NAME-acm-obs-s3" \
-          --policy-arn $S3_POLICY
+    ``` bash
+    aws iam attach-role-policy \
+      --role-name "$CLUSTER_NAME-acm-obs-s3" \
+      --policy-arn $S3_POLICY
+    ```
 
     Your secret might resemble the following file. The `config` section
     specifies `signature_version2: false` and does not specify
     `access_key` and `secret_key`:
 
-        apiVersion: v1
-        kind: Secret
-        metadata:
-          name: thanos-object-storage
-          namespace: open-cluster-management-observability
-        type: Opaque
-        stringData:
-          thanos.yaml: |
-            type: s3
-            config:
-              bucket: $S3_BUCKET
-              endpoint: s3.$REGION.amazonaws.com
-              signature_version2: false
+    ``` yaml
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: thanos-object-storage
+      namespace: open-cluster-management-observability
+    type: Opaque
+    stringData:
+      thanos.yaml: |
+        type: s3
+        config:
+          bucket: $S3_BUCKET
+          endpoint: s3.$REGION.amazonaws.com
+          signature_version2: false
+    ```
 
 8.  Specify the service account annotations in the
     `MultiClusterObservability` custom resource as described in
@@ -1610,24 +1690,30 @@ Security Service:
     1.  To edit and decode the S3 access key for your cloud provider,
         run the following command:
 
-            YOUR_CLOUD_PROVIDER_ACCESS_KEY=$(oc -n open-cluster-management-observability get secret <object-storage-secret> -o jsonpath="{.data.thanos\.yaml}" | base64 --decode | grep access_key | awk '{print $2}')
+        ``` bash
+        YOUR_CLOUD_PROVIDER_ACCESS_KEY=$(oc -n open-cluster-management-observability get secret <object-storage-secret> -o jsonpath="{.data.thanos\.yaml}" | base64 --decode | grep access_key | awk '{print $2}')
+        ```
 
     2.  To view the access key for your cloud provider, run the
         following command:
 
-            echo $YOUR_CLOUD_PROVIDER_ACCESS_KEY
+        ``` bash
+        echo $YOUR_CLOUD_PROVIDER_ACCESS_KEY
+        ```
 
     3.  To edit and decode the secret key for your cloud provider, run
         the following command:
 
-            YOUR_CLOUD_PROVIDER_SECRET_KEY=$(oc -n open-cluster-management-observability get secret <object-storage-secret> -o jsonpath="{.data.thanos\.yaml}" | base64 --decode | grep secret_key | awk '{print $2}')
+        ``` bash
+        YOUR_CLOUD_PROVIDER_SECRET_KEY=$(oc -n open-cluster-management-observability get secret <object-storage-secret> -o jsonpath="{.data.thanos\.yaml}" | base64 --decode | grep secret_key | awk '{print $2}')
+        ```
 
     4.  Run the following command to view the secret key for your cloud
         provider:
 
-    <!-- -->
-
-        echo $YOUR_CLOUD_PROVIDER_SECRET_KEY
+    ``` bash
+    echo $YOUR_CLOUD_PROVIDER_SECRET_KEY
+    ```
 
 10. Verify that Observability is enabled by checking the pods for the
     following deployments and stateful sets. You might receive the
@@ -1658,16 +1744,18 @@ custom resource on your hub cluster:
 
     View the following default YAML file for Observability:
 
-        apiVersion: observability.open-cluster-management.io/v1beta2
-        kind: MultiClusterObservability
-        metadata:
-          name: observability
-        spec:
-          observabilityAddonSpec: {}
-          storageConfig:
-            metricObjectStorage:
-              name: thanos-object-storage
-              key: thanos.yaml
+    ``` yaml
+    apiVersion: observability.open-cluster-management.io/v1beta2
+    kind: MultiClusterObservability
+    metadata:
+      name: observability
+    spec:
+      observabilityAddonSpec: {}
+      storageConfig:
+        metricObjectStorage:
+          name: thanos-object-storage
+          key: thanos.yaml
+    ```
 
     You might want to modify the value for the `retentionConfig`
     parameter in the `advanced` section. For more information, see
@@ -1677,23 +1765,25 @@ custom resource on your hub cluster:
     STS tokens, annotate the service accounts to use STS with S3 role.
     View the following configuration:
 
-        spec:
-          advanced:
-            compact:
-               serviceAccountAnnotations:
-                   eks.amazonaws.com/role-arn: $S3_ROLE
-            store:
-               serviceAccountAnnotations:
-                  eks.amazonaws.com/role-arn: $S3_ROLE
-            rule:
-               serviceAccountAnnotations:
-                  eks.amazonaws.com/role-arn: $S3_ROLE
-            receive:
-               serviceAccountAnnotations:
-                  eks.amazonaws.com/role-arn: $S3_ROLE
-            query:
-               serviceAccountAnnotations:
-                  eks.amazonaws.com/role-arn: $S3_ROLE
+    ``` yaml
+    spec:
+      advanced:
+        compact:
+           serviceAccountAnnotations:
+               eks.amazonaws.com/role-arn: $S3_ROLE
+        store:
+           serviceAccountAnnotations:
+              eks.amazonaws.com/role-arn: $S3_ROLE
+        rule:
+           serviceAccountAnnotations:
+              eks.amazonaws.com/role-arn: $S3_ROLE
+        receive:
+           serviceAccountAnnotations:
+              eks.amazonaws.com/role-arn: $S3_ROLE
+        query:
+           serviceAccountAnnotations:
+              eks.amazonaws.com/role-arn: $S3_ROLE
+    ```
 
     See Observability API for more information.
 
@@ -1702,15 +1792,19 @@ custom resource on your hub cluster:
     `MultiClusterObservability` YAML. Your YAML might resemble the
     following content:
 
-          nodeSelector:
-            node-role.kubernetes.io/infra: ""
+    ``` yaml
+      nodeSelector:
+        node-role.kubernetes.io/infra: ""
+    ```
 
     For more information, see Creating infrastructure machine sets.
 
 3.  Apply the Observability YAML to your cluster by running the
     following command:
 
-        oc apply -f multiclusterobservability_cr.yaml
+    ``` bash
+    oc apply -f multiclusterobservability_cr.yaml
+    ```
 
     **Note:** By default, if you do not define the
     `storageConfig.storageClass` field in the
@@ -1721,13 +1815,17 @@ custom resource on your hub cluster:
 
 4.  Verify default `storageClass` by running the following command:
 
-        oc get storageClass
+    ``` bash
+    oc get storageClass
+    ```
 
     See the following example output:
 
-        NAME                PROVISIONER       RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
-        gp2-csi             ebs.csi.aws.com   Delete          WaitForFirstConsumer   true                   151m
-        gp3-csi (default)   ebs.csi.aws.com   Delete          WaitForFirstConsumer   true                   151m
+    ``` bash
+    NAME                PROVISIONER       RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+    gp2-csi             ebs.csi.aws.com   Delete          WaitForFirstConsumer   true                   151m
+    gp3-csi (default)   ebs.csi.aws.com   Delete          WaitForFirstConsumer   true                   151m
+    ```
 
 5.  Validate that the Observability service is enabled and the data is
     populated by launching the Grafana dashboards.
@@ -1740,7 +1838,9 @@ custom resource on your hub cluster:
     deployed by the `multiclusterhub-operator` deployment. Run the
     following command:
 
-        oc get deploy multicluster-observability-operator -n open-cluster-management --show-labels
+    ``` bash
+    oc get deploy multicluster-observability-operator -n open-cluster-management --show-labels
+    ```
 
     You might receive the following results:
 
@@ -1752,9 +1852,11 @@ custom resource on your hub cluster:
     associated with the resource. The `labels` section might contain the
     following details:
 
-         labels:
-            installer.name: multiclusterhub
-            installer.namespace: open-cluster-management
+    ``` yaml
+     labels:
+        installer.name: multiclusterhub
+        installer.namespace: open-cluster-management
+    ```
 
 9.  *Optional:* If you want to exclude specific managed clusters from
     collecting the Observability data, add the following cluster label
@@ -1811,7 +1913,9 @@ the command line interface (CLI).
 After you log in to your hub cluster, run the following command in the
 Observability pods to receive the Thanos version:
 
-    thanos --version
+``` bash
+thanos --version
+```
 
 The Thanos version is displayed.
 
@@ -1827,12 +1931,14 @@ managed clusters. Update the `multicluster-observability-operator`
 resource by setting `enableMetrics` to `false`. Your updated resource
 might resemble the following change:
 
-    spec:
-      imagePullPolicy: Always
-      imagePullSecret: multiclusterhub-operator-pull-secret
-      observabilityAddonSpec: 
-        enableMetrics: false 
-      workers: 1
+``` yaml
+spec:
+  imagePullPolicy: Always
+  imagePullSecret: multiclusterhub-operator-pull-secret
+  observabilityAddonSpec: 
+    enableMetrics: false 
+  workers: 1
+```
 
 - Use the `observabilityAddonSpec` parameter to define the global
   settings for all managed clusters that have the Observability add-on
@@ -1861,9 +1967,9 @@ managed clusters. Complete the following steps:
 
 When you remove the `MultiClusterObservability` custom resource, you are
 disabling and uninstalling the Observability service. From the OpenShift
-Container Platform console navigation, select **Operators** &gt;
-**Installed Operators** &gt; **Advanced Cluster Manager for
-Kubernetes**. Remove the `MultiClusterObservability` custom resource.
+Container Platform console navigation, select **Operators** \>
+**Installed Operators** \> **Advanced Cluster Manager for Kubernetes**.
+Remove the `MultiClusterObservability` custom resource.
 
 ### Additional resources
 
@@ -1893,20 +1999,26 @@ to get your queries for the `rbac-query-proxy` route:
 
 1.  Get the details of the route with the following command:
 
-        oc get route rbac-query-proxy -n open-cluster-management-observability
+    ``` bash
+    oc get route rbac-query-proxy -n open-cluster-management-observability
+    ```
 
 2.  To access the `rbac-query-proxy` route with your OpenShift Container
     Platform OAuth access token, run the following command to get the
     token. The token must be associated with a user or service account,
     which has permission to get namespaces:
 
-        MY_TOKEN=$(oc whoami --show-token)
+    ``` bash
+    MY_TOKEN=$(oc whoami --show-token)
+    ```
 
 3.  To access the `openshift-ingress` route, get the default CA
     certificate and store the content of the `tls.crt` key in a local
     file. Run the following command:
 
-        oc -n openshift-ingress get secret router-certs-default -o jsonpath="{.data.tls\.crt}" | base64 -d > ca.crt
+    ``` bash
+    oc -n openshift-ingress get secret router-certs-default -o jsonpath="{.data.tls\.crt}" | base64 -d > ca.crt
+    ```
 
     **Note:** The `router-certs-default` secret does not exist if your
     hub cluster is running on OpenShift Service on AWS. Instead, use the
@@ -1917,16 +2029,22 @@ to get your queries for the `rbac-query-proxy` route:
     1.  Get the name of the `spec.defaultCertificate.name` by running
         the following command:
 
-            SECRET_NAME=$(oc get ingresscontroller default -n openshift-ingress-operator -o jsonpath=" {.spec.defaultCertificate.name}")
+        ``` bash
+        SECRET_NAME=$(oc get ingresscontroller default -n openshift-ingress-operator -o jsonpath=" {.spec.defaultCertificate.name}")
+        ```
 
     2.  Extract the certificate from the secret by running the following
         command:
 
-            oc get secret $SECRET_NAME -n openshift-ingress -o jsonpath=" {.data.tls\.crt}" | base64 -d > ca.crt
+        ``` bash
+        oc get secret $SECRET_NAME -n openshift-ingress -o jsonpath=" {.data.tls\.crt}" | base64 -d > ca.crt
+        ```
 
 4.  To query metrics from the API, run the following command:
 
-        curl --cacert ./ca.crt -H "Authorization: Bearer {TOKEN}" https://{PROXY_ROUTE_URL}/api/v1/query?query={QUERY_EXPRESSION}
+    ``` bash
+    curl --cacert ./ca.crt -H "Authorization: Bearer {TOKEN}" https://{PROXY_ROUTE_URL}/api/v1/query?query={QUERY_EXPRESSION}
+    ```
 
     **Note:** The `QUERY_EXPRESSION` is the standard Prometheus query
     expression. For example, query the metrics
@@ -1950,25 +2068,27 @@ export metrics to external endpoints:
     `open-cluster-management-observability` namespace. View the
     following example secret:
 
-        apiVersion: v1
-        kind: Secret
-        metadata:
-          name: victoriametrics
-          namespace: open-cluster-management-observability
-        type: Opaque
-        stringData:
-          ep.yaml: | 
-            url: http://victoriametrics:8428/api/v1/write 
-            http_client_config: 
-              basic_auth: 
-                username: test 
-                password: test 
-              tls_config: 
-                secret_name: 
-                ca_file_key: 
-                cert_file_key: 
-                key_file_key: 
-                insecure_skip_verify: 
+    ``` yaml
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: victoriametrics
+      namespace: open-cluster-management-observability
+    type: Opaque
+    stringData:
+      ep.yaml: | 
+        url: http://victoriametrics:8428/api/v1/write 
+        http_client_config: 
+          basic_auth: 
+            username: test 
+            password: test 
+          tls_config: 
+            secret_name: 
+            ca_file_key: 
+            cert_file_key: 
+            key_file_key: 
+            insecure_skip_verify: 
+    ```
 
     - The `ep.yaml` parameter is the key of the content and is used in
       the `MultiClusterObservability` custom resource in next step.
@@ -2017,11 +2137,13 @@ export metrics to external endpoints:
     `writeStorage` parameter to the `MultiClusterObservability` custom
     resource. View the following example:
 
-        spec:
-          storageConfig:
-            writeStorage: 
-            - key: ep.yaml
-              name: victoriametrics
+    ``` yaml
+    spec:
+      storageConfig:
+        writeStorage: 
+        - key: ep.yaml
+          name: victoriametrics
+    ```
 
     - Each item contains two attributes: *name* and *key*. *Name* is the
       name of the Kubernetes secret that contains endpoint access
@@ -2049,9 +2171,9 @@ View the data from your managed clusters by accessing Grafana from the
 hub cluster. You can query specific alerts and add filters for the
 query.
 
-For example, to explore the *cluster\_infrastructure\_provider* alert
-from a single-node OpenShift cluster, use the following query
-expression: `cluster_infrastructure_provider{clusterType="SNO"}`
+For example, to explore the *cluster_infrastructure_provider* alert from
+a single-node OpenShift cluster, use the following query expression:
+`cluster_infrastructure_provider{clusterType="SNO"}`
 
 **Note:** Do not set the `ObservabilitySpec.resources.CPU.limits`
 parameter if Observability is enabled on single node managed clusters.
@@ -2124,9 +2246,9 @@ server dashboards:
 
   1.  Navigate to the Grafana dashboard.
 
-  2.  Access the managed dashboard menu by selecting **Kubernetes** &gt;
-      **Service-Level Overview** &gt; **API Server**. The *Fleet
-      Overview* and *Top Cluster* details are displayed.
+  2.  Access the managed dashboard menu by selecting **Kubernetes** \>
+      **Service-Level Overview** \> **API Server**. The *Fleet Overview*
+      and *Top Cluster* details are displayed.
 
 - View the Kubernetes API service-level overview table from the hub
   cluster dashboard in Grafana to see the error budget for the past
@@ -2134,9 +2256,9 @@ server dashboards:
 
   1.  Navigate to the Grafana dashboard from your hub cluster.
 
-  2.  Access the managed dashboard menu by selecting **Kubernetes** &gt;
-      **Service-Level Overview** &gt; **API Server**. The *Fleet
-      Overview* and *Top Cluster* details are displayed.
+  2.  Access the managed dashboard menu by selecting **Kubernetes** \>
+      **Service-Level Overview** \> **API Server**. The *Fleet Overview*
+      and *Top Cluster* details are displayed.
 
 #### Viewing the OpenShift Virtualization dashboard
 
@@ -2280,16 +2402,18 @@ complete the following steps:
     a program such as *uuidegen* to create a UUID. Your ConfigMap might
     resemble the following file:
 
-        kind: ConfigMap
-        apiVersion: v1
-        metadata:
-          name: $your-dashboard-name
-          namespace: open-cluster-management-observability
-          labels:
-            grafana-custom-dashboard: "true"
-        data:
-          $your-dashboard-name.json: |-
-            $your_dashboard_json
+    ``` yaml
+    kind: ConfigMap
+    apiVersion: v1
+    metadata:
+      name: $your-dashboard-name
+      namespace: open-cluster-management-observability
+      labels:
+        grafana-custom-dashboard: "true"
+    data:
+      $your-dashboard-name.json: |-
+        $your_dashboard_json
+    ```
 
     **Notes:**
 
@@ -2360,34 +2484,35 @@ either included in the `ignore_labels` or `labels` list. Your
 `observability-managed-cluster-label-allowlist` ConfigMap might resemble
 the following YAML file:
 
-    data:
-      managed_cluster.yaml: |
-        ignore_labels: 
-          - clusterID
-          - cluster.open-cluster-management.io/clusterset
-          - feature.open-cluster-management.io/addon-application-manager
-          - feature.open-cluster-management.io/addon-cert-policy-controller
-          - feature.open-cluster-management.io/addon-cluster-proxy
-          - feature.open-cluster-management.io/addon-config-policy-controller
-          - feature.open-cluster-management.io/addon-governance-policy-framework
-          - feature.open-cluster-management.io/addon-observability-controller
-          - feature.open-cluster-management.io/addon-search-collector
-          - feature.open-cluster-management.io/addon-work-manager
-          - installer.name
-          - installer.namespace
-          - local-cluster
-          - name
-        labels: 
-          - cloud
-          - vendor
+``` yaml
+data:
+  managed_cluster.yaml: |
+    ignore_labels: 
+      - clusterID
+      - cluster.open-cluster-management.io/clusterset
+      - feature.open-cluster-management.io/addon-application-manager
+      - feature.open-cluster-management.io/addon-cert-policy-controller
+      - feature.open-cluster-management.io/addon-cluster-proxy
+      - feature.open-cluster-management.io/addon-config-policy-controller
+      - feature.open-cluster-management.io/addon-governance-policy-framework
+      - feature.open-cluster-management.io/addon-observability-controller
+      - feature.open-cluster-management.io/addon-search-collector
+      - feature.open-cluster-management.io/addon-work-manager
+      - installer.name
+      - installer.namespace
+      - local-cluster
+      - name
+    labels: 
+      - cloud
+      - vendor
+```
 
-\+ &lt;1&gt; Any label that is listed in the `ignore_labels` keylist of
-the ConfigMap is removed from the drop-down filter on the *ACM -
-Clusters Overview* Grafana dashboard. &lt;2&gt; The labels that are
-enabled are displayed in the drop-down filter on the *ACM - Clusters
-Overview* Grafana dashboard. The values are from the
-`acm_managed_cluster_labels` metric, depending on the `label` key value
-that is selected.
+\+ \<1\> Any label that is listed in the `ignore_labels` keylist of the
+ConfigMap is removed from the drop-down filter on the *ACM - Clusters
+Overview* Grafana dashboard. \<2\> The labels that are enabled are
+displayed in the drop-down filter on the *ACM - Clusters Overview*
+Grafana dashboard. The values are from the `acm_managed_cluster_labels`
+metric, depending on the `label` key value that is selected.
 
 #### Adding managed cluster labels
 
@@ -2399,27 +2524,29 @@ managed cluster fleet. For example, if you add the label,
 `department=finance` to a managed cluster, the ConfigMap is updated and
 might resemble the following changes:
 
-    data:
-      managed_cluster.yaml: |
-        ignore_labels:
-          - clusterID
-          - cluster.open-cluster-management.io/clusterset
-          - feature.open-cluster-management.io/addon-application-manager
-          - feature.open-cluster-management.io/addon-cert-policy-controller
-          - feature.open-cluster-management.io/addon-cluster-proxy
-          - feature.open-cluster-management.io/addon-config-policy-controller
-          - feature.open-cluster-management.io/addon-governance-policy-framework
-          - feature.open-cluster-management.io/addon-observability-controller
-          - feature.open-cluster-management.io/addon-search-collector
-          - feature.open-cluster-management.io/addon-work-manager
-          - installer.name
-          - installer.namespace
-          - local-cluster
-          - name
-        labels:
-          - cloud
-          - department
-          - vendor
+``` yaml
+data:
+  managed_cluster.yaml: |
+    ignore_labels:
+      - clusterID
+      - cluster.open-cluster-management.io/clusterset
+      - feature.open-cluster-management.io/addon-application-manager
+      - feature.open-cluster-management.io/addon-cert-policy-controller
+      - feature.open-cluster-management.io/addon-cluster-proxy
+      - feature.open-cluster-management.io/addon-config-policy-controller
+      - feature.open-cluster-management.io/addon-governance-policy-framework
+      - feature.open-cluster-management.io/addon-observability-controller
+      - feature.open-cluster-management.io/addon-search-collector
+      - feature.open-cluster-management.io/addon-work-manager
+      - installer.name
+      - installer.namespace
+      - local-cluster
+      - name
+    labels:
+      - cloud
+      - department
+      - vendor
+```
 
 #### Enabling managed cluster labels
 
@@ -2431,17 +2558,19 @@ For example, enable the `local-cluster` and `name` labels. Your
 `observability-managed-cluster-label-allowlist` ConfigMap might resemble
 the following content:
 
-    data:
-      managed_cluster.yaml: |
-        ignore_labels:
-          - clusterID
-          - installer.name
-          - installer.namespace
-        labels:
-          - cloud
-          - vendor
-          - local-cluster
-          - name
+``` yaml
+data:
+  managed_cluster.yaml: |
+    ignore_labels:
+      - clusterID
+      - installer.name
+      - installer.namespace
+    labels:
+      - cloud
+      - vendor
+      - local-cluster
+      - name
+```
 
 The ConfigMap resyncs after 30 seconds to ensure that the cluster labels
 are updated. After you update the ConfigMap, check the
@@ -2462,17 +2591,19 @@ drop-down filter. Add the label name to the `ignore_labels` list. For
 example, your YAML might resemble the following file if you add
 `local-cluster` and `name` back into the `ignore_labels` list:
 
-    data:
-      managed_cluster.yaml: |
-        ignore_labels:
-          - clusterID
-          - installer.name
-          - installer.namespace
-          - local-cluster
-          - name
-        labels:
-          - cloud
-          - vendor
+``` yaml
+data:
+  managed_cluster.yaml: |
+    ignore_labels:
+      - clusterID
+      - installer.name
+      - installer.namespace
+      - local-cluster
+      - name
+    labels:
+      - cloud
+      - vendor
+```
 
 Check the `observability-rbac-query-proxy` pod logs in the
 `open-cluster-management-observability` namespace to verify where the
@@ -2527,32 +2658,38 @@ update the custom receiver rules:
 1.  Extract the data from the `alertmanager-config` secret. Run the
     following command:
 
-        oc -n open-cluster-management-observability get secret alertmanager-config --template='{{ index .data "alertmanager.yaml" }}' |base64 -d > alertmanager.yaml
+    ``` bash
+    oc -n open-cluster-management-observability get secret alertmanager-config --template='{{ index .data "alertmanager.yaml" }}' |base64 -d > alertmanager.yaml
+    ```
 
 2.  Edit and save the `alertmanager.yaml` file configuration by running
     the following command:
 
-        oc -n open-cluster-management-observability create secret generic alertmanager-config --from-file=alertmanager.yaml --dry-run -o=yaml |  oc -n open-cluster-management-observability replace secret --filename=-
+    ``` bash
+    oc -n open-cluster-management-observability create secret generic alertmanager-config --from-file=alertmanager.yaml --dry-run -o=yaml |  oc -n open-cluster-management-observability replace secret --filename=-
+    ```
 
     Your updated secret might resemble the following content:
 
-        global
-          smtp_smarthost: 'localhost:25'
-          smtp_from: 'alertmanager@example.org'
-          smtp_auth_username: 'alertmanager'
-          smtp_auth_password: 'password'
-        templates:
-        - '/etc/alertmanager/template/*.tmpl'
-        route:
-          group_by: ['alertname', 'cluster', 'service']
-          group_wait: 30s
-          group_interval: 5m
-          repeat_interval: 3h
-          receiver: team-X-mails
-          routes:
-          - match_re:
-              service: ^(foo1|foo2|baz)$
-            receiver: team-X-mails
+    ``` yaml
+    global
+      smtp_smarthost: 'localhost:25'
+      smtp_from: 'alertmanager@example.org'
+      smtp_auth_username: 'alertmanager'
+      smtp_auth_password: 'password'
+    templates:
+    - '/etc/alertmanager/template/*.tmpl'
+    route:
+      group_by: ['alertname', 'cluster', 'service']
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 3h
+      receiver: team-X-mails
+      routes:
+      - match_re:
+          service: ^(foo1|foo2|baz)$
+        receiver: team-X-mails
+    ```
 
 After you modify the secret, your changes are applied immediately. For
 an example of Alertmanager, see prometheus/alertmanager.
@@ -2575,47 +2712,61 @@ secret, complete the following steps:
 1.  To create a `tls` secret with TLS certificates, run the following
     command:
 
-        oc create secret tls tls --cert=</path/to/cert.crt> --key=</path/to/cert.key> -n open-cluster-management-observability
+    ``` bash
+    oc create secret tls tls --cert=</path/to/cert.crt> --key=</path/to/cert.key> -n open-cluster-management-observability
+    ```
 
 2.  To mount the `tls` secret to your `MultiClusterObservability`
     resource, add it to the `advanced` section. Your resource might
     resemble the following content:
 
-        ...
-        advanced:
-         alertmanager:
-           secrets: ['tls']
+    ``` yaml
+    ...
+    advanced:
+     alertmanager:
+       secrets: ['tls']
+    ```
 
 3.  To add a reference of your `tls` secret within your Alertmanager
     configuration, add the path of your secret to the configuration.
     Your resource might resemble the following configuration:
 
-        tls_config:
-         cert_file: '/etc/alertmanager/secrets/tls/tls.crt'
-         key_file: '/etc/alertmanager/secrets/tls/tls.key'
+    ``` yaml
+    tls_config:
+     cert_file: '/etc/alertmanager/secrets/tls/tls.crt'
+     key_file: '/etc/alertmanager/secrets/tls/tls.key'
+    ```
 
 4.  To verify that the secrets are within your `alertmanager` pods, run
     the following command:
 
-        oc -n open-cluster-management-observability get secret alertmanager-config --template='{{ index .data "alertmanager.yaml" }}' |base64 -d > alertmanager.yaml
+    ``` bash
+    oc -n open-cluster-management-observability get secret alertmanager-config --template='{{ index .data "alertmanager.yaml" }}' |base64 -d > alertmanager.yaml
+    ```
 
     Your YAML might resemble the following contents:
 
-        "global":
-          "http_config":
-            "tls_config":
-              "cert_file": "/etc/alertmanager/secrets/storyverify/tls.crt"
-              "key_file": "/etc/alertmanager/secrets/storyverify/tls.key"
+    ``` yaml
+    "global":
+      "http_config":
+        "tls_config":
+          "cert_file": "/etc/alertmanager/secrets/storyverify/tls.crt"
+          "key_file": "/etc/alertmanager/secrets/storyverify/tls.key"
+    ```
 
 5.  To save the `alertmanager.yaml` configuration in the
     `alertmanager-config` secret, run the following command:
 
-        oc -n open-cluster-management-observability create secret generic alertmanager-config --from-file=alertmanager.yaml --dry-run -o=yaml
+    ``` bash
+    oc -n open-cluster-management-observability create secret generic alertmanager-config --from-file=alertmanager.yaml --dry-run -o=yaml
+    ```
 
 6.  To replace the previous secret with your new secret, run the
     following command:
 
-        oc -n open-cluster-management-observability replace secret --filename=-
+    ``` bash
+    oc -n open-cluster-management-observability replace secret --filename=-
+    ```
 
 ### Forwarding alerts
 
@@ -2629,36 +2780,42 @@ configure alerts with an external notification system.
 
 View the following example of the `alertmanager-config` YAML file:
 
-    global:
-      slack_api_url: '<slack_webhook_url>'
+``` yaml
+global:
+  slack_api_url: '<slack_webhook_url>'
 
-    route:
-      receiver: 'slack-notifications'
-      group_by: [alertname, datacenter, app]
+route:
+  receiver: 'slack-notifications'
+  group_by: [alertname, datacenter, app]
 
-    receivers:
-    - name: 'slack-notifications'
-      slack_configs:
-      - channel: '#alerts'
-        text: 'https://internal.myorg.net/wiki/alerts/{{ .GroupLabels.app }}/{{ .GroupLabels.alertname }}'
+receivers:
+- name: 'slack-notifications'
+  slack_configs:
+  - channel: '#alerts'
+    text: 'https://internal.myorg.net/wiki/alerts/{{ .GroupLabels.app }}/{{ .GroupLabels.alertname }}'
+```
 
 If you want to configure a proxy for alert forwarding, add the following
 `global` entry to the `alertmanager-config` YAML file:
 
-    global:
-      slack_api_url: '<slack_webhook_url>'
-      http_config:
-        proxy_url: http://****
+``` yaml
+global:
+  slack_api_url: '<slack_webhook_url>'
+  http_config:
+    proxy_url: http://****
+```
 
 To forward user workload alerts, the alerts must be processed by the
 user workload Prometheus instance and not by Thanos ruler. See the
 following example of the `PrometheusRule` resource:
 
-    apiVersion: monitoring.coreos.com/v1
-    kind: PrometheusRule
-    metadata:
-      labels:
-        openshift.io/prometheus-rule-evaluation-scope: leaf-prometheus
+``` yaml
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    openshift.io/prometheus-rule-evaluation-scope: leaf-prometheus
+```
 
 ### Disabling alert forwarding for managed clusters
 
@@ -2687,7 +2844,9 @@ config map.
 1.  Run the following command to set the `mco-disable-alerting`
     annotation to `"true"`:
 
-        oc annotate MultiClusterObservability observability mco-disable-alerting=true
+    ``` bash
+    oc annotate MultiClusterObservability observability mco-disable-alerting=true
+    ```
 
     **Important:** You lose metrics when Prometheus on your managed
     cluster is not configured with a persistent volume.
@@ -2712,7 +2871,9 @@ cluster restarts.
 Run the following command to set the `mco-disable-uwl-alerting`
 annotation to `"true"`:
 
-    oc annotate MultiClusterObservability observability mco-disable-uwl-alerting=true
+``` bash
+oc annotate MultiClusterObservability observability mco-disable-uwl-alerting=true
+```
 
 ### Silencing alerts
 
@@ -2730,38 +2891,52 @@ Continue reading for ways to silence alerts:
   the following command in the `observability-alertmanager-0` pod
   terminal to silence `SampleAlert`:
 
-      amtool silence add --alertmanager.url="http://localhost:9093" --author="user" --comment="Silencing sample alert" alertname="SampleAlert"
+  ``` bash
+  amtool silence add --alertmanager.url="http://localhost:9093" --author="user" --comment="Silencing sample alert" alertname="SampleAlert"
+  ```
 
 - Silence an alert by using multiple match labels. The following command
   uses `match-label-1` and `match-label-2`:
 
-      amtool silence add --alertmanager.url="http://localhost:9093" --author="user" --comment="Silencing sample alert" <match-label-1>=<match-value-1> <match-label-2>=<match-value-2>
+  ``` bash
+  amtool silence add --alertmanager.url="http://localhost:9093" --author="user" --comment="Silencing sample alert" <match-label-1>=<match-value-1> <match-label-2>=<match-value-2>
+  ```
 
 - If you want to silence an alert for a specific period of time, use the
   `--duration` flag. Run the following command to silence the
   `SampleAlert` for an hour:
 
-      amtool silence add --alertmanager.url="http://localhost:9093" --author="user" --comment="Silencing sample alert" --duration="1h" alertname="SampleAlert"
+  ``` bash
+  amtool silence add --alertmanager.url="http://localhost:9093" --author="user" --comment="Silencing sample alert" --duration="1h" alertname="SampleAlert"
+  ```
 
   You can also specify a start or end time for the silenced alert. Enter
   the following command to silence the `SampleAlert` at a specific start
   time:
 
-      amtool silence add --alertmanager.url="http://localhost:9093" --author="user" --comment="Silencing sample alert" --start="2023-04-14T15:04:05-07:00" alertname="SampleAlert"
+  ``` bash
+  amtool silence add --alertmanager.url="http://localhost:9093" --author="user" --comment="Silencing sample alert" --start="2023-04-14T15:04:05-07:00" alertname="SampleAlert"
+  ```
 
 - To view all silenced alerts that are created, run the following
   command:
 
-      amtool silence --alertmanager.url="http://localhost:9093"
+  ``` bash
+  amtool silence --alertmanager.url="http://localhost:9093"
+  ```
 
 - If you no longer want an alert to be silenced, end the silencing of
   the alert by running the following command:
 
-      amtool silence expire --alertmanager.url="http://localhost:9093" "d839aca9-ed46-40be-84c4-dca8773671da"
+  ``` bash
+  amtool silence expire --alertmanager.url="http://localhost:9093" "d839aca9-ed46-40be-84c4-dca8773671da"
+  ```
 
 - To end the silencing of all alerts, run the following command:
 
-      amtool silence expire --alertmanager.url="http://localhost:9093" $(amtool silence query --alertmanager.url="http://localhost:9093" -q)
+  ``` bash
+  amtool silence expire --alertmanager.url="http://localhost:9093" $(amtool silence query --alertmanager.url="http://localhost:9093" -q)
+  ```
 
 ### Migrating observability storage
 
@@ -2837,15 +3012,17 @@ rule to take effect, both the target and source alerts must have the
 same label values for the label names in the `equal` list. Your
 `inhibit_rules` might resemble the following:
 
-    global:
-      resolve_timeout: 1h
-    inhibit_rules:
-      - equal:
-          - namespace
-        source_match:
-          severity: critical
-        target_match_re:
-          severity: warning|info
+``` yaml
+global:
+  resolve_timeout: 1h
+inhibit_rules:
+  - equal:
+      - namespace
+    source_match:
+      severity: critical
+    target_match_re:
+      severity: warning|info
+```
 
 - The `inhibit_rules` parameter section is defined to look for alerts in
   the same namespace. When a `critical` alert is initiated within a
@@ -2866,9 +3043,9 @@ same label values for the label names in the `equal` list. Your
   - To view suppressed alerts in Red Hat Advanced Cluster Management,
     enter the following command:
 
-  <!-- -->
-
-      amtool alert --alertmanager.url="http://localhost:9093" --inhibited
+  ``` bash
+  amtool alert --alertmanager.url="http://localhost:9093" --inhibited
+  ```
 
 ## *RightSizingRecommendation* guides (Technology Preview)
 
@@ -2936,28 +3113,32 @@ namespaces:
 1.  Open the `observability` instance configuration. Run the following
     command:
 
-        oc edit multiclusterobservability observability
+    ``` bash
+    oc edit multiclusterobservability observability
+    ```
 
 2.  Add the following lines to the `spec` section of your
     `MultiClusterObservability` custom resource:
 
-        apiVersion: observability.open-cluster-management.io/v1beta2
-        kind: MultiClusterObservability
-        metadata:
-          name: observability
-        spec:
-          capabilities:
-            platform:
-              analytics:
-                namespaceRightSizingRecommendation:
-                  enabled: true
-        . . .
+    ``` yaml
+    apiVersion: observability.open-cluster-management.io/v1beta2
+    kind: MultiClusterObservability
+    metadata:
+      name: observability
+    spec:
+      capabilities:
+        platform:
+          analytics:
+            namespaceRightSizingRecommendation:
+              enabled: true
+    . . .
+    ```
 
 3.  To disable `RightSizingRecommendation` for namespaces, set the
     `namespaceRightSizingRecommendation.enabled:` to `false` .
 
 4.  View `RightSizingRecommendation` guides from your Grafana board by
-    selecting **RightSizing Recommendation** &gt; **ACM Right-Sizing
+    selecting **RightSizing Recommendation** \> **ACM Right-Sizing
     Namespace**.
 
 5.  To view the aggregated data on Grafana, expand or collapse the
@@ -2978,15 +3159,17 @@ Complete the following steps:
     resource placement. See the following example where the policy only
     applies to clusters with the `environment=prod` label:
 
-        placementConfiguration: |
-         spec:
-           . . .
-           predicates:
-           - requiredClusterSelector:
-               labelSelector:
-                 matchLabels:
-                   environment: prod
-           . . .
+    ``` yaml
+    placementConfiguration: |
+     spec:
+       . . .
+       predicates:
+       - requiredClusterSelector:
+           labelSelector:
+             matchLabels:
+               environment: prod
+       . . .
+    ```
 
 2.  Configure your `PrometheusRule` resource by completing changes to
     one of the following steps:
@@ -3010,24 +3193,24 @@ Complete the following steps:
         specification includes `prod` and the `exclusionCriteria`
         excludes `openshift`:
 
-    <!-- -->
-
-        . . .
-          prometheusRuleConfig: |
-           namespaceFilterCriteria:
-            inclusionCriteria:
-            - prod.*
-            exclusionCriteria:
-            - openshift.*
-          labelFilterCriteria:
-          - labelName: label_kubernetes_io_metadata_name
-            inclusionCriteria:
-            - prod
-            - staging
-            exclusionCriteria:
-            - kube.*
-          recommendationPercentage: 120
-          . . .
+    ``` yaml
+    . . .
+      prometheusRuleConfig: |
+       namespaceFilterCriteria:
+        inclusionCriteria:
+        - prod.*
+        exclusionCriteria:
+        - openshift.*
+      labelFilterCriteria:
+      - labelName: label_kubernetes_io_metadata_name
+        inclusionCriteria:
+        - prod
+        - staging
+        exclusionCriteria:
+        - kube.*
+      recommendationPercentage: 120
+      . . .
+    ```
 
 3.  Configure your namespace binding. By default, the
     `RightSizingRecommendation` feature uses the
@@ -3044,21 +3227,21 @@ Complete the following steps:
         See the following example where the `<your-namespace-binding>`
         namespace is the value for `namespaceBinding`:
 
-    <!-- -->
-
-        apiVersion: observability.open-cluster-management.io/v1beta2
-        kind: MultiClusterObservability
-        metadata:
-          name: observability
-        spec:
-          . . .
-          capabilities:
-            platform:
-              analytics:
-                namespaceRightSizingRecommendation:
-                  enabled: true
-                  namespaceBinding: <your-namespace-binding>
-          . . .
+    ``` yaml
+    apiVersion: observability.open-cluster-management.io/v1beta2
+    kind: MultiClusterObservability
+    metadata:
+      name: observability
+    spec:
+      . . .
+      capabilities:
+        platform:
+          analytics:
+            namespaceRightSizingRecommendation:
+              enabled: true
+              namespaceBinding: <your-namespace-binding>
+      . . .
+    ```
 
 ### Enabling *RightSizingRecommendation* for Virtualization workloads (Technology Preview)
 
@@ -3093,29 +3276,33 @@ machines:
 1.  Open the `observability` instance configuration. Run the following
     command:
 
-        oc edit multiclusterobservability observability
+    ``` bash
+    oc edit multiclusterobservability observability
+    ```
 
 2.  Add the following lines to the `spec` section of your
     `MultiClusterObservability` custom resource:
 
-        apiVersion: observability.open-cluster-management.io/v1beta2
-        kind: MultiClusterObservability
-        metadata:
-          name: observability
-        spec:
-          capabilities:
-            platform:
-              analytics:
-                virtualizationRightSizingRecommendation:
-                  enabled: true
-        . . .
+    ``` yaml
+    apiVersion: observability.open-cluster-management.io/v1beta2
+    kind: MultiClusterObservability
+    metadata:
+      name: observability
+    spec:
+      capabilities:
+        platform:
+          analytics:
+            virtualizationRightSizingRecommendation:
+              enabled: true
+    . . .
+    ```
 
 3.  To disable `RightSizingRecommendation` for your virtual machines,
     set the `virtualizationRightSizingRecommendation.enabled:` parameter
     to `false`.
 
 4.  View `RightSizingRecommendation` guides from your Grafana dashboard
-    by selecting **RightSizing Recommendation** &gt; **ACM Right-Sizing
+    by selecting **RightSizing Recommendation** \> **ACM Right-Sizing
     OpenShift Virtualization**.
 
     **Note:** The CPU and memory information at the cluster level is
@@ -3138,15 +3325,17 @@ Complete the following steps:
     where the policy only applies to clusters with the
     `environment=prod` label, as displayed in the following example:
 
-        placementConfiguration: |
-         spec:
-           . . .
-           predicates:
-           - requiredClusterSelector:
-               labelSelector:
-                 matchLabels:
-                   environment: prod
-           . . .
+    ``` yaml
+    placementConfiguration: |
+     spec:
+       . . .
+       predicates:
+       - requiredClusterSelector:
+           labelSelector:
+             matchLabels:
+               environment: prod
+       . . .
+    ```
 
 2.  Configure `PrometheusRule` for your virtual machines by completing
     one of the following steps:
@@ -3170,24 +3359,24 @@ Complete the following steps:
         specification includes `prod` and the `exclusionCriteria`
         excludes `openshift`:
 
-    <!-- -->
-
-        . . .
-          prometheusRuleConfig: |
-           namespaceFilterCriteria:
-            inclusionCriteria:
-            - prod.*
-            exclusionCriteria:
-            - openshift.*
-          labelFilterCriteria:
-          - labelName: label_kubernetes_io_metadata_name
-            inclusionCriteria:
-            - prod
-            - staging
-            exclusionCriteria:
-            - kube.*
-          recommendationPercentage: 120
-          . . .
+    ``` yaml
+    . . .
+      prometheusRuleConfig: |
+       namespaceFilterCriteria:
+        inclusionCriteria:
+        - prod.*
+        exclusionCriteria:
+        - openshift.*
+      labelFilterCriteria:
+      - labelName: label_kubernetes_io_metadata_name
+        inclusionCriteria:
+        - prod
+        - staging
+        exclusionCriteria:
+        - kube.*
+      recommendationPercentage: 120
+      . . .
+    ```
 
 3.  Configure your namespace binding. By default, the
     `RightSizingRecommendation` feature uses the
@@ -3203,21 +3392,21 @@ Complete the following steps:
         See the following example where the `<your-namespace-binding>`
         namespace is the value for `namespaceBinding`:
 
-    <!-- -->
-
-        apiVersion: observability.open-cluster-management.io/v1beta2
-        kind: MultiClusterObservability
-        metadata:
-          name: observability
-        spec:
-          . . .
-          capabilities:
-            platform:
-              analytics:
-                virtualizationRightSizingRecommendation:
-                  enabled: true
-                  namespaceBinding: <your-namespace-binding>
-          . . .
+    ``` yaml
+    apiVersion: observability.open-cluster-management.io/v1beta2
+    kind: MultiClusterObservability
+    metadata:
+      name: observability
+    spec:
+      . . .
+      capabilities:
+        platform:
+          analytics:
+            virtualizationRightSizingRecommendation:
+              enabled: true
+              namespaceBinding: <your-namespace-binding>
+      . . .
+    ```
 
     **Important:** Ensure that the target namespace is part of a valid
     `ClusterSet` before you apply the change. The policies that you
@@ -3369,46 +3558,62 @@ cluster.
 
 **Required access:** Cluster administrator
 
+<div class="formalpara">
+
+<div class="title">
+
 Procedure
+
+</div>
 
 Complete the following steps to enable the multicluster observability
 add-on on your hub cluster:
+
+</div>
 
 1.  To enable platform monitoring and user workload monitoring, add the
     `platform` and `userWorkloads` specification to your
     `MultiClusterObservability` resource. Run the following command:
 
-        oc patch mco observability -n open-cluster-management-observability --type=merge -p '{"spec":{"capabilities":{"platform":{"metrics":{"default":{"enabled": true}}},"userWorkloads":{"metrics":{"default":{"enabled": true}}}}}}'
+    ``` bash
+    oc patch mco observability -n open-cluster-management-observability --type=merge -p '{"spec":{"capabilities":{"platform":{"metrics":{"default":{"enabled": true}}},"userWorkloads":{"metrics":{"default":{"enabled": true}}}}}}'
+    ```
 
     Your `MultiClusterObservability` resource might resemble the
     following file example:
 
-        apiVersion: observability.open-cluster-management.io/v1beta2
-        kind: MultiClusterObservability
-        metadata:
-          name: observability
-        spec:
-          capabilities:
-            platform:
-              metrics:
-                default:
-                  enabled: true
-            userWorkloads:
-              metrics:
-                default:
-                  enabled: true
+    ``` yaml
+    apiVersion: observability.open-cluster-management.io/v1beta2
+    kind: MultiClusterObservability
+    metadata:
+      name: observability
+    spec:
+      capabilities:
+        platform:
+          metrics:
+            default:
+              enabled: true
+        userWorkloads:
+          metrics:
+            default:
+              enabled: true
+    ```
 
 2.  To verify that the default configuration resources for the
     multicluster observability add-on are created, open your
     `multicluster-observability-addon` `ClusterManagementAddon`
     resource. Run the following command:
 
-        oc get prometheusagents -n open-cluster-management-observability
+    ``` bash
+    oc get prometheusagents -n open-cluster-management-observability
+    ```
 
 3.  Verify that the default configurations are added to your placements.
     Run the following command:
 
-        oc get cma multicluster-observability-addon -o yaml | yq '.spec.installStrategy.placements'
+    ``` bash
+    oc get cma multicluster-observability-addon -o yaml | yq '.spec.installStrategy.placements'
+    ```
 
 ### Configuring APIs for the multicluster observability add-on
 
@@ -3428,10 +3633,18 @@ resources for the multicluster observability add-on: `PrometheusAgent`,
 
 **Required access:** Cluster administrator
 
+<div class="formalpara">
+
+<div class="title">
+
 Procedure
+
+</div>
 
 Complete the following to configure the APIs for the multicluster
 observability add-on:
+
+</div>
 
 1.  **Optional** Override the default scrape interval for your
     `PrometheusAgent` resource by changing the `scrapeInterval`
@@ -3452,21 +3665,21 @@ observability add-on:
         following YAML file example where the `ScrapeConfig` resource
         collects the `up` metric:
 
-    <!-- -->
-
-        apiVersion: monitoring.rhobs/v1alpha1
-        kind: ScrapeConfig
-        metadata:
-          name: some-metrics-to-collect
-          namespace: open-cluster-management-observability
-          labels:
-            - app.kubernetes.io/component: <platform-metrics-collector> or <user-workload-metrics-collector>
-        spec:
-          jobName: some-job-name
-          metricsPath: /federate
-          params:
-            match[]:
-            - '{__name__="up"}'
+    ``` yaml
+    apiVersion: monitoring.rhobs/v1alpha1
+    kind: ScrapeConfig
+    metadata:
+      name: some-metrics-to-collect
+      namespace: open-cluster-management-observability
+      labels:
+        - app.kubernetes.io/component: <platform-metrics-collector> or <user-workload-metrics-collector>
+    spec:
+      jobName: some-job-name
+      metricsPath: /federate
+      params:
+        match[]:
+        - '{__name__="up"}'
+    ```
 
 3.  Configure the `PrometheusRule` resource to limit the cardinality of
     your collected metrics on your hub cluster. Complete the following
@@ -3554,19 +3767,21 @@ observability add-on:
 
     Your `ScrapeConfig` resource might resemble the following YAML file:
 
-        apiVersion: monitoring.rhobs/v1alpha1
-        kind: ScrapeConfig
-        metadata:
-          name: add-custom-metrics
-          namespace: open-cluster-management-observability
-          labels:
-            - app.kubernetes.io/component: platform-metrics-collector
-        spec:
-          jobName: some-job-name
-          metricsPath: /federate
-          params:
-            match[]:
-            - '{__name__="up"}'
+    ``` yaml
+    apiVersion: monitoring.rhobs/v1alpha1
+    kind: ScrapeConfig
+    metadata:
+      name: add-custom-metrics
+      namespace: open-cluster-management-observability
+      labels:
+        - app.kubernetes.io/component: platform-metrics-collector
+    spec:
+      jobName: some-job-name
+      metricsPath: /federate
+      params:
+        match[]:
+        - '{__name__="up"}'
+    ```
 
 ### Federating user workloads from Cluster Observability Operator
 
@@ -3577,7 +3792,13 @@ OpenShift Container Platform cluster.
 
 **Required access:** Cluster administrator
 
+<div>
+
+<div class="title">
+
 Prerequisites
+
+</div>
 
 - User workload monitoring is enabled on your managed cluster.
 
@@ -3591,23 +3812,35 @@ Prerequisites
 - The `ScrapeConfig` resources are referenced in the configurations list
   of the `ClusterManagementAddOn` for the target placements.
 
+</div>
+
+<div class="formalpara">
+
+<div class="title">
+
 Procedure
+
+</div>
 
 Complete the following steps to federate user workloads from the Cluster
 Observability Operator on your managed clusters:
+
+</div>
 
 1.  Update your `ScrapeConfig` resource by adding the endpoint of the
     Cluster Observability Operator `MonitoringStack` resource. Your
     resource might resemble the following YAML file:
 
-        apiVersion: monitoring.coreos.com/v1alpha1
-        kind: ScrapeConfig
-        spec:
-          scrapeClass: “”
-          scheme: HTTP
-          staticConfigs:
-          - targets:
-            - my-monitoring-stack.my-monitoring-ns.svc:9090
+    ``` yaml
+    apiVersion: monitoring.coreos.com/v1alpha1
+    kind: ScrapeConfig
+    spec:
+      scrapeClass: “”
+      scheme: HTTP
+      staticConfigs:
+      - targets:
+        - my-monitoring-stack.my-monitoring-ns.svc:9090
+    ```
 
 2.  If you use a proxy with the Prometheus server, modify the
     `ScrapeConfig` resource to include your TLS configuration. Create a
@@ -3624,10 +3857,18 @@ resource.
 
 **Required access:** Cluster administrator
 
+<div class="formalpara">
+
+<div class="title">
+
 Procedure
+
+</div>
 
 Complete the following step to remove a default metric by relabeling the
 metric for the multicluster observability add-on:
+
+</div>
 
 1.  To remove the `Watchdog` alert metric, add the `writeRelabelConfigs`
     specification to the `remoteWrite` configuration of the
@@ -3635,29 +3876,31 @@ metric for the multicluster observability add-on:
     is federated. Your `PrometheusAgent` resource might resemble the
     following YAML file:
 
-        apiVersion: monitoring.rhobs/v1alpha1
-        kind: ScrapeConfig
-        metadata:
-          name: platform-metrics-alerts
-          namespace: open-cluster-management-observability
-        spec:
-          jobName: alerts
-          metricRelabelings:
-            - action: labeldrop
-              regex: managed_cluster|id
-            - action: drop
-              regex: ^Watchdog$
-              sourceLabels:
-                - alertname
-          metricsPath: /federate
-          params:
-            'match[]':
-              - '{__name__="ALERTS"}'
-          scheme: HTTPS
-          scrapeClass: not-configurable
-          staticConfigs:
-            - targets:
-                - not-configurable
+    ``` yaml
+    apiVersion: monitoring.rhobs/v1alpha1
+    kind: ScrapeConfig
+    metadata:
+      name: platform-metrics-alerts
+      namespace: open-cluster-management-observability
+    spec:
+      jobName: alerts
+      metricRelabelings:
+        - action: labeldrop
+          regex: managed_cluster|id
+        - action: drop
+          regex: ^Watchdog$
+          sourceLabels:
+            - alertname
+      metricsPath: /federate
+      params:
+        'match[]':
+          - '{__name__="ALERTS"}'
+      scheme: HTTPS
+      scrapeClass: not-configurable
+      staticConfigs:
+        - targets:
+            - not-configurable
+    ```
 
 ### Exporting metrics to external endpoints for the multicluster observability add-on
 
@@ -3673,10 +3916,18 @@ managed and hub clusters for up to two hours.
 
 **Required access:** Cluster administrator
 
+<div class="formalpara">
+
+<div class="title">
+
 Procedure
+
+</div>
 
 Complete the following steps to export metrics to external endpoints for
 the `PrometheusAgent` resource:
+
+</div>
 
 1.  Create the TLS `Secret` config maps within the
     `open-cluster-management-observability` namespace.
@@ -3689,29 +3940,31 @@ the `PrometheusAgent` resource:
     following YAML file, where the `up` metric is exported to a custom
     endpoint:
 
-        apiVersion: monitoring.rhobs/v1alpha1
-        kind: PrometheusAgent
-        metadata:
-          name: mcoa-default-platform-metrics-collector-global
-          namespace: open-cluster-management-observability
-        spec:
-          secrets:
-            - custom-endpoint-ca
-            - custom-endpoint-cert
-          remoteWrite:
-            - name: custom-endpoint
-              tlsConfig:
-                caFile: /etc/prometheus/secrets/custom-endpoint-ca/ca.crt
-                certFile: /etc/prometheus/secrets/custom-endpoint-cert/tls.crt
-                keyFile: /etc/prometheus/secrets/custom-endpoint-cert/tls.key
-              url: 'https://my-custom-remote-write-endpoint.io/api/v1/receive'
-              writeRelabelConfigs:
-                - action: keep
-                  regex: ^up$
-                  sourceLabels:
-                    - __name__
-            - name: acm-observability
-              ...
+    ``` yaml
+    apiVersion: monitoring.rhobs/v1alpha1
+    kind: PrometheusAgent
+    metadata:
+      name: mcoa-default-platform-metrics-collector-global
+      namespace: open-cluster-management-observability
+    spec:
+      secrets:
+        - custom-endpoint-ca
+        - custom-endpoint-cert
+      remoteWrite:
+        - name: custom-endpoint
+          tlsConfig:
+            caFile: /etc/prometheus/secrets/custom-endpoint-ca/ca.crt
+            certFile: /etc/prometheus/secrets/custom-endpoint-cert/tls.crt
+            keyFile: /etc/prometheus/secrets/custom-endpoint-cert/tls.key
+          url: 'https://my-custom-remote-write-endpoint.io/api/v1/receive'
+          writeRelabelConfigs:
+            - action: keep
+              regex: ^up$
+              sourceLabels:
+                - __name__
+        - name: acm-observability
+          ...
+    ```
 
 ### Forwarding alerts for multicluster observability add-on
 
@@ -3726,10 +3979,18 @@ multicluster observability add-on.
 
 **Required access:** Cluster administrator
 
+<div class="formalpara">
+
+<div class="title">
+
 Procedure
+
+</div>
 
 Complete the following steps to create a policy to configure alert
 forwarding for the multicluster observability add-on:
+
+</div>
 
 1.  To configure alert forwarding for platform metrics, create a YAML
     file named `mcoa-alert-forward-platform.yaml`.
@@ -3742,87 +4003,91 @@ forwarding for the multicluster observability add-on:
 
         See the following example:
 
-            apiVersion: policy.open-cluster-management.io/v1
-            kind: Policy
-            metadata:
-              name: mcoa-alert-forward-platform
-              namespace: open-cluster-management-global-set
-            spec:
-              disabled: false
-              policy-templates:
-              - objectDefinition:
-                  apiVersion: policy.open-cluster-management.io/v1
-                  kind: ConfigurationPolicy
-                  metadata:
-                    name: mcoa-alert-forward-platform
-                  spec:
-                    namespaceSelector:
-                      exclude:
-                      - kube-*
-                      include:
-                      - default
-                    object-templates-raw: |
-                      {{ $hubBaseDomain:= "INPUT_BASE_DOMAIN" }}
-                      {{ $hubName := (split "." $hubBaseDomain)._0 }}
-                      {{- $cmo := (lookup "v1" "ConfigMap" "openshift-monitoring" "cluster-monitoring-config") }}
-                      {{- $cy := dict }}
-                      {{- if and $cmo $cmo.data }}
-                        {{- $cy = (index $cmo "data" "config.yaml") | fromYaml }}
-                      {{- end }}
+        ``` yaml
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: Policy
+        metadata:
+          name: mcoa-alert-forward-platform
+          namespace: open-cluster-management-global-set
+        spec:
+          disabled: false
+          policy-templates:
+          - objectDefinition:
+              apiVersion: policy.open-cluster-management.io/v1
+              kind: ConfigurationPolicy
+              metadata:
+                name: mcoa-alert-forward-platform
+              spec:
+                namespaceSelector:
+                  exclude:
+                  - kube-*
+                  include:
+                  - default
+                object-templates-raw: |
+                  {{ $hubBaseDomain:= "INPUT_BASE_DOMAIN" }}
+                  {{ $hubName := (split "." $hubBaseDomain)._0 }}
+                  {{- $cmo := (lookup "v1" "ConfigMap" "openshift-monitoring" "cluster-monitoring-config") }}
+                  {{- $cy := dict }}
+                  {{- if and $cmo $cmo.data }}
+                    {{- $cy = (index $cmo "data" "config.yaml") | fromYaml }}
+                  {{- end }}
 
-                      {{- $mangedConfig := dict }}
+                  {{- $mangedConfig := dict }}
 
-                      {{- $pm := `
-                        prometheusK8s:
-                          additionalAlertmanagerConfigs:
-                          - apiVersion: v2
-                            bearerToken:
-                              key: token
-                              name: observability-alertmanager-accessor-%[1]s
-                            scheme: https
-                            staticConfigs:
-                            - alertmanager-open-cluster-management-observability.apps.%[2]s
-                            tlsConfig:
-                              ca:
-                                key: service-ca.crt
-                                name: hub-alertmanager-router-ca-%[1]s
-                              insecureSkipVerify: false
-                          externalLabels:
-                            managed_cluster: %[3]s
-                      ` }}
+                  {{- $pm := `
+                    prometheusK8s:
+                      additionalAlertmanagerConfigs:
+                      - apiVersion: v2
+                        bearerToken:
+                          key: token
+                          name: observability-alertmanager-accessor-%[1]s
+                        scheme: https
+                        staticConfigs:
+                        - alertmanager-open-cluster-management-observability.apps.%[2]s
+                        tlsConfig:
+                          ca:
+                            key: service-ca.crt
+                            name: hub-alertmanager-router-ca-%[1]s
+                          insecureSkipVerify: false
+                      externalLabels:
+                        managed_cluster: %[3]s
+                  ` }}
 
-                        {{- $mangedConfig = merge $mangedConfig
-                                          ((printf $pm $hubName $hubBaseDomain (fromClusterClaim "id.openshift.io"))| fromYaml)
-                      }}
-                      - complianceType: mustonlyhave
-                        objectDefinition:
-                          apiVersion: v1
-                          data:
-                            config.yaml: |
-                              {{ (merge $cy $mangedConfig)| toYaml |autoindent }}
-                          kind: ConfigMap
-                          metadata:
-                            name: cluster-monitoring-config
-                            namespace: openshift-monitoring
-                        recordDiff: InStatus
-              remediationAction: inform
+                    {{- $mangedConfig = merge $mangedConfig
+                                      ((printf $pm $hubName $hubBaseDomain (fromClusterClaim "id.openshift.io"))| fromYaml)
+                  }}
+                  - complianceType: mustonlyhave
+                    objectDefinition:
+                      apiVersion: v1
+                      data:
+                        config.yaml: |
+                          {{ (merge $cy $mangedConfig)| toYaml |autoindent }}
+                      kind: ConfigMap
+                      metadata:
+                        name: cluster-monitoring-config
+                        namespace: openshift-monitoring
+                    recordDiff: InStatus
+          remediationAction: inform
+        ```
 
     2.  Create a `PlacementBinding` resource to bind the policy to the
         `global` placement.See the following sample:
 
-            apiVersion: policy.open-cluster-management.io/v1
-            kind: PlacementBinding
-            metadata:
-              name: mcoa-alert-forward-platform-placement
-              namespace: open-cluster-management-global-set
-            placementRef:
-              apiGroup: cluster.open-cluster-management.io
-              kind: Placement
-              name: global
-            subjects:
-            - apiGroup: policy.open-cluster-management.io
-              kind: Policy
-              name: mcoa-alert-forward-platform
+        ``` yaml
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: PlacementBinding
+        metadata:
+          name: mcoa-alert-forward-platform-placement
+          namespace: open-cluster-management-global-set
+        placementRef:
+          apiGroup: cluster.open-cluster-management.io
+          kind: Placement
+          name: global
+        subjects:
+        - apiGroup: policy.open-cluster-management.io
+          kind: Policy
+          name: mcoa-alert-forward-platform
+        ```
 
     3.  To apply the policy changes across all managed clusters and
         enable alert forwarding from your managed clusters to the hub
@@ -3836,7 +4101,9 @@ forwarding for the multicluster observability add-on:
 
     4.  Apply your YAML file. Run the following command:
 
-            oc apply -f ./forward-platform-alerts.yaml
+        ``` bash
+        oc apply -f ./forward-platform-alerts.yaml
+        ```
 
     **Note:** If you have managed clusters other than a Red Hat
     OpenShift Container Platform cluster, you must create the
@@ -3849,95 +4116,99 @@ forwarding for the multicluster observability add-on:
     1.  Add the base domain for your hub cluster in the `$hubBaseDomain`
         parameter. Your YAML file might resemble the following example:
 
-            apiVersion: policy.open-cluster-management.io/v1
-            kind: Policy
-            metadata:
-              name: mcoa-alert-forward-uwl
-              namespace: open-cluster-management-global-set
-            spec:
-              disabled: false
-              policy-templates:
-              - objectDefinition:
-                  apiVersion: policy.open-cluster-management.io/v1
-                  kind: ConfigurationPolicy
-                  metadata:
-                    name: mcoa-alert-forward-uwl
-                  spec:
-                    namespaceSelector:
-                      exclude:
-                      - kube-*
-                      include:
-                      - default
-                    object-templates-raw: |
-                      {{ $hubBaseDomain:= "INPUT_BASE_DOMAIN" }}
-                      {{ $hubName := (split "." $hubBaseDomain)._0 }}
+        ``` yaml
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: Policy
+        metadata:
+          name: mcoa-alert-forward-uwl
+          namespace: open-cluster-management-global-set
+        spec:
+          disabled: false
+          policy-templates:
+          - objectDefinition:
+              apiVersion: policy.open-cluster-management.io/v1
+              kind: ConfigurationPolicy
+              metadata:
+                name: mcoa-alert-forward-uwl
+              spec:
+                namespaceSelector:
+                  exclude:
+                  - kube-*
+                  include:
+                  - default
+                object-templates-raw: |
+                  {{ $hubBaseDomain:= "INPUT_BASE_DOMAIN" }}
+                  {{ $hubName := (split "." $hubBaseDomain)._0 }}
 
-                      {{- $cmo := (lookup "v1" "ConfigMap" "openshift-user-workload-monitoring" "user-workload-monitoring-config") }}
-                      {{- $cy := dict }}
-                      {{- if and $cmo $cmo.data }}
-                        {{- $cy = (index $cmo "data" "config.yaml") | fromYaml }}
-                      {{- end }}
+                  {{- $cmo := (lookup "v1" "ConfigMap" "openshift-user-workload-monitoring" "user-workload-monitoring-config") }}
+                  {{- $cy := dict }}
+                  {{- if and $cmo $cmo.data }}
+                    {{- $cy = (index $cmo "data" "config.yaml") | fromYaml }}
+                  {{- end }}
 
-                      {{- $mangedConfig := dict }}
+                  {{- $mangedConfig := dict }}
 
-                      {{- $pm := `
-                        prometheus:
-                          additionalAlertmanagerConfigs:
-                          - apiVersion: v2
-                            bearerToken:
-                              key: token
-                              name: observability-alertmanager-accessor-%[1]s
-                            scheme: https
-                            staticConfigs:
-                            - alertmanager-open-cluster-management-observability.apps.%[2]s
-                            tlsConfig:
-                              ca:
-                                key: service-ca.crt
-                                name: hub-alertmanager-router-ca-%[1]s
-                              insecureSkipVerify: false
-                          externalLabels:
-                            managed_cluster: %[3]s
-                      ` }}
+                  {{- $pm := `
+                    prometheus:
+                      additionalAlertmanagerConfigs:
+                      - apiVersion: v2
+                        bearerToken:
+                          key: token
+                          name: observability-alertmanager-accessor-%[1]s
+                        scheme: https
+                        staticConfigs:
+                        - alertmanager-open-cluster-management-observability.apps.%[2]s
+                        tlsConfig:
+                          ca:
+                            key: service-ca.crt
+                            name: hub-alertmanager-router-ca-%[1]s
+                          insecureSkipVerify: false
+                      externalLabels:
+                        managed_cluster: %[3]s
+                  ` }}
 
-                        {{- $mangedConfig = merge $mangedConfig
-                                          ((printf $pm $hubName $hubBaseDomain (fromClusterClaim "id.openshift.io"))| fromYaml)
-                      }}
-                      - complianceType: mustonlyhave
-                        objectDefinition:
-                          apiVersion: v1
-                          data:
-                            config.yaml: |
-                              {{ (merge $cy $mangedConfig )| toYaml |autoindent }}
-                          kind: ConfigMap
-                          metadata:
-                            name: user-workload-monitoring-config
-                            namespace: openshift-user-workload-monitoring
-                        recordDiff: InStatus
-              remediationAction: inform
+                    {{- $mangedConfig = merge $mangedConfig
+                                      ((printf $pm $hubName $hubBaseDomain (fromClusterClaim "id.openshift.io"))| fromYaml)
+                  }}
+                  - complianceType: mustonlyhave
+                    objectDefinition:
+                      apiVersion: v1
+                      data:
+                        config.yaml: |
+                          {{ (merge $cy $mangedConfig )| toYaml |autoindent }}
+                      kind: ConfigMap
+                      metadata:
+                        name: user-workload-monitoring-config
+                        namespace: openshift-user-workload-monitoring
+                    recordDiff: InStatus
+          remediationAction: inform
+        ```
 
     2.  Create a `PlacementBinding` resource to bind the policy to the
         `global` placement. Your YAML file might resemble the following
         sample:
 
-            apiVersion: policy.open-cluster-management.io/v1
-            kind: PlacementBinding
-            metadata:
-              name: mcoa-alert-forward-uwl-placement
-              namespace: open-cluster-management-global-set
-            placementRef:
-              apiGroup: cluster.open-cluster-management.io
-              kind: Placement
-              name: global
-            subjects:
-            - apiGroup: policy.open-cluster-management.io
-              kind: Policy
-              name: mcoa-alert-forward-uwl
+        ``` yaml
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: PlacementBinding
+        metadata:
+          name: mcoa-alert-forward-uwl-placement
+          namespace: open-cluster-management-global-set
+        placementRef:
+          apiGroup: cluster.open-cluster-management.io
+          kind: Placement
+          name: global
+        subjects:
+        - apiGroup: policy.open-cluster-management.io
+          kind: Policy
+          name: mcoa-alert-forward-uwl
+        ```
 
     3.  Apply your YAML file. Run the following command:
 
-    <!-- -->
-
-        oc apply -f ./forward-uwl-alerts.yaml
+    ``` bash
+    oc apply -f ./forward-uwl-alerts.yaml
+    ```
 
 # Using observability with Red Hat Insights
 

@@ -1,0 +1,13 @@
+[project]
+name = "acm-rag-content"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "lightspeed-rag-content",
+    "pyyaml==6.0.2",
+]
+
+[tool.uv.sources]
+lightspeed-rag-content = { git = "https://github.com/lightspeed-core/rag-content" }

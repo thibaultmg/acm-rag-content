@@ -1,0 +1,2 @@
+# Python dependencies for documentation processing scripts
+PyYAML==6.0.1 # Used by scripts/asciidoctor-text/convert-it-all.py for YAML parsing

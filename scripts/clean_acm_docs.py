@@ -6,6 +6,10 @@ NS_URL = 'http://docbook.org/ns/docbook'
 ET.register_namespace('', NS_URL)
 NS = {'db': NS_URL}
 
+# Heuristic: maximum non-link characters allowed in a navigation list item
+# (e.g. for punctuation or whitespace around the link)
+MAX_NON_LINK_CHARS = 5
+
 def is_navigation_list(ulist):
     """
     Determines if a list is purely a navigation/link list.
@@ -48,13 +52,16 @@ def is_navigation_list(ulist):
         # Extract all text from para
         full_text = "".join(para.itertext()).strip()
         
+        # Extract only the text that is inside the links
+        link_text = "".join("".join(link.itertext()) for link in links).strip()
+        
         # If text is empty (xref often has empty text in XML, filled by renderer), it's a link.
         if not full_text:
             continue
             
-        # If there is text, it might be the link label. 
-        # Hard to distinguish "Click [here]" from "[Link Title]".
-        # But standard "See also" lists are usually just the links.
+        # If there is significant text outside the links, it is not a navigation list
+        if len(full_text) > len(link_text) + MAX_NON_LINK_CHARS:
+            return False
         
     return True
 
@@ -196,26 +203,23 @@ def clean_docbook(xml_path):
         # Get headers
         headers = []
         thead = tgroup.find('db:thead', NS)
-        if thead:
-            # Assume first row has headers
-            header_row = thead.find('db:row', NS)
-            if header_row:
-                for entry in header_row.findall('db:entry', NS):
-                    # Flatten header text
-                    headers.append("".join(entry.itertext()).strip())
+        header_row = thead.find('db:row', NS) if thead is not None else None
+        if header_row is not None:
+            for entry in header_row.findall('db:entry', NS):
+                # Flatten header text
+                headers.append("".join(entry.itertext()).strip())
         
         # Get body rows
         tbody = tgroup.find('db:tbody', NS)
-        if not tbody:
+        if tbody is None:
             continue
             
-        # Create a list to replace the table
-        ulist = ET.Element(f'{{{NS_URL}}}itemizedlist')
-        
         rows = tbody.findall('db:row', NS)
         if not rows:
             continue
-            
+
+        # Create a list to replace the table
+        ulist = ET.Element(f'{{{NS_URL}}}itemizedlist')
         for row in rows:
             listitem = ET.SubElement(ulist, f'{{{NS_URL}}}listitem')
             # Use simpara or para for list content
@@ -245,10 +249,50 @@ def clean_docbook(xml_path):
         if parent is not None:
              # Find index, insert list, remove table
              # Handle case where table might have been removed or moved (unlikely here)
-             if table in list(parent):
-                 idx = list(parent).index(table)
+             parent_children = list(parent)
+             if table in parent_children:
+                 idx = parent_children.index(table)
                  parent.insert(idx, ulist)
                  parent.remove(table)
+
+    # 4.5 Extract titles from lists to prevent them from becoming <div> blocks in Markdown
+    for list_tag in ['itemizedlist', 'orderedlist', 'variablelist']:
+        for lst in root.findall(f'.//db:{list_tag}', NS):
+            title = lst.find('db:title', NS)
+            if title is not None:
+                parent = parent_map.get(lst)
+                if parent is not None:
+                    # Create a new para with strong emphasis
+                    para = ET.Element(f'{{{NS_URL}}}para')
+                    strong = ET.SubElement(para, f'{{{NS_URL}}}emphasis', role="strong")
+                    
+                    # Move text from title to strong
+                    strong.text = "".join(title.itertext()).strip()
+                    
+                    # Insert the para before the list
+                    parent_children = list(parent)
+                    if lst in parent_children:
+                        idx = parent_children.index(lst)
+                        parent.insert(idx, para)
+                        
+                        # Remove the title from the list
+                        lst.remove(title)
+
+    # 4.7 Remove "Additional resources" sections
+    # RAG chunks don't benefit from these link lists
+    sections_to_remove = []
+    for section in root.findall('.//db:section', NS):
+        title = section.find('db:title', NS)
+        if title is not None:
+            title_text = "".join(title.itertext()).strip().lower()
+            if title_text == "additional resources":
+                sections_to_remove.append(section)
+                
+    for section in sections_to_remove:
+        parent = parent_map.get(section)
+        if parent is not None:
+            if section in list(parent):
+                parent.remove(section)
 
     # 5. Remove Empty Sections
     # Iterate multiple times or bottom-up to handle nested empty sections

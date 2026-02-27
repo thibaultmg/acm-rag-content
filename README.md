@@ -71,6 +71,37 @@ python scripts/query_local.py --query "What is OpenShift Container Platform?"
 
 This will load the FAISS index and metadata from `vector_db/acm/2.15` and return the most relevant document chunks.
 
+### Combining Multiple Products/Versions in a Single DB
+
+To create a single vector database from documentation spanning multiple products or versions, you can use symbolic links to create a unified view of your documentation. This approach leverages the recursive processing of the `embedding_generator`.
+
+1.  **Create a combined documentation directory:**
+    ```bash
+    mkdir -p docs/combined_docs
+    ```
+
+2.  **Create symbolic links to your product/version directories:**
+    ```bash
+    ln -s $(pwd)/docs/acm/2.15 docs/combined_docs/acm_2.15
+    ln -s $(pwd)/docs/thanos/latest docs/combined_docs/thanos_latest # Example for Thanos
+    # Add more symlinks as needed
+    ```
+
+3.  **Generate the embeddings, pointing to the combined directory:**
+    Navigate to `embedding_generator` and override the `DOCS_FOLDER` variable:
+    ```bash
+    cd embedding_generator
+    make generate-local DOCS_FOLDER=../docs/combined_docs PRODUCT=combined VERSION=v1
+    ```
+    *Note: The `PRODUCT` and `VERSION` parameters here (`combined` and `v1`) will determine the output directory (`vector_db/combined/v1`) and the `INDEX_NAME` for the combined database.*
+
+    The `embedding_generator/custom_processor.py` has been updated to dynamically assign appropriate URLs to the chunks based on whether `acm` or `thanos` is in their file path, ensuring correct source attribution for mixed content.
+
+4.  **Query the combined database:**
+    ```bash
+    python scripts/query_local.py --product combined --version v1 --query "How do I manage multi-cluster applications with ACM?"
+    ```
+
 ## Directory Structure
 
 -   `docs/`: Source documentation files.

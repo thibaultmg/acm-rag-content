@@ -1,0 +1,9 @@
+products:
+  acm:
+    url_template: "https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/{version}/html-single/"
+    rename_map:
+      "console": "web_console"
+      "global_hub": "multicluster_global_hub"
+      "mce_acm_integration": "multicluster_engine_operator_with_red_hat_advanced_cluster_management"
+  default:
+    url_template: "https://www.redhat.com/"

@@ -32,7 +32,16 @@ def _load_header_map(dir_path: str) -> dict:
     map_file = os.path.join(dir_path, "header_map.json")
     try:
         with open(map_file, 'r') as f:
-            return json.load(f)
+            data = json.load(f)
+            # Validate schema and normalize data
+            normalized_map = {}
+            if isinstance(data, dict):
+                for k, v in data.items():
+                    if isinstance(v, list) and len(v) > 0:
+                        normalized_map[str(k)] = str(v[0])
+                    elif isinstance(v, str):
+                        normalized_map[str(k)] = v
+            return normalized_map
     except FileNotFoundError:
         pass
     except json.JSONDecodeError as e:
@@ -58,6 +67,25 @@ def get_anchor_id(file_path: str, header_text: str) -> str:
     return slugify(header_text)
 
 class AnchorLinkNodeParser(MarkdownNodeParser):
+    _chunk_size: int = 1024
+    _chunk_overlap: int = 0
+
+    @property
+    def chunk_size(self):
+        return self._chunk_size
+    
+    @chunk_size.setter
+    def chunk_size(self, value):
+        self._chunk_size = value
+
+    @property
+    def chunk_overlap(self):
+        return self._chunk_overlap
+    
+    @chunk_overlap.setter
+    def chunk_overlap(self, value):
+        self._chunk_overlap = value
+
     def get_nodes_from_documents(self, documents, **kwargs):
         nodes = super().get_nodes_from_documents(documents, **kwargs)
         
@@ -102,6 +130,12 @@ class CustomMetadataProcessor(MetadataProcessor):
         if not self.default_url.endswith("/"):
              self.default_url += "/"
 
+    def populate(self, file_path: str):
+        metadata = super().populate(file_path)
+        metadata = metadata.copy()
+        metadata["file_path"] = file_path
+        return metadata
+
     def url_function(self, file_path: str) -> str:
         import pathlib
         abs_path = os.path.abspath(file_path)
@@ -129,7 +163,7 @@ class CustomMetadataProcessor(MetadataProcessor):
 
         return self.default_url + url_suffix
 
-if __name__ == "__main__":
+def run() -> int:
     parser = utils.get_common_arg_parser()
     parser.add_argument('--product', type=str, required=True, help='Product name (key in config.yaml).')
     parser.add_argument('--version', type=str, required=True, help='Product version.')
@@ -166,7 +200,7 @@ if __name__ == "__main__":
             config = yaml.safe_load(f) or {}
     except (yaml.YAMLError, OSError):
         logging.exception("Failed to load config file: %s", args.config)
-        sys.exit(1)
+        return 1
 
     # Resolve URL from config
     products_config = config.get('products') or {}
@@ -180,18 +214,18 @@ if __name__ == "__main__":
 
     if not url_template:
          logging.error("No url_template found for product '%s' or default.", args.product)
-         sys.exit(1)
+         return 1
 
     resolved_url = url_template.format(version=args.version, product=args.product)
     logging.info("Resolved base URL: %s", resolved_url)
+
+    # Instantiate custom Metadata Processor with the root folder
+    metadata_processor = CustomMetadataProcessor(args.folder, resolved_url, rename_map)
 
     # Inject our custom node parser
     custom_parser = AnchorLinkNodeParser()
     Settings.node_parser = custom_parser
     Settings.text_splitter = custom_parser
-
-    # Instantiate custom Metadata Processor with the root folder
-    metadata_processor = CustomMetadataProcessor(args.folder, resolved_url, rename_map)
 
     # Instantiate Document Processor
     document_processor = DocumentProcessor(
@@ -213,3 +247,8 @@ if __name__ == "__main__":
 
     # Save the new vector database to the output directory
     document_processor.save(args.index, args.output)
+    
+    return 0
+
+if __name__ == "__main__":
+    sys.exit(run())

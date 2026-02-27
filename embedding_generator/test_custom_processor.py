@@ -60,12 +60,16 @@ class TestCustomProcessor(unittest.TestCase):
             # Create a mock header_map.json
             map_file = os.path.join(tmpdir, "header_map.json")
             with open(map_file, 'w') as f:
-                json.dump({"Known Header": "custom-id-123"}, f)
+                json.dump({
+                    "Known Header": "custom-id-123",
+                    "List Header": ["custom-id-list-1", "custom-id-list-2"]
+                }, f)
             
             mock_file = os.path.join(tmpdir, "some_doc.md")
             
             cases = [
                 (mock_file, "Known Header", "custom-id-123"), # Match from JSON
+                (mock_file, "List Header", "custom-id-list-1"), # Match first element of list
                 (mock_file, "Unknown Header", "unknown-header"), # Fallback to slugify
                 (None, "Valid Header", "valid-header"), # Type safety for file_path
                 ("", "Valid Header", "valid-header"), # Type safety for file_path

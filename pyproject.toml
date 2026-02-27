@@ -7,6 +7,7 @@ requires-python = ">=3.12"
 dependencies = [
     "lightspeed-rag-content",
     "pyyaml==6.0.2",
+    "llama-index-core",
 ]
 
 [tool.uv.sources]

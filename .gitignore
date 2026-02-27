@@ -209,3 +209,6 @@ vector_db/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+rhacm-docs/
+tmp/

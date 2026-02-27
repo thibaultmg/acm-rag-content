@@ -663,6 +663,18 @@ requirements from the Role-based access control documentation.
 7.  You are redirected to the *Overview* page where you can view the
     details and topology.
 
+#### More examples
+
+- For an example of `root-subscription/`, see application-subscribe-all.
+
+- For examples of subscriptions that point to other folders in the same
+  repository, see subscribe-all.
+
+- See an example of the `common-managed` folder with application
+  artifacts in the nginx-apps repository.
+
+- See policy examples in Policy collection.
+
 #### Keeping deployed resources after deleting subscription with Git
 
 When creating subscriptions using a Git repository, you can add a
@@ -1090,8 +1102,13 @@ the application from a cluster.
 
 - Install the Ansible Automation Platform Resource Operator to connect
   Ansible Automation Platform jobs to the lifecycle of Git
-  subscriptions. **Best practice:** The Ansible Automation Platform job
-  template should be idempotent.
+  subscriptions. Make sure the Ansible Automation Platform job template
+  is idempotent.
+
+- You can install the Ansible Automation Platform Resource Operator on a
+  different cluster than the hub cluster. If you install the Ansible
+  Automation Platform Resource Operator on the hub cluster, the operator
+  must be the same version as the Ansible Automation Platform Tower.
 
 - Check `PROMPT ON LAUNCH` on the template for both `INVENTORY` and
   `EXTRA VARIABLES`. See Job templates for more information.

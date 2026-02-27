@@ -537,6 +537,17 @@ access control:
 
 </div>
 
+- You need to install the latest version of Red Hat OpenShift
+  Virtualization on your hub cluster. For more information, see
+  Virtualization - Installing.
+
+- To learn about OpenShift Container Platform default and virtualization
+  roles and permissions, see Authorization in the OpenShift Container
+  Platform documentation.
+
+- For details on how to enable role-based access control, see
+  Implementing role-based access control.
+
 ### Assigning fine-grained role-based access control in the console
 
 You can assign users to manage virtual machines with fine-grained
@@ -669,7 +680,24 @@ access control:
 
 </div>
 
+- You need to install the latest version of Red Hat OpenShift
+  Virtualization on your hub cluster. For more information, see
+  Virtualization - Installing.
+
+- You need virtual machines. To learn about OpenShift Container Platform
+  default and virtualization roles and permissions, see Authorization in
+  the OpenShift Container Platform documentation.
+
+- For details on how to enable role-based access control, see
+  Implementing role-based access control.
+
 ### Enabling fine-grained role-based access control in the terminal
+
+Enabling fine-grained RBAC for virtualization in version 2.15
+significantly changes how the Red Hat Advanced Cluster Management
+console displays search results and manages access for application
+lifecycles, governance, and observability. Cluster administrators must
+compare these functional trade-offs before enabling this feature.
 
 When you enable fine-grained RBAC, the following roles for OpenShift
 Virtualization are added automatically:

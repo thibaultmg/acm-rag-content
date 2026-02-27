@@ -1,0 +1,29 @@
+{
+  "Search components": [
+    "_search_components"
+  ],
+  "Search operations and data types": [
+    "_search_operations_and_data_types"
+  ],
+  "Search service": [
+    "search-service"
+  ],
+  "Creating search configurable collection": [
+    "create-search-collection"
+  ],
+  "Customizing the Search service": [
+    "customize-search-service"
+  ],
+  "Querying in the console": [
+    "query-console"
+  ],
+  "Customizing the console for Search": [
+    "customize-search-console"
+  ],
+  "Updating klusterlet-addon-search deployments": [
+    "update-klusterlet-search"
+  ],
+  "Search": [
+    "acm-search"
+  ]
+}

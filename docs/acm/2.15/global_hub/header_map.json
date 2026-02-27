@@ -1,0 +1,165 @@
+{
+  "The multicluster global hub operator": [
+    "global-hub-operator"
+  ],
+  "The multicluster global hub manager": [
+    "global-hub-manager"
+  ],
+  "The multicluster global hub agent": [
+    "global-hub-agent"
+  ],
+  "The multicluster global hub visualizations": [
+    "global-hub-visualizations"
+  ],
+  "multicluster global hub architecture": [
+    "global-hub-architecture"
+  ],
+  "Networking requirements": [
+    "gh-network-requirements"
+  ],
+  "Supported components": [
+    "gh-supported-components"
+  ],
+  "multicluster global hub requirements": [
+    "global-hub-requirements"
+  ],
+  "Installing multicluster global hub by using the console": [
+    "global-hub-installing-connected-console"
+  ],
+  "Prerequisites": [
+    "global-hub-install-connected-prerequisites",
+    "global-hub-installing-disconnected-prereq",
+    "global-hub-importing-default-prereq",
+    "global-hub-importing-prereq",
+    "global-search-prereq",
+    "prerequisites"
+  ],
+  "Installing multicluster global hub in a connected environment": [
+    "global-hub-install-connected"
+  ],
+  "Creating operator packages in mirror catalog with oc-mirror plug-in": [
+    "global-hub-packages-in-catalog"
+  ],
+  "Adding the registry and catalog to your disconnected cluster": [
+    "global-hub-add-reg-in-catalog"
+  ],
+  "Configuring a mirror registry": [
+    "global-hub-installing-disconnected-mirror"
+  ],
+  "Configure the multicluster global hub image pull secret in an OpenShift Container Platform cluster": [
+    "global-hub-installing-disconnected-pull-secret-generic"
+  ],
+  "Configure the multicluster global hub image pull secret to an individual namespace": [
+    "global-hub-installing-disconnected-pull-secret-individual-namespace"
+  ],
+  "Configure the image pull secret": [
+    "global-hub-installing-disconnected-pull-secret"
+  ],
+  "Installing the Global Hub Operator": [
+    "global-hub-installing-disconnected-operator"
+  ],
+  "Configuring the image registry": [
+    "global-hub-installing-disconnected-config-image-registry"
+  ],
+  "Installing multicluster global hub in a disconnected environment": [
+    "global-hub-install-disconnected"
+  ],
+  "Installing multicluster global hub on an existing Red Hat Advanced Cluster Management hub cluster": [
+    "global-hub-install-acm"
+  ],
+  "Integrating an existing version of Kafka": [
+    "integrating-existing-kafka"
+  ],
+  "Integrating an existing version of PostgreSQL": [
+    "integrating-existing-postgresql"
+  ],
+  "Integrating an existing version of Grafana": [
+    "integrating-existing-grafana"
+  ],
+  "Integrating existing components": [
+    "global-hub-integrating-existing-components"
+  ],
+  "Importing a managed hub cluster": [
+    "global-hub-importing-managed-hub"
+  ],
+  "Importing a managed hub cluster in the default mode": [
+    "global-hub-importing-managed-hub-in-default-mode"
+  ],
+  "Importing a managed hub cluster in the hosted mode": [
+    "global-hub-importing-hosted-mode",
+    "global-hub-importing-in-hosted-mode"
+  ],
+  "Viewing policy status with Grafana dashboards": [
+    "policy-grafana-dashboards"
+  ],
+  "Viewing Strimzi information with Grafana dashboards": [
+    "strimzi-grafana-dashboards"
+  ],
+  "Viewing Postgres information with Grafana dashboards (Technology Preview)": [
+    "postgres-grafana-dashboards"
+  ],
+  "Viewing cluster information with Grafana dashboards": [
+    "cluster-grafana-dashboards"
+  ],
+  "Accessing the Grafana data": [
+    "global-hub-accessing-grafana-data"
+  ],
+  "Deleting a default Grafana alert rule": [
+    "global-hub-delete-grafana-alert-rule"
+  ],
+  "Customizing your grafana.ini file": [
+    "global-hub-customize-grafana-ini-file"
+  ],
+  "Customizing Grafana alerting resources": [
+    "global-hub-customize-grafana-alerting-resources"
+  ],
+  "Customizing Grafana alerts": [
+    "global-hub-customize-grafana-alerts"
+  ],
+  "Grafana alerts (Technology Preview)": [
+    "global-hub-grafana-alerts"
+  ],
+  "Configuring the cron jobs": [
+    "global-hub-configuring-cronjobs"
+  ],
+  "Running the summarization process manually": [
+    "global-hub-compliance-manual"
+  ],
+  "Restoring multicluster global hub backup and restore": [
+    "_restoring_multicluster_global_hub_backup_and_restore"
+  ],
+  "Backup for multicluster global hub (Technology Preview)": [
+    "global-hub-backup"
+  ],
+  "Enabling global search": [
+    "enable-global-search"
+  ],
+  "multicluster global hub search (Technology Preview)": [
+    "global-search"
+  ],
+  "Managed cluster migration process": [
+    "migration-process"
+  ],
+  "Preparing the migration environment": [
+    "preparing-migration-environment"
+  ],
+  "Migrating managed clusters": [
+    "migrating-managed-clusters",
+    "global-hub-migrating-managed-clusters"
+  ],
+  "Tracking the migration status": [
+    "tracking-migration-status"
+  ],
+  "Restoring historical data": [
+    "restoring-data"
+  ],
+  "Deleting legacy built-in Postgres data": [
+    "deleting-legacy-postgres"
+  ],
+  "Recovering data from the upgraded built-in PostgreSQL (Deprecated)": [
+    "global-hub-upgrade-postgres"
+  ],
+  "multicluster global hub": [
+    "multicluster-global-hub"
+  ]
+}

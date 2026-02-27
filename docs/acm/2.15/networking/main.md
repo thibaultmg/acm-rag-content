@@ -307,6 +307,11 @@ Submariner:
   without any NAT in between, make sure that the firewall configuration
   allows the ESP protocol on the gateway nodes.
 
+- **Technology Preview:** If Open Virtual Network Internet Protocol
+  Security is enabled, you need to enable `IPSecCertAuthMode` in the
+  `SubmarinerConfig` resource. You can only change this setting during
+  installation.
+
   **Notes:**
 
   - This update is configured automatically when your clusters are
@@ -1012,7 +1017,12 @@ following steps:
     managed cluster. You can view the deployment status of Submariner
     from the status of this `ManagedClusterAddOn`.
 
-    **Note:** The name of `ManagedClusterAddOn` must be `submariner`.
+    **Notes:**
+
+    - The name of `ManagedClusterAddOn` must be `submariner`.
+
+    - The `spec.installNamespace` field is deprecated. See Product
+      deprecations and removals to learn more.
 
 6.  Repeat steps three, four, and five for all of the managed clusters
     that you want to enable Submariner on.
@@ -1037,11 +1047,6 @@ following steps:
     - `SubmarinerConnectionDegraded` condition indicates how many
       connections are established on the managed cluster with
       Submariner.
-
-#### Additional resources
-
-See Customizing Submariner deployments for information about the
-customization options.
 
 ### Customizing Submariner deployments
 

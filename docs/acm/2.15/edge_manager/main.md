@@ -208,6 +208,11 @@ devices and applications at scale.
 
 **Required access:** Cluster administrator
 
+### Prerequisites
+
+- You need a Red Hat Advanced Cluster Management hub cluster. See
+  Installing and upgrading.
+
 ### Enabling the Red Hat Edge Manager from the `MultiClusterHub` resource
 
 Patch the `MultiClusterHub` resource, then verify that Red Hat Edge
@@ -559,6 +564,16 @@ Hat Edge Manager, build a `bootc` operating system image that contains
 the Red Hat Edge Manager agent. Then build an operating system disk
 image for your devices.
 
+#### Prerequisites
+
+See the following prerequisites for building a `bootc` operating system
+image:
+
+- Install `podman` version 5.0 or later and `skopeo` version 1.14 or
+  later. See Getting container tools.
+
+- Install `bootc-image-builder`. See Installing bootc-image-builder.
+
 #### Installing the Red Hat Edge Manager CLI
 
 To install the Red Hat Edge Manager CLI, complete the following steps:
@@ -841,6 +856,11 @@ facilitates a unified hosting and distribution of `bootc` and disk
 images. To publish your ISO disk image to a repository named after your
 `bootc` image with `/diskimage-iso` appended, complete the following
 steps:
+
+##### Prerequisites
+
+- You created a private key by using Sigstore. See Signing and
+  publishing the bootc operating system image by using Sigstore.
 
 ##### Optional: Signing and publishing the operating system disk image to an OCI registry
 

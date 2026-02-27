@@ -1,0 +1,130 @@
+{
+  "Configuring infrastructure nodes to the OpenShift Container Platform cluster": [
+    "config-infra-nodes-ocp"
+  ],
+  "Configuring infrastructure nodes for Red Hat Advanced Cluster Management": [
+    "config-infra-node-acm"
+  ],
+  "Prerequisites": [
+    "connect-prerequisites",
+    "prereqs-install-acm-disconnected",
+    "prerequisite-detach"
+  ],
+  "Confirm your OpenShift Container Platform installation": [
+    "confirm-ocp-installation"
+  ],
+  "Installing from the Software Catalog console": [
+    "installing-from-the-software-catalog"
+  ],
+  "Installing from the OpenShift Container Platform CLI": [
+    "installing-from-the-cli"
+  ],
+  "Installing while connected online": [
+    "installing-while-connected-online"
+  ],
+  "Installing in disconnected environments": [
+    "disconnect-install-steps"
+  ],
+  "Catalog source priority": [
+    "disconnect-catalog-priority"
+  ],
+  "Installing in disconnected network environments": [
+    "install-on-disconnected-networks"
+  ],
+  "Console and component configuration": [
+    "component-config"
+  ],
+  "Custom Image Pull Secret": [
+    "custom-image-pull-secret"
+  ],
+  "availabilityConfig": [
+    "availability-config"
+  ],
+  "nodeSelector": [
+    "node-selector"
+  ],
+  "tolerations": [
+    "tolerations"
+  ],
+  "disableHubSelfManagement": [
+    "disable-hub-self-management"
+  ],
+  "disableUpdateClusterImageSets": [
+    "disable-update-cluster-image-sets"
+  ],
+  "customCAConfigmap (Deprecated)": [
+    "custom-ca-configmap"
+  ],
+  "sslCiphers (Deprecated)": [
+    "ssl-ciphers"
+  ],
+  "ClusterBackup": [
+    "cluster-backup"
+  ],
+  "Product environment": [
+    "product-environment"
+  ],
+  "OpenShift Container Platform on additional services": [
+    "openshift-cluster-on-additional-services"
+  ],
+  "Creating and managing single node OpenShift Container Platform clusters": [
+    "single-node"
+  ],
+  "Sizing your cluster": [
+    "sizing-your-cluster"
+  ],
+  "Maximum number of managed clusters": [
+    "maximum-number-of-managed-clusters"
+  ],
+  "Query run time considerations": [
+    "query-execution-considerations"
+  ],
+  "Search scalability": [
+    "search-scalability"
+  ],
+  "Observability scalability": [
+    "scaling-for-observability"
+  ],
+  "Backup and restore scalability": [
+    "backup-restore-scalability"
+  ],
+  "Performance and scalability": [
+    "performance-and-scalability"
+  ],
+  "Resource requests for components": [
+    "component-resource-requests"
+  ],
+  "Upgrading your hub cluster from the console": [
+    "upgrading-procedure"
+  ],
+  "Managing cluster pools with an upgrade": [
+    "upgrading-clusterpools"
+  ],
+  "Upgrading your hub cluster": [
+    "upgrading-hub"
+  ],
+  "Upgrade with catalog mirroring": [
+    "disconnect-upgrading-mirroring"
+  ],
+  "Upgrading in a disconnected network environment": [
+    "upgrading-disconnected"
+  ],
+  "Removing": [
+    "removing-a-multiclusterhub-instance-by-using-commands"
+  ],
+  "Deleting the components by using the console": [
+    "deleting-the-components-by-using-the-console"
+  ],
+  "Uninstalling": [
+    "uninstalling"
+  ],
+  "Cleaning up artifacts": [
+    "cleanup-artifacts"
+  ],
+  "Cleaning up artifacts before reinstalling": [
+    "cleanup-reinstall"
+  ],
+  "Installing and upgrading": [
+    "installing"
+  ]
+}

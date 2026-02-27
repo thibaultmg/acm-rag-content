@@ -1,0 +1,81 @@
+{
+  "Overview of roles": [
+    "overview-of-roles"
+  ],
+  "Console and API RBAC tables": [
+    "console-api-rbac"
+  ],
+  "Role-based access control": [
+    "rbac-rhacm"
+  ],
+  "Enabling RBAC for cluster management": [
+    "cluster-mgmnt-RBAC"
+  ],
+  "Enabling RBAC for Application lifecycle": [
+    "application-lifecycle-RBAC"
+  ],
+  "Enabling RBAC for Governance": [
+    "governance-lifecycle-RBAC"
+  ],
+  "Enabling RBAC for Observability": [
+    "observability-RBAC"
+  ],
+  "Implementing role-based access control": [
+    "rhacm-rbac-implement"
+  ],
+  "Assigning fine-grained role-based access control in the console": [
+    "_assigning_fine_grained_role_based_access_control_in_the_console"
+  ],
+  "Implementing fine-grained role-based access control with the console (Technology Preview)": [
+    "fine-grain-rbac-ui"
+  ],
+  "Enabling fine-grained role-based access control in the terminal": [
+    "_enabling_fine_grained_role_based_access_control_in_the_terminal"
+  ],
+  "Implementing fine-grained role-based access control in the terminal (Technology Preview)": [
+    "fine-grain-rbac-cli"
+  ],
+  "Red Hat Advanced Cluster Management hub cluster certificates": [
+    "acm-hub-cluster-certs"
+  ],
+  "Red Hat Advanced Cluster Management managed certificates": [
+    "acm-managed-certs"
+  ],
+  "Certificates": [
+    "certificates"
+  ],
+  "Refreshing a Red Hat Advanced Cluster Management webhook certificate": [
+    "refresh-an-acm-webhook"
+  ],
+  "Replacing certificates for": [
+    "replacing-cert-alertmanager",
+    "replace-cert-rbac"
+  ],
+  "Rotating the Gatekeeper webhook certificate": [
+    "rotating-the-gatekeeper-webhook-certificate"
+  ],
+  "Verifying certificate rotation": [
+    "verifying-cert-rotation"
+  ],
+  "Listing hub cluster managed certificates": [
+    "list-hub-cluster-managed-certificates"
+  ],
+  "Managing certificates": [
+    "cert-manage"
+  ],
+  "Customizing your CA certificates for Observability": [
+    "customize-cert"
+  ],
+  "Bringing your own Certificate Authority (CA) certificates for Observability": [
+    "certificates-byo"
+  ],
+  "Enabling validation for cluster permissions": [
+    "enable-cluster-permission-validate"
+  ],
+  "Role-based access control for managed clusters with cluster permissions": [
+    "rbac-managed-cluster-permissions"
+  ],
+  "Securing clusters": [
+    "securing-cluster-intro"
+  ]
+}

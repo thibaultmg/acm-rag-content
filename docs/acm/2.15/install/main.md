@@ -3,18 +3,16 @@
 Install Red Hat Advanced Cluster Management for Kubernetes through
 Operator Lifecycle Manager, which manages the installation, upgrade, and
 removal of the components that encompass the Red Hat Advanced Cluster
-Management hub cluster. Because Red Hat Advanced Cluster Management
-depends on and uses the multicluster engine operator, after you create
-the `MultiClusterHub` resource during installation, the Red Hat Advanced
-Cluster Management operator automatically installs the multicluster
-engine operator operator and creates the `MultiClusterEngine` resource.
+Management hub cluster. After you create the `MultiClusterHub` resource
+during installation, the Red Hat Advanced Cluster Management operator
+automatically installs the multicluster engine operator operator and
+creates the `MultiClusterEngine` resource.
 
 You must have a supported version of OpenShift Container Platform to
-install Red Hat Advanced Cluster Management.
-
-Before you install, review the required hardware and system
-configuration for each product. You can install online on Linux with a
-supported version of Red Hat OpenShift Container Platform.
+install Red Hat Advanced Cluster Management. Review the required
+hardware and system configuration for each product. You can install
+online on Linux with a supported version of OpenShift Container
+Platform.
 
 For full support information, see the Red Hat Advanced Cluster
 Management Support Matrix and the Lifecycle and update policies for Red
@@ -520,6 +518,11 @@ Advanced Cluster Management for Kubernetes:
 
 - Review Sizing your cluster to learn about setting up capacity for your
   hub cluster.
+
+  - If you previously installed Red Hat Advanced Cluster Management on a
+    cluster, then uninstalled, you need to follow the clean up procedure
+    to remove artifacts. See Cleaning up artifacts before reinstalling
+    and follow the procedure.
 
 ### Installing in disconnected environments
 
@@ -1934,10 +1937,6 @@ this time.
 
 To resolve this issue, run `oc edit` to add the `mce-subscription-spec`
 annotation as shown previously.
-
-### Additional resources
-
-Installing in disconnected network environments
 
 ## Uninstalling
 

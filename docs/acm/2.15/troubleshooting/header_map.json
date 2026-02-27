@@ -1,0 +1,406 @@
+{
+  "Documented troubleshooting": [
+    "documented-troubleshooting"
+  ],
+  "Must-gather scenarios": [
+    "scenarios"
+  ],
+  "Must-gather procedure": [
+    "procedure"
+  ],
+  "Must-gather in a disconnected environment": [
+    "must-gather-disconnected"
+  ],
+  "Running the must-gather command to troubleshoot Red Hat Advanced Cluster Management components": [
+    "running-the-must-gather-command-to-troubleshoot"
+  ],
+  "Prerequisites": [
+    "global-hub-must-gather-prereq"
+  ],
+  "Running the must-gather command": [
+    "global-hub-must-gather-procedure"
+  ],
+  "Running the": [
+    "global-hub-must-gather"
+  ],
+  "Must-gather procedure for the Red Hat Edge Manager agent": [
+    "must-gather-rhem"
+  ],
+  "Symptom: Stuck in Pending status": [
+    "symptom-stuck-pending"
+  ],
+  "Resolving the problem: Adjust worker node sizing": [
+    "resolving-the-problem-adjust-sizing"
+  ],
+  "Troubleshooting installation status stuck in installing or pending": [
+    "troubleshooting-stuck-pending"
+  ],
+  "Symptom: Cluster status is offline": [
+    "symptom-cluster-offline"
+  ],
+  "Resolving the problem: Cluster status is offline": [
+    "resolving-cluster-offline"
+  ],
+  "Troubleshooting an offline cluster": [
+    "troubleshooting-an-offline-cluster"
+  ],
+  "Symptom: Imported cluster not available": [
+    "symptom-cluster-import-failed"
+  ],
+  "Resolving the problem: Imported cluster not available": [
+    "resolving-cluster-import-failed"
+  ],
+  "Troubleshooting a managed cluster import failure": [
+    "troubleshooting-a-managed-cluster-import-failure"
+  ],
+  "Symptom: Cluster with pending import status": [
+    "symptom-cluster-with-pending-import-status"
+  ],
+  "Identifying the problem: Cluster with pending import status": [
+    "identifying-the-problem-cluster-with-pending-import-status"
+  ],
+  "Resolving the problem: Cluster with pending import status": [
+    "resolving-the-problem-cluster-with-pending-import-status"
+  ],
+  "Troubleshooting cluster with pending import status": [
+    "troubleshooting-cluster-with-pending-import-status"
+  ],
+  "Symptom": [
+    "_symptom"
+  ],
+  "Identifying the problem": [
+    "_identifying_the_problem"
+  ],
+  "Resolving the problem: Already exists when importing OpenShift Container Platform cluster": [
+    "resolving-problem-already-exists-ocp-import"
+  ],
+  "Troubleshooting cluster with already exists error": [
+    "troubleshopoting-cluster-with-already-exists-error"
+  ],
+  "Symptom: Managed cluster creation fails with certificate IP SAN error": [
+    "symptom-vsphere-fails-cert-ip-san"
+  ],
+  "Identifying the problem: Managed cluster creation fails with certificate IP SAN error": [
+    "identifying-the-problem-vsphere-fails-cert-ip-san"
+  ],
+  "Resolving the problem: Managed cluster creation fails with certificate IP SAN error": [
+    "resolving-the-problem-vsphere-fails-cert-ip-san"
+  ],
+  "Managed cluster creation fails with certificate IP SAN error": [
+    "_managed_cluster_creation_fails_with_certificate_ip_san_error"
+  ],
+  "Symptom: Managed cluster creation fails with unknown certificate authority": [
+    "symptom-vsphere-fails-cert-unknown"
+  ],
+  "Identifying the problem: Managed cluster creation fails with unknown certificate authority": [
+    "identifying-the-problem-vsphere-fails-cert-unknown"
+  ],
+  "Resolving the problem: Managed cluster creation fails with unknown certificate authority": [
+    "resolving-the-problem-vsphere-fails-cert-unknown"
+  ],
+  "Managed cluster creation fails with unknown certificate authority": [
+    "_managed_cluster_creation_fails_with_unknown_certificate_authority"
+  ],
+  "Symptom: Managed cluster creation fails with expired certificate": [
+    "symptom-vsphere-fails-cert-expired"
+  ],
+  "Identifying the problem: Managed cluster creation fails with expired certificate": [
+    "identifying-the-problem-vsphere-fails-cert-expired"
+  ],
+  "Resolving the problem: Managed cluster creation fails with expired certificate": [
+    "resolving-the-problem-vsphere-fails-cert-expired"
+  ],
+  "Managed cluster creation fails with expired certificate": [
+    "_managed_cluster_creation_fails_with_expired_certificate"
+  ],
+  "Symptom: Managed cluster creation fails with insufficient privilege for tagging": [
+    "symptom-vsphere-fails-tag"
+  ],
+  "Identifying the problem: Managed cluster creation fails with insufficient privilege for tagging": [
+    "identifying-the-problem-vsphere-fails-tag"
+  ],
+  "Resolving the problem: Managed cluster creation fails with insufficient privilege for tagging": [
+    "resolving-the-problem-vsphere-fails-tag"
+  ],
+  "Managed cluster creation fails with insufficient privilege for tagging": [
+    "_managed_cluster_creation_fails_with_insufficient_privilege_for_tagging"
+  ],
+  "Symptom: Managed cluster creation fails with invalid dnsVIP": [
+    "symptom-vsphere-fails-dnsvip"
+  ],
+  "Identifying the problem: Managed cluster creation fails with invalid dnsVIP": [
+    "identifying-the-problem-vsphere-fails-dnsvip"
+  ],
+  "Resolving the problem: Managed cluster creation fails with invalid dnsVIP": [
+    "resolving-the-problem-vsphere-fails-dnsvip"
+  ],
+  "Managed cluster creation fails with invalid dnsVIP": [
+    "_managed_cluster_creation_fails_with_invalid_dnsvip"
+  ],
+  "Symptom: Managed cluster creation fails with incorrect network type": [
+    "symptom-vsphere-fails-network"
+  ],
+  "Identifying the problem: Managed cluster creation fails with incorrect network type": [
+    "identifying-the-problem-vsphere-fails-network"
+  ],
+  "Resolving the problem: Managed cluster creation fails with incorrect network type": [
+    "resolving-the-problem-vsphere-fails-network"
+  ],
+  "Managed cluster creation fails with incorrect network type": [
+    "_managed_cluster_creation_fails_with_incorrect_network_type"
+  ],
+  "Symptom: Adding the VMware vSphere managed cluster fails due to an error processing disk changes": [
+    "symptom-vsphere-fails-disk"
+  ],
+  "Identifying the problem: Adding the VMware vSphere managed cluster fails due to an error processing disk changes": [
+    "identifying-the-problem-vsphere-fails-disk"
+  ],
+  "Resolving the problem: Adding the VMware vSphere managed cluster fails due to an error processing disk changes": [
+    "resolving-the-problem-vsphere-fails-disk"
+  ],
+  "Managed cluster creation fails with an error processing disk changes": [
+    "_managed_cluster_creation_fails_with_an_error_processing_disk_changes"
+  ],
+  "Troubleshooting cluster creation on VMware vSphere": [
+    "troubleshooting-cluster-creation-on-vmware-vsphere"
+  ],
+  "Symptom: Managed cluster creation fails with unknown authority error": [
+    "symptom-openstack-fails"
+  ],
+  "Identifying the problem: Managed cluster creation fails with unknown authority error": [
+    "identifying-the-problem-openstack-fails"
+  ],
+  "Resolving the problem: Managed cluster creation fails with unknown authority error": [
+    "resolving-the-problem-openstack-fails"
+  ],
+  "Troubleshooting managed cluster creation fails on Red Hat OpenStack Platform with unknown authority error": [
+    "troubleshooting-cluster-creation-on-openstack"
+  ],
+  "Symptom: Clusters offline after certificate change": [
+    "symptom-clusters-offline-after-certificate-change"
+  ],
+  "Identifying the problem: Clusters offline after certificate change": [
+    "identifying-clusters-offline-after-certificate-change"
+  ],
+  "Resolving the problem: Clusters offline after certificate change": [
+    "resolving-clusters-offline-after-certificate-change"
+  ],
+  "Troubleshooting imported clusters offline after certificate change": [
+    "troubleshooting-imported-clusters-offline-after-certificate-change"
+  ],
+  "Symptom: Namespace remains after deleting a cluster": [
+    "symptom-trouble-cluster-remove-namespace"
+  ],
+  "Resolving the problem: Namespace remains after deleting a cluster": [
+    "resolving-trouble-cluster-remove-namespace"
+  ],
+  "Namespace remains after deleting a cluster": [
+    "trouble-cluster-remove-namespace"
+  ],
+  "Symptom: Auto import secret exists error when importing a cluster": [
+    "symptom-auto-import-secret-exists"
+  ],
+  "Resolving the problem: Auto-import-secret-exists error when importing a cluster": [
+    "resolving-auto-import-secrets-exists"
+  ],
+  "Auto-import-secret-exists error when importing a cluster": [
+    "trouble-auto-import-secret-exists"
+  ],
+  "Symptom:": [
+    "symptom-volumesnapshot-error-state",
+    "symptom-automation-template"
+  ],
+  "Resolving the problem: Setting the parameter to": [
+    "resolving-setting-the-parameter-to-true"
+  ],
+  "Troubleshooting the cinder Container Storage Interface (CSI) driver for VolSync": [
+    "troubleshooting-the-cinder-csi-driver-for-volsync"
+  ],
+  "Symptom: Errors with multicluster global hub": [
+    "symptom-errors-global-hub-postgresql",
+    "symptom-errors-global-hub-dump-restore"
+  ],
+  "Resolving the problem: Accessing the PostgresSQL database": [
+    "resolving-the-problem-accessing-postgress"
+  ],
+  "Troubleshooting by accessing the PostgreSQL database": [
+    "troubleshooting-accessing-postgres"
+  ],
+  "Resolving the problem: Dumping the output of the database for dubugging": [
+    "resolving-the-problem-using-dump-database"
+  ],
+  "Resolving the problem: Restore database from dump": [
+    "resolving-the-problem-using-restore-database"
+  ],
+  "Troubleshooting by using the database dump and restore": [
+    "troubleshooting-database-dump-restore"
+  ],
+  "Symptom: Cluster status changing from offline to available": [
+    "symptom-cluster-status-changing-from-offline-to-available"
+  ],
+  "Resolving the problem: Cluster status changing from offline to available": [
+    "resolving-the-problem-cluster-status-changing-from-offline-to-available"
+  ],
+  "Troubleshooting cluster status changing from offline to available": [
+    "troubleshooting-cluster-status-offline-available"
+  ],
+  "Symptom: Cluster in console with pending or failed status": [
+    "symptom-cluster-in-console-with-pending-or-failed-status"
+  ],
+  "Identifying the problem: Cluster in console with pending or failed status": [
+    "identifying-the-problem-cluster-in-console-with-pending-or-failed-status"
+  ],
+  "Resolving the problem: Cluster in console with pending or failed status": [
+    "resolving-the-problem-cluster-in-console-with-pending-or-failed-status"
+  ],
+  "Troubleshooting cluster in console with pending or failed status": [
+    "troubleshooting-cluster-in-console-with-pending-or-failed-status"
+  ],
+  "Symptom: Grafana explorer gateway timeout": [
+    "symptom-grafana-explorer-gateway-timeout"
+  ],
+  "Resolving the problem: Configure the Grafana": [
+    "resolving-grafana-explorer-gateway-timeout"
+  ],
+  "Troubleshooting Grafana": [
+    "troubleshooting-grafana"
+  ],
+  "Symptom: Troubleshooting local cluster not selected as a managed cluster": [
+    "symptom-local-cluster-not-selected"
+  ],
+  "Resolving the problem: Troubleshooting local cluster not selected as a managed cluster": [
+    "resolving-the-problem-local-cluster-not-selected"
+  ],
+  "Troubleshooting local cluster not selected with placement rule": [
+    "troubleshooting-local-cluster-not-selected"
+  ],
+  "Symptom: Application deployment version": [
+    "symptom-application-deployment-version"
+  ],
+  "Resolving the problem: Application deployment version": [
+    "resolving-the-problem-application-deployment-version"
+  ],
+  "Troubleshooting application Kubernetes deployment version": [
+    "troubleshooting-application-kubernetes-deployment-version"
+  ],
+  "Symptom: Klusterlet is in the degraded condition": [
+    "symptom-klusterlet-is-in-the-degraded-condition"
+  ],
+  "Identifying the problem: Klusterlet is in the degraded condition": [
+    "identifying-the-problem-klusterlet-is-in-the-degraded-condition"
+  ],
+  "Resolving the problem: Klusterlet is in the degraded condition": [
+    "resolving-the-problem-klusterlet-is-in-the-degraded-condition"
+  ],
+  "Troubleshooting Klusterlet with degraded conditions": [
+    "troubleshooting-klusterlet-with-degraded-conditions"
+  ],
+  "Symptom: Object storage channel secret": [
+    "symptom-object-storage-channel-secret"
+  ],
+  "Resolving the problem: Object storage channel secret": [
+    "resolving-the-problem-object-storage-channel-secret"
+  ],
+  "Troubleshooting Object storage channel secret": [
+    "object-storage-channel-secret"
+  ],
+  "Symptom: MultiClusterObservability resource status stuck": [
+    "symptom-observability-status-stuck"
+  ],
+  "Resolving the problem: MultiClusterObservability resource status stuck": [
+    "resolving-observability-status-stuck"
+  ],
+  "Troubleshooting observability": [
+    "troubleshooting-observability"
+  ],
+  "Symptom: OpenShift monitoring service is not ready": [
+    "symptom-observability-ocp-monitoring-not-ready"
+  ],
+  "Resolving the problem: OpenShift monitoring service is not ready": [
+    "resolving-observability-ocp-monitoring-not-ready"
+  ],
+  "Troubleshooting OpenShift monitoring service": [
+    "observability-ocp-monitoring-not-ready"
+  ],
+  "Symptom: metrics-collector cannot verify observability-client-ca-certificate": [
+    "symptom-observability-metrics-unavailable"
+  ],
+  "Resolving the problem: metrics-collector cannot verify observability-client-ca-certificate": [
+    "resolving-observability-metrics-unavailable"
+  ],
+  "Troubleshooting metrics-collector": [
+    "troubleshooting-metrics-collector"
+  ],
+  "Symptom: Thanos compactor halts": [
+    "symptom-thanos-compactor",
+    "symptom-thanos-compactor-two"
+  ],
+  "Resolving the problem: Thanos compactor halts": [
+    "resolving-thanos-compactor",
+    "resolving-thanos-compactor-two"
+  ],
+  "Troubleshooting Thanos compactor halts": [
+    "troubleshooting-thanos-compactor"
+  ],
+  "Symptom: PostgreSQL shared memory error": [
+    "symptom-shared-memory"
+  ],
+  "Resolving the problem: PostgreSQL shared memory error": [
+    "resolving-shared-memory"
+  ],
+  "Troubleshooting PostgreSQL shared memory error": [
+    "troubleshooting-shared-memory"
+  ],
+  "Symptom: Submariner not connecting after installation": [
+    "symptom-trouble-submariner-general"
+  ],
+  "Identifying the problem: Submariner not connecting after installation": [
+    "identifying-trouble-submariner-general"
+  ],
+  "Resolving the problem: Submariner not connecting after installation": [
+    "resolving-trouble-submariner-general"
+  ],
+  "Troubleshooting Submariner not connecting after installation": [
+    "trouble-submariner-general"
+  ],
+  "Symptom: Submariner end-to-end data plane test fails": [
+    "symptom-submariner-data-plane"
+  ],
+  "Resolving the problem: Submariner end-to-end data plane test fails": [
+    "resolving-submariner-data-plane"
+  ],
+  "Symptom: Submariner end-to-end test fails for bare-metal clusters": [
+    "symptom-submariner-data-plane-bare-metal-clusters"
+  ],
+  "Resolving the problem: Submariner end-to-end test fails for bare-metal clusters": [
+    "resolving-submariner-dataplane-bare-metal-clusters"
+  ],
+  "Troubleshooting Submariner end-to-end test failures": [
+    "trouble-submariner-test-failure"
+  ],
+  "Symptom: Troubleshooting restore status finishes with errors": [
+    "symptom-restore-finishedwitherrors"
+  ],
+  "Resolving the problem: Troubleshooting restore status finishes with errors": [
+    "resolving-restore-finishedwitherrors"
+  ],
+  "Troubleshooting restore status finishes with errors": [
+    "troubleshooting-restore-finishedwitherrors"
+  ],
+  "Symptom: Troubleshooting multiline YAML parsing": [
+    "symptom-multiline-yaml-parsing"
+  ],
+  "Resolving the problem: Troubleshooting multiline YAML parsing": [
+    "resolving-the-problem-multiline-yaml-parsing"
+  ],
+  "Troubleshooting multiline YAML parsing": [
+    "troubleshooting-multiline-yaml-parsing"
+  ],
+  "Resolving the problem:": [
+    "resolving-automation-template"
+  ],
+  "Troubleshooting": [
+    "trouble-cluster-curator-template",
+    "troubleshooting"
+  ]
+}

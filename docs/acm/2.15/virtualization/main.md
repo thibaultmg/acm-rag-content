@@ -3,6 +3,13 @@
 Manage Red Hat OpenShift Virtualization virtual machine resources across
 all the clusters that Red Hat Advanced Cluster Management manages.
 
+To use virtualization capabilities in Red Hat Advanced Cluster
+Management, ensure that a supported version of OpenShift Container
+Platform and the Red Hat OpenShift Virtualization operator is installed
+on the clusters that you want to manage. For Red Hat Advanced Cluster
+Management 2.15, you need to use Red Hat OpenShift Virtualization 4.20.1
+or later.
+
 To view `VirtualMachine` resources across all the clusters that Red Hat
 Advanced Cluster Management manages, use the Search service to list and
 filter the `VirtualMachine` resources that are created with the Red Hat
@@ -478,13 +485,7 @@ virtualization is also installed on your hub cluster.
 
 **Required access:** Cluster administrator
 
-<div>
-
-<div class="title">
-
-Prerequsites
-
-</div>
+**Prerequsites**
 
 - You must have access to the `openshift-cnv` namespace.
 
@@ -496,8 +497,6 @@ Prerequsites
 
 - You have the latest version of OpenShift Container Platform installed.
   See the OpenShift Container Platform Overview.
-
-</div>
 
 To start migration for virtual machines complete the following steps:
 
@@ -531,7 +530,9 @@ To start migration for virtual machines complete the following steps:
 4.  Verify that the `kubevirt-hyperconverged-operator` is available on
     your cluster with the following command:
 
-        oc get clustermanagementaddon kubevirt-hyperconverged-operator -o jsonpath='{.status.installProgressions[*].conditions[*].reason}
+    ```
+    oc get clustermanagementaddon kubevirt-hyperconverged-operator -o jsonpath='{.status.installProgressions[*].conditions[*].reason}
+    ```
 
 5.  To designate a cluster as a source or target for the virtual machine
     migration, apply the following label to your clusters:

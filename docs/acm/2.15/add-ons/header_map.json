@@ -1,0 +1,35 @@
+{
+  "Enabling klusterlet add-ons on clusters for cluster management": [
+    "add-ons-klusterlet"
+  ],
+  "Setting up the": [
+    "setting-addondeploymentconfig-klusterlet-addons"
+  ],
+  "Configuring a klusterlet add-on for all managed clusters": [
+    "configuring-klusterlet-addons-all-managedclusters"
+  ],
+  "Configuring a klusterlet add-on for a single managed cluster": [
+    "configuring-klusterlet-addons-single-managedclusters"
+  ],
+  "Configuring klusterlet add-ons": [
+    "configure-klusterlet-addons"
+  ],
+  "Enabling cluster-wide proxy on existing cluster add-ons": [
+    "enable-cluster-wide-proxy-addon"
+  ],
+  "Description of klusterlet add-ons settings": [
+    "description-of-settings"
+  ],
+  "Modify using the console on the hub cluster": [
+    "modify-using-the-console-on-the-hub-cluster"
+  ],
+  "Modify using the command line on the hub cluster": [
+    "modify-using-the-command-line-on-the-hub-cluster"
+  ],
+  "Modifying the klusterlet add-ons settings of your cluster": [
+    "modify-klusterlet-add-ons"
+  ],
+  "Managed cluster advanced configuration": [
+    "acm-managed-adv-config"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "Viewing virtual machine metrics through Observability fields": [
+    "view-vm-metrics-observability"
+  ],
+  "Backing up and restoring a virtual machine": [
+    "backing-up-restoring-vm"
+  ],
+  "Installation policy": [
+    "intallation-policy"
+  ],
+  "Backup policy": [
+    "backup-policy"
+  ],
+  "Restore policy": [
+    "restore-policy"
+  ],
+  "Virtualization policies installed on the hub cluster": [
+    "virt-policies"
+  ],
+  "Defining the": [
+    "defining-virt-config-configmap",
+    "defining-virt-schedule-configmap",
+    "defining-virt-restore-configmap"
+  ],
+  "Defining policies with": [
+    "defining-policies"
+  ],
+  "Creating restore operations with restore policies": [
+    "creating-operations-restore-policy"
+  ],
+  "Configuring backup and restore for Red Hat OpenShift Virtualization by using policies": [
+    "backup-config-policy-virt"
+  ],
+  "Migrating virtual machines between clusters (Technology Preview)": [
+    "migrate-vm"
+  ],
+  "Virtualization": [
+    "acm-virt"
+  ]
+}

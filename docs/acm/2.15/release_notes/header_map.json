@@ -1,0 +1,382 @@
+{
+  "General announcements for this release": [
+    "general-announcement"
+  ],
+  "New features and enhancements for each component": [
+    "component-features"
+  ],
+  "Installation": [
+    "install-acm-new-features"
+  ],
+  "Console": [
+    "console-new-features"
+  ],
+  "Clusters": [
+    "cluster-new-features"
+  ],
+  "multicluster global hub": [
+    "global-hub-new-features"
+  ],
+  "Applications": [
+    "application-new-features"
+  ],
+  "Observability": [
+    "observability-new-features"
+  ],
+  "Governance": [
+    "governance-new-features"
+  ],
+  "Business continuity": [
+    "bus-continuity-new-features"
+  ],
+  "Networking": [
+    "networking-new-features"
+  ],
+  "Virtualization": [
+    "virt-new-features"
+  ],
+  "Learn more about this release": [
+    "_learn_more_about_this_release"
+  ],
+  "New features and enhancements for Red Hat Advanced Cluster Management": [
+    "new-features-acm"
+  ],
+  "Errata 2.15.1": [
+    "_errata_2_15_1"
+  ],
+  "Fixed issues for Red Hat Advanced Cluster Management": [
+    "errata-acm"
+  ],
+  "Uninstalling and reinstalling earlier versions with an upgrade can fail": [
+    "uninstall-manual-remove-cr"
+  ],
+  "Cannot remove data image resources after a cluster reinstallation with Image-Based Break/Fix": [
+    "install-siteconfig-ibbf"
+  ],
+  "Installation known issues": [
+    "known-issues-install"
+  ],
+  "Backup and restore known issues": [
+    "known-issues-backup-restore"
+  ],
+  "Velero restore limitations": [
+    "restore-limitations"
+  ],
+  "Passive configurations do not display managed clusters": [
+    "imported-clusters-not-displayed"
+  ],
+  "Managed cluster resource not restored": [
+    "managed-cluster-resources-not-restored"
+  ],
+  "Restored Hive managed clusters might not be able to connect with the new hub cluster": [
+    "restored-hive-managed-clusters-unable-new-hub"
+  ],
+  "Imported managed clusters show a": [
+    "imported-managed-clusters-pending-import"
+  ],
+  "The": [
+    "appliedmanifestwork-not-removed",
+    "baremetalhost-not-backed-up",
+    "migration-resources-error"
+  ],
+  "Restoring the connection of a managed cluster with custom CA certificates to its restored hub cluster might fail": [
+    "ca-certificate-hub-restore"
+  ],
+  "Volsync known issues": [
+    "known-issues-volsync"
+  ],
+  "Business continuity known issues": [
+    "known-issues-continuity"
+  ],
+  "External links in certain versions of the integrated console lead to incorrect pages": [
+    "external-link-wrong-page"
+  ],
+  "Search does not display node information from the managed cluster": [
+    "search-display-node-managed"
+  ],
+  "Cannot upgrade OpenShift Dedicated in console": [
+    "cannot-upgrade-osd-ui"
+  ],
+  "Search PostgreSQL pod is in CrashLoopBackoff state": [
+    "search-postgres-crashloopbackoff"
+  ],
+  "Cannot edit namespace bindings for cluster set": [
+    "cannot-edit-namespace-bindings-for-cluster-set"
+  ],
+  "Horizontal scrolling does not work after provisioning hosted control plane cluster": [
+    "scrolling-hosted"
+  ],
+  "Issues with entering the": [
+    "cluster-id-ocm-console"
+  ],
+  "Console known issues": [
+    "known-issues-console"
+  ],
+  "Hub cluster communication limitations": [
+    "hub-cluster-one-way-limits"
+  ],
+  "The local-cluster might not be automatically recreated": [
+    "local-cluster-auto"
+  ],
+  "Local-cluster status offline after reimporting with a different name": [
+    "cluster-local-offline-reimport"
+  ],
+  "Hub cluster and managed clusters clock not synced": [
+    "hub-managed-clusters-clock"
+  ],
+  "Cluster management known issues and limitations": [
+    "known-issues-cluster"
+  ],
+  "Red Hat Advanced Cluster Management Virtualization requires Red Hat OpenShift Virtualization 4.20.1 or later": [
+    "_red_hat_advanced_cluster_management_virtualization_requires_red_hat_openshift_virtualization_4_20_1_or_later"
+  ],
+  "Search result for only virtual machine resources are displayed": [
+    "_search_result_for_only_virtual_machine_resources_are_displayed"
+  ],
+  "Virtualization known issues": [
+    "known-issues-virt"
+  ],
+  "Upgrading to Red Hat OpenShift GitOps 1.17 causes permission errors": [
+    "upgrading-permission-errors"
+  ],
+  "Subscription application displays incorrect warning message": [
+    "subscription-application-incorrect-warning"
+  ],
+  "The console menu of the Application table can be difficult to click": [
+    "application-table-menu"
+  ],
+  "Application topology displays invalid expression": [
+    "topology-displays-invalid-expression"
+  ],
+  "Editing subscription applications with": [
+    "editing-subscription-placement-rule"
+  ],
+  "Helm Chart with secret dependencies cannot be deployed by the Red Hat Advanced Cluster Management subscription": [
+    "helm-chart-with-secret-dependencies-cannot-be-deployed"
+  ],
+  "Topology does not correctly display for Argo CD pull model": [
+    "argo-pull-model-topology"
+  ],
+  "Local cluster is excluded as a managed cluster for pull model": [
+    "argo-pull-model-controller-local"
+  ],
+  "Argo CD controller and the propagation controller might reconcile simultaneously": [
+    "argo-pull-model-controller"
+  ],
+  "Resource fails to deploy": [
+    "argo-pull-model-resource"
+  ],
+  "Resource allocation might take several minutes": [
+    "argo-pull-model-large"
+  ],
+  "Application ObjectBucket channel type cannot use allow and deny lists": [
+    "object-bucket-subscription-admin"
+  ],
+  "Changes to the multicluster_operators_subscription image do not take effect automatically": [
+    "changes-not-automatic"
+  ],
+  "Policy resource not deployed unless by subscription administrator": [
+    "policy-needs-subscription-admin"
+  ],
+  "Application Ansible hook stand-alone mode": [
+    "application-ansible-standalone"
+  ],
+  "Application not deployed after an updated placement rule": [
+    "application-not-deployed-after-an-updated-placement-rule"
+  ],
+  "Subscription operator does not create an SCC": [
+    "subscription-operator-does-not-create-an-scc"
+  ],
+  "Application channels require unique namespaces": [
+    "application-channels-require-unique-namespaces"
+  ],
+  "Ansible Automation Platform job fail": [
+    "ansible-automation-platform-fail"
+  ],
+  "Ansible Automation Platform operator access Ansible Automation Platform outside of a proxy": [
+    "ansible-automation-operator-access"
+  ],
+  "Application name requirements": [
+    "application-name"
+  ],
+  "Application console table limitations": [
+    "application-tables"
+  ],
+  "No Application console topology filtering": [
+    "app-topology"
+  ],
+  "Application known issues and limitations": [
+    "known-issues-applications"
+  ],
+  "Multicluster observability add-on fails to collect metrics": [
+    "mcoa-fails"
+  ],
+  "Manually configured alert forwarding fails": [
+    "alert-forward-fails"
+  ],
+  "Retention change causes data loss": [
+    "retention-change"
+  ],
+  "Observatorium API gateway pods in a restored hub cluster might have stale tenant data": [
+    "permission-to-managed-cluster-monitoring-denied"
+  ],
+  "Permission to add": [
+    "permission-to-add-denied"
+  ],
+  "Grafana downsampled data mismatch": [
+    "grafana-downsampled-mismatch"
+  ],
+  "Lack of support for proxy settings": [
+    "lack-of-support-for-proxy-settings"
+  ],
+  "Limitations when using custom managed cluster Observatorium API or Alertmanager URLs": [
+    "limits-custom-obs-urls"
+  ],
+  "Observability known issues": [
+    "known-issues-observability"
+  ],
+  "Configuration policy listed complaint when namespace is stuck in": [
+    "config-policy-stuck"
+  ],
+  "ConfigurationPolicy custom resource definition is stuck in terminating": [
+    "configurationpolicy-crd-terminating"
+  ],
+  "Policy status shows repeated updates when enforced": [
+    "policy-status-repeated-updates"
+  ],
+  "Kyverno policies no longer report a status for the latest version": [
+    "kyverno-no-status"
+  ],
+  "Governance known issues": [
+    "known-issues-governance"
+  ],
+  "Submariner installation on IBM Power Systems fails": [
+    "ocp-acm-submariner-fails"
+  ],
+  "Source IP not retained for applications on OpenShift Container Platform with OVN-Kubernetes": [
+    "source-ip-ocp-ovnk"
+  ],
+  "Without": [
+    "cluster-management-addon-needed"
+  ],
+  "Submariner add-on resources not cleaned up properly when managed clusters are imported": [
+    "submariner-addon-resources"
+  ],
+  "Submariner install plan limitation": [
+    "subm-install-plan"
+  ],
+  "Limited headless services support": [
+    "headless-services-globalnet"
+  ],
+  "Deployments that use VXLAN when NAT is enabled are not supported": [
+    "submariner-vxlan"
+  ],
+  "Self-signed certificates might prevent connection to broker": [
+    "certificates-prevent-connection-broker"
+  ],
+  "Submariner only supports OpenShift SDN or OVN Kubernetes": [
+    "submariner-sdn-cni"
+  ],
+  "Command limitation on Microsoft Azure clusters": [
+    "submariner-diagnose-azure"
+  ],
+  "Automatic upgrade not working with custom": [
+    "submariner-upgrade-limit"
+  ],
+  "Uninstall Submariner before removing": [
+    "submariner-uninstall-before-move"
+  ],
+  "Submariner known issues": [
+    "known-issues-submariner"
+  ],
+  "Networking known issues": [
+    "known-issues_submariner"
+  ],
+  "The detached managed hub cluster deletes and recreates the namespace and resources": [
+    "detached-managed-hub-cluster"
+  ],
+  "Kafka operator keeps restarting": [
+    "kafka-operator-keeps-restarting"
+  ],
+  "The standard group filter cannot pass to the new page": [
+    "no-new-page-group-filter"
+  ],
+  "Multicluster global hub Operator known issues": [
+    "known-issues-global-hub"
+  ],
+  "Known issues Red Hat Advanced Cluster Management": [
+    "known-issues-acm"
+  ],
+  "Product deprecations and removals": [
+    "acm-deprecation-removal"
+  ],
+  "Deprecations and removals for Red Hat Advanced Cluster Management": [
+    "deprecations-removals-acm"
+  ],
+  "Notice": [
+    "notice"
+  ],
+  "Why is GDPR important?": [
+    "why-is-gdpr-important"
+  ],
+  "GDPR": [
+    "gdpr"
+  ],
+  "Product Configuration for GDPR": [
+    "product-configuration-for-gdpr"
+  ],
+  "What types of data flow through Red Hat Advanced Cluster Management for Kubernetes platform": [
+    "what-types-of-data-flow-through-red-hat-advanced-cluster-management-for-kubernetes-platform"
+  ],
+  "Personal data used for online contact": [
+    "personal-data-used-for-online-contact"
+  ],
+  "Data Life Cycle": [
+    "data-life-cycle"
+  ],
+  "Data Collection": [
+    "data-collection"
+  ],
+  "Data storage": [
+    "data-storage"
+  ],
+  "Authentication": [
+    "authentication"
+  ],
+  "Role Mapping": [
+    "role-mapping"
+  ],
+  "Authorization": [
+    "authorization"
+  ],
+  "Pod Security": [
+    "pod-security"
+  ],
+  "Data access": [
+    "data-access"
+  ],
+  "Data Processing": [
+    "data-processing"
+  ],
+  "Data Deletion": [
+    "data-deletion"
+  ],
+  "Capability for Restricting Use of Personal Data": [
+    "capability-for-restricting-use-of-personal-data"
+  ],
+  "Appendix": [
+    "appendix"
+  ],
+  "Red Hat Advanced Cluster Management platform considerations for GDPR readiness": [
+    "acm-gdpr"
+  ],
+  "FIPS readiness limitations": [
+    "fips-limitations"
+  ],
+  "FIPS readiness": [
+    "fips-readiness"
+  ],
+  "Release notes for Red Hat Advanced Cluster Management": [
+    "acm-release-notes"
+  ]
+}

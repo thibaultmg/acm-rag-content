@@ -1,0 +1,1705 @@
+{
+  "Console overview": [
+    "mce-console-overview"
+  ],
+  "Table of role definition": [
+    "roles-definition"
+  ],
+  "Overview of roles": [
+    "overview-of-roles"
+  ],
+  "Cluster pools RBAC": [
+    "cluster-pools-rbac"
+  ],
+  "Console and API RBAC table for cluster lifecycle": [
+    "console-api-rbac-cluster"
+  ],
+  "Credentials role-based access control": [
+    "credentials-role-based-access-control"
+  ],
+  "Cluster lifecycle RBAC": [
+    "cluster-lifecycle-RBAC"
+  ],
+  "multicluster engine operator role-based access control": [
+    "mce-rbac"
+  ],
+  "Network configuration for multicluster engine operator": [
+    "mce-network-configuration"
+  ],
+  "About hosted control planes with multicluster engine operator": [
+    "mce-hcp-overview"
+  ],
+  "New features and enhancements for each component": [
+    "_new_features_and_enhancements_for_each_component"
+  ],
+  "New features and enhancements for Cluster lifecycle with multicluster engine operator": [
+    "new-features-mce"
+  ],
+  "Errata 2.10.1": [
+    "_errata_2_10_1"
+  ],
+  "Fixed issues for Cluster lifecycle with multicluster engine operator": [
+    "errata-updates-mce"
+  ],
+  "Unclaimed Hive clusters might be recreated during ClusterPool custom resource definition changes": [
+    "unclaimed-hive-clusters"
+  ],
+  "Installation": [
+    "cluster-issues-install"
+  ],
+  "HyperShift operator does not receive infrastructure node configuration": [
+    "hypershift-infra-node-config"
+  ],
+  "HyperShift installation fails on Red Hat OpenShift Service on AWS due to admission webhook error": [
+    "hcp-fails-rosa"
+  ],
+  "The": [
+    "clc-state-metrics-pod-crash"
+  ],
+  "Klusterlet add-on does not tolerate": [
+    "klusterlet-noexecute-taint"
+  ],
+  "Limitation with": [
+    "limitation-with-nmstate"
+  ],
+  "Deleting a managed cluster set does not automatically remove its label": [
+    "clusterset-label-not-removed"
+  ],
+  "ClusterClaim error": [
+    "hive-cluster-claim"
+  ],
+  "The product channel out of sync with provisioned cluster": [
+    "clusterimageset-fast-channel"
+  ],
+  "Cluster provision with Ansible automation fails in proxy environment": [
+    "cluster-provision-fails-ansible-proxy"
+  ],
+  "Cannot delete managed cluster namespace manually": [
+    "no-delete-cluster-namespace-before-remove-cluster"
+  ],
+  "Automatic secret updates for provisioned clusters is not supported": [
+    "automatic-secret-updates-for-provisioned-clusters-is-not-supported"
+  ],
+  "Process to destroy a cluster does not complete": [
+    "cluster-might-not-be-destroyed"
+  ],
+  "Cannot upgrade OpenShift Container Platform managed clusters on OpenShift Container Platform Dedicated with the console": [
+    "no-upgrade-os-on-osd"
+  ],
+  "Non-OpenShift Container Platform managed clusters require": [
+    "non-ocp-logs"
+  ],
+  "Client cannot reach iPXE script": [
+    "client-cannot-reach-ipxe-script"
+  ],
+  "ManagedClusterSet API specification limitation": [
+    "managedclusterset-api-limitation"
+  ],
+  "The Cluster curator does not support OpenShift Container Platform Dedicated clusters": [
+    "ocp-ded-support-curator"
+  ],
+  "Custom ingress domain is not applied correctly": [
+    "custom-ingress-domain-limitation"
+  ],
+  "Cluster management": [
+    "cluster-issues-mce"
+  ],
+  "A single-node OpenShift cluster installation requires a matching OpenShift Container Platform with infrastructure operator for Red Hat OpenShift": [
+    "install-sno-ocp-infra"
+  ],
+  "Cannot use host inventory to boot with the discovery image and add hosts automatically": [
+    "boot-discovery-auto-add-host"
+  ],
+  "Nodes shut down after removing": [
+    "nodes-shut-down-bmh"
+  ],
+  "Central infrastructure management": [
+    "cluster-issues-cim"
+  ],
+  "Known issues for Cluster lifecycle with multicluster engine operator": [
+    "known-issues-mce"
+  ],
+  "Product deprecations and removals": [
+    "mce-deprecation-removal"
+  ],
+  "Deprecations and removals for Cluster lifecycle with multicluster engine operator": [
+    "deprecations-removals-cluster-mce"
+  ],
+  "Release notes for Cluster lifecycle with multicluster engine operator": [
+    "mce-release-notes"
+  ],
+  "Prerequisites": [
+    "connect-prerequisites-mce",
+    "disconnect-prerequisites",
+    "update-service-prereq",
+    "aws_cred_prereqs",
+    "azure_cred_prerequisites",
+    "google_cred_prerequisites",
+    "vsphere_cred_prerequisites",
+    "openstack-credential-prerequisites",
+    "prerequisites-discovery",
+    "ansible_cred_prereqs",
+    "on-prem-cred-prerequisites",
+    "create-a-cluster-prereq",
+    "config-manifest-create-prereq",
+    "aws_prerequisites",
+    "aws-govcloud-prerequisites",
+    "azure_prerequisites",
+    "google_prerequisites",
+    "vsphere-prereqs",
+    "openstack-prerequisites",
+    "on-prem-prerequisites",
+    "import-gui-prereqs",
+    "import-cli-prereqs",
+    "import-agent-prereqs",
+    "import-ocp-cluster-prereqs",
+    "add-nodes-cim-ocp-prereqs",
+    "upgrading-your-cluster-prereq",
+    "access-managed-cluster-kube-apiserver-prereq",
+    "prerequisites-for-ansible-integration-cluster",
+    "prerequisites-for-ansible-integration-hosted-cluster",
+    "pool_prerequisites",
+    "claim_prerequisite",
+    "serviceaccount_prereqs",
+    "prereq-defragmenting-the-hub-cluster-etcd-database",
+    "enable-cim-prerequisites",
+    "create-host-inventory-prereqs-console",
+    "cim-network-prereqs",
+    "add-host-prereqs",
+    "auto-add-host-prereqs",
+    "cim-mirror-reg-prereqs"
+  ],
+  "Confirm your OpenShift Container Platform installation": [
+    "confirm-ocp-installation-mce",
+    "confirm-ocp-installation-2"
+  ],
+  "Installing from the Red Hat OpenShift Software Catalog console": [
+    "installing-from-the-software-catalog-mce"
+  ],
+  "Installing from the OpenShift Container Platform CLI": [
+    "installing-from-the-cli-mce"
+  ],
+  "Installing while connected online": [
+    "installing-while-connected-online-mce"
+  ],
+  "Configuring infrastructure nodes to the OpenShift Container Platform cluster": [
+    "config-infra-nodes-ocp"
+  ],
+  "Operator Lifecycle Manager subscription configuration": [
+    "infra-olm-subscription"
+  ],
+  "MultiClusterEngine custom resource additional configuration": [
+    "infra-mce-add-config"
+  ],
+  "Configuring infrastructure nodes for multicluster engine operator": [
+    "config-infra-node-mce"
+  ],
+  "Installing in a disconnected environment": [
+    "installing-in-a-disconnected-environment"
+  ],
+  "Install on disconnected networks": [
+    "install-on-disconnected-networks"
+  ],
+  "Upgrading multicluster engine for Kubernetes operator": [
+    "upgrading-mce"
+  ],
+  "Preparing your disconnected mirror registry": [
+    "prepare-disconnect-mirror-registry"
+  ],
+  "Deploying the operator for OpenShift Update Service": [
+    "deploy-operator-update-service"
+  ],
+  "Building the graph data init container": [
+    "build-graph-data-init"
+  ],
+  "Configuring the certificate for the mirrored registry": [
+    "configure-certificate-mirrored-registry"
+  ],
+  "Deploying the OpenShift Update Service instance": [
+    "deploy-update-service"
+  ],
+  "Optional: Deploying a policy to override the default registry": [
+    "deploy-policy-override-registry"
+  ],
+  "Deploying a policy to deploy a disconnected catalog source": [
+    "deploy-policy-disconnect-catalog"
+  ],
+  "Deploying a policy to change the managed cluster parameter": [
+    "deploy-policy-cluster-parameter"
+  ],
+  "Viewing available upgrades": [
+    "update-service-view-upgrades"
+  ],
+  "Selecting a channel": [
+    "update-service-channel",
+    "selecting-a-channel"
+  ],
+  "Upgrading the cluster": [
+    "update-service-upgrade"
+  ],
+  "Upgrading disconnected clusters by using policies": [
+    "upgrade-disconnect-cluster-policy"
+  ],
+  "Deployed components": [
+    "deployed-components"
+  ],
+  "Console and component configuration": [
+    "component-config"
+  ],
+  "Local-cluster enablement": [
+    "local-cluster"
+  ],
+  "Custom image pull secret": [
+    "custom-image-pull-secret"
+  ],
+  "Target namespace": [
+    "target-namespace"
+  ],
+  "availabilityConfig": [
+    "availability-config"
+  ],
+  "nodeSelector": [
+    "node-selector"
+  ],
+  "tolerations": [
+    "tolerations"
+  ],
+  "ManagedServiceAccount add-on": [
+    "serviceaccount-addon"
+  ],
+  "Advanced configuration": [
+    "advanced-config-engine"
+  ],
+  "Prerequisite: Detach enabled services": [
+    "prerequisite-detach-mce"
+  ],
+  "Removing resources by using commands": [
+    "removing-a-multiclusterengine-instance-by-using-commands"
+  ],
+  "Deleting the components by using the console": [
+    "deleting-the-components-by-using-the-console-mce"
+  ],
+  "Troubleshooting Uninstall": [
+    "troubleshoot-uninstall-mce"
+  ],
+  "Uninstalling": [
+    "uninstalling-mce"
+  ],
+  "Installing and upgrading multicluster engine operator": [
+    "mce-install-intro"
+  ],
+  "Creating an S3 secret": [
+    "aws_s3_create"
+  ],
+  "Managing a credential by using the console": [
+    "aws_cred_create",
+    "azure_cred",
+    "gcp_cred",
+    "vsphere_cred",
+    "openstack-credential",
+    "ansible_create_cred",
+    "on-prem-cred"
+  ],
+  "Creating an opaque secret by using the API": [
+    "aws-create-opaque-secret-api",
+    "azure-create-opaque-secret-api",
+    "gcp-create-opaque-secret-api",
+    "vsphere-create-opaque-secret-api",
+    "osp-create-opaque-secret-api"
+  ],
+  "Creating a credential for Amazon Web Services": [
+    "creating-a-credential-for-amazon-web-services"
+  ],
+  "Creating a credential for Microsoft Azure": [
+    "creating-a-credential-for-microsoft-azure"
+  ],
+  "Creating a credential for Google Cloud Platform": [
+    "creating-a-credential-for-google-cloud-platform"
+  ],
+  "Creating a credential for VMware vSphere": [
+    "creating-a-credential-for-vmware-vsphere"
+  ],
+  "Creating a credential for Red Hat OpenStack": [
+    "creating-a-credential-for-openstack"
+  ],
+  "Adding a credential by using the console": [
+    "add-ocm-credential"
+  ],
+  "Creating a credential for Red Hat OpenShift Cluster Manager": [
+    "creating-a-credential-for-openshift-cluster-manager"
+  ],
+  "Creating a credential for Ansible Automation Platform": [
+    "creating-a-credential-for-ansible"
+  ],
+  "Creating a credential for an on-premises environment": [
+    "creating-a-credential-for-an-on-premises-environment"
+  ],
+  "Managing credentials": [
+    "credentials"
+  ],
+  "Hub cluster": [
+    "components-hub-mce"
+  ],
+  "Managed cluster": [
+    "components-managed-mce"
+  ],
+  "Cluster lifecycle architecture": [
+    "cluster-lifecycle-arch"
+  ],
+  "Locating": [
+    "cluster-image-set"
+  ],
+  "Configuring": [
+    "config-cluster-image-set",
+    "config-proxy",
+    "config-agent-proxy"
+  ],
+  "Creating a release image to deploy a cluster on a different architecture": [
+    "manual-release-image-cross-arch"
+  ],
+  "Specifying release images": [
+    "release-images-specify"
+  ],
+  "Maintaining a custom list of release images when connected": [
+    "release-images-connected"
+  ],
+  "Maintaining a custom list of release images while disconnected": [
+    "release-images-disconnected"
+  ],
+  "Stability levels": [
+    "_stability_levels"
+  ],
+  "Refreshing the release images list": [
+    "_refreshing_the_release_images_list"
+  ],
+  "Synchronizing available release images": [
+    "sync-release-images"
+  ],
+  "Release images": [
+    "release-images-intro"
+  ],
+  "Create a cluster with ClusterDeployment": [
+    "create-a-cluster-with-clusterdeployment"
+  ],
+  "Create a cluster with ClusterPool": [
+    "create-a-cluster-with-clusterpool"
+  ],
+  "Creating a cluster with the CLI": [
+    "create-a-cluster-cli"
+  ],
+  "Configuring additional manifests during cluster creation by using examples": [
+    "config-manifest-create-steps"
+  ],
+  "Configuring additional manifests during cluster creation": [
+    "config-manifest-create"
+  ],
+  "Creating your AWS cluster": [
+    "aws-creating-your-cluster-info"
+  ],
+  "Creating your cluster with the console": [
+    "aws-creating-your-cluster-with-the-console",
+    "aws-govcloud-creating-your-cluster-with-the-console",
+    "azure_creating-your-cluster-with-the-console",
+    "google_creating-your-cluster-with-the-console",
+    "vsphere-console",
+    "openstack-creating-your-cluster-with-the-console",
+    "on-prem-creating-your-cluster-with-the-console"
+  ],
+  "Creating a cluster on Amazon Web Services": [
+    "creating-a-cluster-on-amazon-web-services"
+  ],
+  "Create the VPCs for resources and endpoints": [
+    "create-vpcs-aws-govcloud"
+  ],
+  "Configure the security groups for the VPC endpoints": [
+    "configure-security-groups-vpc-endpoints"
+  ],
+  "Set permissions for AWS PrivateLink": [
+    "set-permissions-for-aws-private-link"
+  ],
+  "Configure Hive to deploy on AWS GovCloud": [
+    "configure-hive-to-deploy-on-aws-govcloud"
+  ],
+  "Creating a cluster on Amazon Web Services GovCloud": [
+    "creating-a-cluster-on-amazon-web-services-govcloud"
+  ],
+  "Creating a cluster on Microsoft Azure": [
+    "creating-a-cluster-on-microsoft-azure"
+  ],
+  "Creating a cluster on Google Cloud Platform": [
+    "creating-a-cluster-on-google-cloud-platform"
+  ],
+  "Creating a cluster on VMware vSphere": [
+    "creating-a-cluster-on-vmware-vsphere"
+  ],
+  "Creating a cluster on Red Hat OpenStack Platform": [
+    "creating-a-cluster-on-openstack"
+  ],
+  "Create the namespace": [
+    "on-prem-creating-your-cluster-with-the-cli-namespace"
+  ],
+  "Add the pull secret to the namespace": [
+    "on-prem-creating-your-cluster-with-the-cli-pull-secret"
+  ],
+  "Generate a ClusterImageSet": [
+    "on-prem-creating-your-cluster-with-the-cli-cluster-image-set"
+  ],
+  "Create the ClusterDeployment custom resource": [
+    "on-prem-creating-your-cluster-with-the-cli-clusterdeployment"
+  ],
+  "Create the AgentClusterInstall custom resource": [
+    "create-agentclusterinstall-cr"
+  ],
+  "Optional: Create the NMStateConfig custom resource": [
+    "on-prem-creating-your-cluster-with-the-cli-nmstateconfig"
+  ],
+  "Create the InfraEnv custom resource": [
+    "on-prem-creating-your-cluster-with-the-cli-infraenv"
+  ],
+  "Boot the host from the discovery image": [
+    "on-prem-creating-your-cluster-with-the-cli-boot-host"
+  ],
+  "Creating your cluster with the command line": [
+    "on-prem-creating-your-cluster-with-the-cli"
+  ],
+  "Creating a cluster in an on-premises environment": [
+    "creating-a-cluster-on-premises"
+  ],
+  "Creating a cluster in a proxy environment": [
+    "creating-a-cluster-proxy"
+  ],
+  "Creating clusters": [
+    "create-intro"
+  ],
+  "Creating a new pull secret": [
+    "creating-new-pull-secret"
+  ],
+  "Optional: Configuring the cluster API address": [
+    "import-configuring-cluster-api"
+  ],
+  "Optional: Configuring the klusterlet to run on specific nodes": [
+    "import-configuring-nodeselector-tolerations",
+    "config-klusterlet-nodes"
+  ],
+  "Importing a cluster": [
+    "importing-cluster",
+    "cluster-import-agent",
+    "import-ocp-cluster-steps"
+  ],
+  "Removing an imported cluster": [
+    "removing-an-imported-cluster"
+  ],
+  "Importing a managed cluster by using the console": [
+    "importing-managed-cluster-console"
+  ],
+  "Supported architectures": [
+    "supported-architectures",
+    "supported-architectures-agent"
+  ],
+  "Preparing for cluster import": [
+    "preparing-cluster-import"
+  ],
+  "Importing a cluster by using the auto import secret": [
+    "importing-clusters-auto-import-secret"
+  ],
+  "Importing a cluster manually": [
+    "importing-cluster-manual"
+  ],
+  "Importing the klusterlet add-on": [
+    "importing-the-klusterlet"
+  ],
+  "Removing an imported cluster by using the command line interface": [
+    "removing-imported-cluster-cli"
+  ],
+  "Importing a managed cluster by using the CLI": [
+    "importing-managed-cluster-cli"
+  ],
+  "Importing a managed cluster by using agent registration": [
+    "importing-managed-agent"
+  ],
+  "Saving and applying managed cluster resources": [
+    "save-apply-cluster-resources"
+  ],
+  "Importing cluster resources": [
+    "import-ocp-cluster-resources"
+  ],
+  "Removing the managed cluster from the source hub cluster": [
+    "_removing_the_managed_cluster_from_the_source_hub_cluster"
+  ],
+  "Importing an on-premises Red Hat OpenShift Container Platform cluster manually by using central infrastructure management": [
+    "import-ocp-cluster"
+  ],
+  "Customizing the automatic import strategy": [
+    "custom-auto-import-strat"
+  ],
+  "Configuring the global": [
+    "config-gloabl-klusterletconfig"
+  ],
+  "Customizing the hub cluster API server URL and CA bundle during import": [
+    "import-custom-bundle-ca"
+  ],
+  "Importing a cluster that has a": [
+    "import-cluster-managedclusterimageregistry"
+  ],
+  "Specifying image registry on managed clusters for import": [
+    "specify-registry-img-on-managed-clusters-for-import"
+  ],
+  "Cluster import": [
+    "import-intro"
+  ],
+  "Accessing your cluster": [
+    "accessing-your-cluster"
+  ],
+  "Configure autoscaling": [
+    "configure-autoscale"
+  ],
+  "Disabling autoscaling": [
+    "machinepools-autoscale-disable"
+  ],
+  "Enabling manual scaling with the console": [
+    "manual-console"
+  ],
+  "Enabling manual scaling with the command line": [
+    "manual-cli"
+  ],
+  "Enabling manual scaling": [
+    "machinepools-manual-scale"
+  ],
+  "Scaling with MachinePool": [
+    "scaling-machinepool"
+  ],
+  "Creating a valid": [
+    "add-nodes-cim-ocp-create-config"
+  ],
+  "Adding worker nodes": [
+    "add-nodes-cim-ocp-procedure"
+  ],
+  "Adding worker nodes to OpenShift Container Platform clusters": [
+    "add-nodes-cim-ocp"
+  ],
+  "Adding control plane nodes to healthy managed clusters": [
+    "adding-ctrl-nodes-managed-healthy"
+  ],
+  "Adding control plane nodes to healthy managed clusters by using the API": [
+    "adding-ctrl-nodes-managed-healthy-api"
+  ],
+  "Adding control plane nodes to unhealthy managed clusters": [
+    "adding-ctrl-nodes-managed-unhealthy"
+  ],
+  "Adding control plane nodes to managed clusters": [
+    "adding-ctrl-nodes-managed"
+  ],
+  "Scaling managed clusters": [
+    "scaling-managed-intro"
+  ],
+  "Hibernate a cluster by using the console": [
+    "hibernate-cluster-console"
+  ],
+  "Hibernate a cluster by using the CLI": [
+    "hibernate-cluster-cli"
+  ],
+  "Resuming normal operation of a hibernating cluster by using the console": [
+    "resuming-normal-operation-of-a-hibernating-cluster-console"
+  ],
+  "Resuming normal operation of a hibernating cluster by using the CLI": [
+    "resuming-normal-operation-of-a-hibernating-cluster-cli"
+  ],
+  "Hibernating a created cluster": [
+    "hibernating-a-created-cluster"
+  ],
+  "Upgrading your cluster in a connected environment": [
+    "upgrading-your-cluster-conn-steps"
+  ],
+  "Upgrading a disconnected cluster": [
+    "upgrading-disconnected-cluster"
+  ],
+  "Upgrading your cluster": [
+    "upgrading-your-cluster"
+  ],
+  "Configuring cluster proxy add-ons for hub clusters and managed clusters": [
+    "config-cluster-proxy-addon-hub-managed"
+  ],
+  "Configuring proxy settings for cluster proxy add-ons": [
+    "cluster-proxy-addon-settings"
+  ],
+  "Enabling cluster proxy add-ons": [
+    "config-cluster-proxy-addon"
+  ],
+  "Customizing the hub cluster": [
+    "custom-hub-api-certificates"
+  ],
+  "Disabling the proxy between hub cluster and managed cluster": [
+    "disable-proxy-hub-managed"
+  ],
+  "Configuring the proxy between hub cluster and managed cluster": [
+    "config-proxy-hub-managed"
+  ],
+  "Gathering data with a managed cluster user token": [
+    "gather-data-managed-token"
+  ],
+  "Gathering data with a hub cluster user token": [
+    "gather-data-hub-token"
+  ],
+  "Gathering data with managed cluster services": [
+    "gather-data-managed-cluster-services"
+  ],
+  "Accessing the managed cluster": [
+    "access-managed-cluster-kube-apiserver"
+  ],
+  "Configuring an": [
+    "ansible-template-run-cluster-console"
+  ],
+  "Creating an Automation template": [
+    "ansible-template-create"
+  ],
+  "Viewing the status of an Ansible job": [
+    "ansible-status-job-cluster"
+  ],
+  "Running a failed Ansible job again": [
+    "ansible-rerun-job-cluster"
+  ],
+  "Specifying an Ansible inventory to use for all jobs": [
+    "specify-ansible-inventory"
+  ],
+  "Pushing custom labels from the": [
+    "push-cl-cr-job-pod"
+  ],
+  "Using the": [
+    "eus-upgrades"
+  ],
+  "Upgrading OpenShift Container Platform clusters by using the": [
+    "upgrade-ocp-cluster-curator"
+  ],
+  "Configuring Ansible Automation Platform tasks to run on managed clusters": [
+    "ansible-config-cluster"
+  ],
+  "Running an Ansible Automation Platform job to install a hosted cluster": [
+    "ansible-hosted-cluster-install"
+  ],
+  "Running an Ansible Automation Platform job to update a hosted cluster": [
+    "ansible-hosted-cluster-update"
+  ],
+  "Running an Ansible Automation Platform job to delete a hosted cluster": [
+    "ansible-hosted-cluster-delete"
+  ],
+  "Configuring Ansible Automation Platform jobs to run on hosted clusters": [
+    "ansible-config-hosted-cluster"
+  ],
+  "Create custom ClusterClaims": [
+    "create-custom-clusterclaims"
+  ],
+  "List existing ClusterClaims": [
+    "list-clusterclaims"
+  ],
+  "ClusterClaims": [
+    "clusterclaims"
+  ],
+  "Creating a ManagedClusterSet by using the CLI": [
+    "creating-managedclusterset-cli"
+  ],
+  "Adding a cluster to a": [
+    "adding-cluster-managedclusterset"
+  ],
+  "Adding clusters to a": [
+    "adding-clusters-managedclusterset-cli"
+  ],
+  "Creating a": [
+    "creating-a-managedclusterset",
+    "creating-managedclustersetbinding-console",
+    "creating-a-managedclustersetbinding-cli",
+    "creating-managedclustersetbinding"
+  ],
+  "Assigning RBAC permissions to a": [
+    "assign-role-managedclusterset"
+  ],
+  "Adding a taint to a managed cluster": [
+    "adding-a-taint-to-a-managed-cluster"
+  ],
+  "Identifying built-in taints to reflect the status of managed clusters": [
+    "identifying-built-in-taints"
+  ],
+  "Adding a toleration to a placement": [
+    "adding-a-toleration-to-a-placement"
+  ],
+  "Specifying a temporary toleration": [
+    "specifying-a-temporary-toleration"
+  ],
+  "Placing managed clusters by using taints and tolerations": [
+    "taints-tolerations-managed"
+  ],
+  "Setting the strategy with": [
+    "set-hub-strategy-auto-detect-ca",
+    "set-hub-strategy-system-truststore",
+    "config-hub-strategy-custom-ca"
+  ],
+  "Setting the hub cluster": [
+    "set-hub-kube-api-server"
+  ],
+  "Setting managed namespaces for": [
+    "set-managed-ns"
+  ],
+  "Removing a cluster from a ManagedClusterSet by using the console": [
+    "removing-cluster-managedclusterset-console"
+  ],
+  "Removing a cluster from a ManagedClusterSet by using the CLI": [
+    "removing-cluster-managedclusterset-cli"
+  ],
+  "Removing a managed cluster from a": [
+    "removing-cluster-managedclusterset"
+  ],
+  "Placement overview": [
+    "placement-overview"
+  ],
+  "Filtering": [
+    "placement-tolerations",
+    "addon-status"
+  ],
+  "Prioritizing": [
+    "placement-prioritizerpolicy"
+  ],
+  "Filtering with": [
+    "placement-labelselector-claimSelector"
+  ],
+  "Checking selected": [
+    "placement-decision"
+  ],
+  "Placement": [
+    "placement-intro",
+    "_rhacm-docs_apis_placement_jsonplacement_clusters"
+  ],
+  "Create the cluster pool": [
+    "create-clusterpool"
+  ],
+  "Creating a cluster pool": [
+    "creating-a-clusterpool"
+  ],
+  "Claim the cluster from the cluster pool": [
+    "claim_cluster"
+  ],
+  "Claiming clusters from cluster pools": [
+    "claiming-clusters-from-cluster-pools"
+  ],
+  "Updating the cluster pool release image": [
+    "updating-the-cluster-pool-release-image"
+  ],
+  "Scaling cluster pools (Technology Preview)": [
+    "scaling-cluster-pools"
+  ],
+  "Destroying a cluster pool": [
+    "destroying-a-cluster-pool"
+  ],
+  "Managing cluster pools (Technology Preview)": [
+    "managing-cluster-pools"
+  ],
+  "Enabling ManagedServiceAccount": [
+    "serviceaccount_enable"
+  ],
+  "Enabling ManagedServiceAccount add-ons": [
+    "managed-serviceaccount-addon"
+  ],
+  "Cluster lifecycle advanced configuration": [
+    "advanced-config-cluster"
+  ],
+  "Removing a cluster by using the console": [
+    "remove-a-cluster-by-using-the-console"
+  ],
+  "Removing a cluster by using the command line": [
+    "remove-a-cluster-by-using-the-cli"
+  ],
+  "Removing remaining resources after removing a cluster": [
+    "removing-a-cluster-from-management-in-special-cases"
+  ],
+  "Procedure": [
+    "procedure-defragmenting-the-hub-cluster-etcd-database"
+  ],
+  "Defragmenting the etcd database after removing a cluster": [
+    "defragmenting-the-hub-cluster-etcd-database"
+  ],
+  "Removing a cluster from management": [
+    "remove-managed-cluster"
+  ],
+  "Cluster lifecycle introduction": [
+    "cluster-intro"
+  ],
+  "Authenticating": [
+    "discovery-auth-steps"
+  ],
+  "Authenticating service accounts": [
+    "discovery-auth"
+  ],
+  "Configure Discovery with the console": [
+    "discovery-console"
+  ],
+  "Discovery set up and process": [
+    "setup-discovery"
+  ],
+  "View discovered clusters": [
+    "view-discovered-cluster"
+  ],
+  "Enable Discovery using the CLI": [
+    "discovery-enable-cli"
+  ],
+  "Importing discovered Red Hat OpenShift Service on AWS and hosted control plane clusters automatically": [
+    "import-discovered-auto-rosa-hcp"
+  ],
+  "Enabling a discovered cluster for management": [
+    "enable-discovery"
+  ],
+  "Discovery service": [
+    "discovery-intro"
+  ],
+  "Host inventory overview": [
+    "cim-overview"
+  ],
+  "Creating a bare metal host custom resource definition": [
+    "enable-cim-bmh-crd"
+  ],
+  "Creating or modifying the": [
+    "enable-cim-provision"
+  ],
+  "Enabling central infrastructure management in disconnected environments": [
+    "enable-cim-disconnected"
+  ],
+  "Enabling central infrastructure management in connected environments": [
+    "enable-cim-connected"
+  ],
+  "Installing a OpenShift Container Platform cluster version 4.15 and earlier": [
+    "fips-install-cim-415"
+  ],
+  "Installing a OpenShift Container Platform cluster version 4.16 and later": [
+    "fips-install-cim-416"
+  ],
+  "Installing a FIPS-enabled cluster by using the Assisted Installer": [
+    "fips-install-cim"
+  ],
+  "Enabling the central infrastructure management service": [
+    "enable-cim"
+  ],
+  "Enabling central infrastructure management on Amazon Web Services": [
+    "enable-cim-aws"
+  ],
+  "Creating a host inventory": [
+    "create-host-inventory-console-steps",
+    "create-host-inventory-cli-steps"
+  ],
+  "Accessing a host inventory": [
+    "access-host-inventory"
+  ],
+  "Creating a host inventory by using the console": [
+    "create-host-inventory-console"
+  ],
+  "Creating a host inventory by using the command line interface": [
+    "create-host-inventory-cli"
+  ],
+  "Configuring advanced networking by using the command line interface": [
+    "cim-network-steps"
+  ],
+  "Configuring advanced networking for an infrastructure environment": [
+    "cim-network-config"
+  ],
+  "Adding hosts by using the console": [
+    "add-host-steps-console"
+  ],
+  "Adding hosts by using the command line interface": [
+    "add-host-steps-cli"
+  ],
+  "Hosting iPXE artifacts with HTTP or HTTPS": [
+    "add-host-ipxe-http"
+  ],
+  "Adding hosts to the host inventory by using the Discovery Image": [
+    "add-host-host-inventory"
+  ],
+  "Adding bare metal hosts by using the console": [
+    "auto-add-host-steps-console"
+  ],
+  "Adding bare metal hosts by using the command line interface": [
+    "auto-add-host-steps-cli"
+  ],
+  "Removing managed cluster nodes with a bare metal host": [
+    "auto-remove-host-steps-bmh"
+  ],
+  "Removing managed cluster nodes without a bare metal host": [
+    "auto-remove-host-steps-no-bmh"
+  ],
+  "Removing managed cluster nodes by using the command line interface": [
+    "auto-remove-host-steps-cli"
+  ],
+  "Binding and unbinding hosts": [
+    "auto-add-host-bind"
+  ],
+  "Automatically adding bare metal hosts to the host inventory": [
+    "auto-add-host-host-inventory"
+  ],
+  "Cancelling host installations": [
+    "cancel-host-install"
+  ],
+  "Managing your host inventory by using the console": [
+    "manage-host-inv-console"
+  ],
+  "Managing your host inventory by using the command line interface": [
+    "manage-host-inv-cli"
+  ],
+  "Managing your host inventory": [
+    "manage-host-inv"
+  ],
+  "Enabling hub cluster management by using central infrastructure management": [
+    "manage-hub-cim-steps"
+  ],
+  "Managing a hub cluster by using central infrastructure management": [
+    "manage-hub-cim"
+  ],
+  "Mirroring required images": [
+    "mirror-required-image"
+  ],
+  "Applying custom resource definitions with updated configurations": [
+    "apply-crd-update-config"
+  ],
+  "Configuring mirror registries for each cluster": [
+    "config-mirror-reg-cluster"
+  ],
+  "Installing a TNF cluster with Assisted Installer (Technology Preview)": [
+    "install-tnf-cluster-ai"
+  ],
+  "Host inventory introduction": [
+    "cim-intro"
+  ],
+  "Provisioning a workload with Cluster API": [
+    "steps-provision"
+  ],
+  "Installing a managed cluster with Cluster API": [
+    "capi-managed-assisted"
+  ],
+  "Preparing your hub cluster": [
+    "_preparing_your_hub_cluster"
+  ],
+  "Creating the": [
+    "_creating_the_managedcluster_resource"
+  ],
+  "Enabling automatic import for Cluster API clusters (Technology Preview)": [
+    "auto-import-capi"
+  ],
+  "Switching from AWS credentials to IAM roles on your managed cluster": [
+    "switch-iam-roles-capi"
+  ],
+  "Creating a service account": [
+    "_creating_a_service_account"
+  ],
+  "Setting AWS credentials": [
+    "_setting_aws_credentials"
+  ],
+  "Authenticating OpenShift Cluster Manager": [
+    "_authenticating_openshift_cluster_manager"
+  ],
+  "Creating a Red Hat OpenShift Service on AWS with hosted control planes cluster": [
+    "_creating_a_red_hat_openshift_service_on_aws_with_hosted_control_planes_cluster"
+  ],
+  "Creating a Red Hat OpenShift Service on AWS with hosted control planes cluster with Cluster API": [
+    "create-rosa-hcp-capi-cluster"
+  ],
+  "Deleting a Red Hat OpenShift Service on AWS with hosted control planes cluster with Cluster API": [
+    "delete-rosa-hcp-capi-cluster"
+  ],
+  "Cluster API": [
+    "capi-intro"
+  ],
+  "Overview": [
+    "_rhacm-docs_apis_cluster_jsonoverview",
+    "_rhacm-docs_apis_clusterset_jsonoverview",
+    "_rhacm-docs_apis_clustersetbinding_jsonoverview",
+    "_rhacm-docs_apis_clusterview_jsonoverview",
+    "_serviceaccount_jsonoverview",
+    "_mce_jsonoverview",
+    "_rhacm-docs_apis_placement_jsonoverview",
+    "_rhacm-docs_apis_placementdecision_jsonoverview",
+    "_rhacm-docs_apis_klusterletconfig_jsonoverview"
+  ],
+  "URI scheme": [
+    "_uri_scheme",
+    "_uri_scheme_2",
+    "_uri_scheme_3",
+    "_uri_scheme_4",
+    "_uri_scheme_5",
+    "_uri_scheme_6",
+    "_uri_scheme_7",
+    "_uri_scheme_8",
+    "_uri_scheme_9"
+  ],
+  "Tags": [
+    "_tags",
+    "_tags_2",
+    "_tags_3",
+    "_tags_4",
+    "_tags_5",
+    "_tags_6",
+    "_tags_7",
+    "_tags_8",
+    "_tags_9",
+    "_tags_10",
+    "_tags_11",
+    "_tags_12",
+    "_tags_13",
+    "_tags_14",
+    "_tags_15",
+    "_tags_16",
+    "_tags_17",
+    "_tags_18",
+    "_tags_19",
+    "_tags_20",
+    "_tags_21",
+    "_tags_22",
+    "_tags_23",
+    "_tags_24",
+    "_tags_25",
+    "_tags_26",
+    "_tags_27",
+    "_tags_28",
+    "_tags_29",
+    "_tags_30",
+    "_tags_31",
+    "_tags_32",
+    "_tags_33",
+    "_tags_34",
+    "_tags_35",
+    "_tags_36",
+    "_tags_37",
+    "_tags_38",
+    "_tags_39",
+    "_tags_40",
+    "_tags_41"
+  ],
+  "Query all clusters": [
+    "_rhacm-docs_apis_cluster_jsonqueryclusters"
+  ],
+  "Description": [
+    "_description",
+    "_description_2",
+    "_description_3",
+    "_description_4",
+    "_description_5",
+    "_description_6",
+    "_description_7",
+    "_description_8",
+    "_description_9",
+    "_description_10",
+    "_description_11",
+    "_description_12",
+    "_description_13",
+    "_description_14",
+    "_description_15",
+    "_description_16",
+    "_description_17",
+    "_description_18",
+    "_description_19",
+    "_description_20",
+    "_description_21",
+    "_description_22",
+    "_description_23",
+    "_description_24",
+    "_description_25",
+    "_description_26",
+    "_description_27",
+    "_description_28",
+    "_description_29",
+    "_description_30",
+    "_description_31",
+    "_description_32",
+    "_description_33",
+    "_description_34",
+    "_description_35"
+  ],
+  "Parameters": [
+    "_parameters",
+    "_parameters_2",
+    "_parameters_3",
+    "_parameters_4",
+    "_parameters_5",
+    "_parameters_6",
+    "_parameters_7",
+    "_parameters_8",
+    "_parameters_9",
+    "_parameters_10",
+    "_parameters_11",
+    "_parameters_12",
+    "_parameters_13",
+    "_parameters_14",
+    "_parameters_15",
+    "_parameters_16",
+    "_parameters_17",
+    "_parameters_18",
+    "_parameters_19",
+    "_parameters_20",
+    "_parameters_21",
+    "_parameters_22",
+    "_parameters_23",
+    "_parameters_24",
+    "_parameters_25",
+    "_parameters_26",
+    "_parameters_27",
+    "_parameters_28",
+    "_parameters_29",
+    "_parameters_30",
+    "_parameters_31",
+    "_parameters_32",
+    "_parameters_33",
+    "_parameters_34",
+    "_parameters_35",
+    "_parameters_36"
+  ],
+  "Responses": [
+    "_responses",
+    "_responses_2",
+    "_responses_3",
+    "_responses_4",
+    "_responses_5",
+    "_responses_6",
+    "_responses_7",
+    "_responses_8",
+    "_responses_9",
+    "_responses_10",
+    "_responses_11",
+    "_responses_12",
+    "_responses_13",
+    "_responses_14",
+    "_responses_15",
+    "_responses_16",
+    "_responses_17",
+    "_responses_18",
+    "_responses_19",
+    "_responses_20",
+    "_responses_21",
+    "_responses_22",
+    "_responses_23",
+    "_responses_24",
+    "_responses_25",
+    "_responses_26",
+    "_responses_27",
+    "_responses_28",
+    "_responses_29",
+    "_responses_30",
+    "_responses_31",
+    "_responses_32",
+    "_responses_33",
+    "_responses_34",
+    "_responses_35",
+    "_responses_36"
+  ],
+  "Consumes": [
+    "_consumes",
+    "_consumes_2",
+    "_consumes_3",
+    "_consumes_4",
+    "_consumes_5",
+    "_consumes_6",
+    "_consumes_7",
+    "_consumes_8",
+    "_consumes_9",
+    "_consumes_10",
+    "_consumes_11",
+    "_consumes_12",
+    "_consumes_13",
+    "_consumes_14",
+    "_consumes_15",
+    "_consumes_16",
+    "_consumes_17"
+  ],
+  "Create a cluster": [
+    "_rhacm-docs_apis_cluster_jsoncreatecluster"
+  ],
+  "Example HTTP request body": [
+    "_example_http_request_body",
+    "_example_http_request_body_2",
+    "_example_http_request_body_3",
+    "_example_http_request_body_4",
+    "_example_http_request_body_5",
+    "_example_http_request_body_6",
+    "_example_http_request_body_7"
+  ],
+  "Query a single cluster": [
+    "_rhacm-docs_apis_cluster_jsonquerycluster"
+  ],
+  "Delete a cluster": [
+    "_rhacm-docs_apis_cluster_jsondeletecluster"
+  ],
+  "Cluster": [
+    "_rhacm-docs_apis_cluster_jsoncluster"
+  ],
+  "Clusters API": [
+    "clusters-api"
+  ],
+  "Query all clustersets": [
+    "_rhacm-docs_apis_clusterset_jsonqueryclustersets"
+  ],
+  "Create a clusterset": [
+    "_rhacm-docs_apis_clusterset_jsoncreateclusterset"
+  ],
+  "Query a single clusterset": [
+    "_rhacm-docs_apis_clusterset_jsonqueryclusterset"
+  ],
+  "Delete a clusterset": [
+    "_rhacm-docs_apis_clusterset_jsondeleteclusterset"
+  ],
+  "Clusterset": [
+    "_rhacm-docs_apis_clusterset_jsonclusterset"
+  ],
+  "Clustersets API (v1beta2)": [
+    "clustersets-api"
+  ],
+  "Query all clustersetbindings": [
+    "_rhacm-docs_apis_clustersetbinding_jsonqueryclustersetbindings"
+  ],
+  "Create a clustersetbinding": [
+    "_rhacm-docs_apis_clustersetbinding_jsoncreateclustersetbinding"
+  ],
+  "Query a single clustersetbinding": [
+    "_rhacm-docs_apis_clustersetbinding_jsonqueryclustersetbinding"
+  ],
+  "Delete a clustersetbinding": [
+    "_rhacm-docs_apis_clustersetbinding_jsondeleteclustersetbinding"
+  ],
+  "Clustersetbinding": [
+    "_rhacm-docs_apis_clustersetbinding_jsonclustersetbinding"
+  ],
+  "Clustersetbindings API (v1beta2)": [
+    "clustersetbindings-api"
+  ],
+  "Get managed clusters": [
+    "_rhacm-docs_apis_clusterview_jsongetclusterview"
+  ],
+  "List managed clusters": [
+    "_rhacm-docs_apis_clusterview_jsonlistclusterview"
+  ],
+  "Watch the managed cluster sets": [
+    "_rhacm-docs_apis_clusterview_jsonwatchclusterview"
+  ],
+  "List the managed cluster sets.": [
+    "_rhacm-docs_apis_clusterview_jsongetclusterviewset",
+    "_rhacm-docs_apis_clusterview_jsonlistclusterviewset"
+  ],
+  "Watch the managed cluster sets.": [
+    "_rhacm-docs_apis_clusterview_jsonwatchclusterviewset"
+  ],
+  "Clusterview API (v1alpha1)": [
+    "clusterview-api"
+  ],
+  "Create a ManagedServiceAccount": [
+    "_mce-docs_apis_managedserviceaccount_jsoncreateManagedServiceAccount"
+  ],
+  "Request body": [
+    "_request_body",
+    "_request_body_2"
+  ],
+  "Query a single ManagedServiceAccount": [
+    "_mce-docs_apis_managedserviceaccount_jsonquerymanagedserviceaccount"
+  ],
+  "Delete a": [
+    "_mce-docs_apis_managedserviceaccount_jsondeletemanagedserviceaccount"
+  ],
+  "ManagedServiceAccount API (v1alpha1) (Deprecated)": [
+    "serviceaccount-api"
+  ],
+  "Create a MultiClusterEngine": [
+    "_mce-docs_apis_MultiClusterEngine_jsoncreateMultiClusterEngine"
+  ],
+  "Query all MultiClusterEngines": [
+    "_mce-docs_apis_MultiClusterEngine_jsonqueryoperator"
+  ],
+  "Delete a MultiClusterEngine operator": [
+    "_mce-docs_apis_MultiClusterEngine_jsondeleteoperator"
+  ],
+  "MultiClusterEngine": [
+    "_mce-docs_apis_MultiClusterEngine_json_parameters"
+  ],
+  "List of specs": [
+    "_mce-docs_apis_MultiClusterEngine_specs"
+  ],
+  "MultiClusterEngine API (v1alpha1)": [
+    "multiclusterengine-api"
+  ],
+  "Query all Placements": [
+    "_rhacm-docs_apis_placement_jsonqueryplacements"
+  ],
+  "Create a Placement": [
+    "_rhacm-docs_apis_placement_jsoncreateplacement"
+  ],
+  "Query a single Placement": [
+    "_rhacm-docs_apis_placement_jsonqueryplacement"
+  ],
+  "Delete a Placement": [
+    "_rhacm-docs_apis_placement_jsondeleteplacement"
+  ],
+  "Placements API (v1beta1)": [
+    "placements-clusters-api"
+  ],
+  "Query all PlacementDecisions": [
+    "_rhacm-docs_apis_placementdecision_jsonqueryplacementdecisions"
+  ],
+  "Create a PlacementDecision": [
+    "_rhacm-docs_apis_placementdecision_jsoncreateplacement"
+  ],
+  "Query a single PlacementDecision": [
+    "_rhacm-docs_apis_placementdecision_jsonqueryplacementdecision"
+  ],
+  "Delete a PlacementDecision": [
+    "_rhacm-docs_apis_placementdecision_jsondeleteplacementdecision"
+  ],
+  "PlacementDecision": [
+    "_rhacm-docs_apis_placementdecision_jsonplacementdecision"
+  ],
+  "PlacementDecisions API (v1beta1)": [
+    "placementdecisions-api"
+  ],
+  "Query all KlusterletConfig": [
+    "_rhacm-docs_apis_klusterletconfig_jsonqueryklusterletconfigs"
+  ],
+  "Create a KlusterletConfig": [
+    "_rhacm-docs_apis_klusterletconfig_jsoncreateklusterletconfig"
+  ],
+  "Query a single klusterletconfig": [
+    "_rhacm-docs_apis_klusterletconfig_jsonqueryklusterletconfig"
+  ],
+  "Delete a klusterletconfig": [
+    "_rhacm-docs_apis_klusterletconfig_jsondeleteklusterletconfig"
+  ],
+  "klusterletconfig": [
+    "_rhacm-docs_apis_klusterletconfig_jsonklusterletconfig_clusters"
+  ],
+  "KlusterletConfig API (v1alpha1)": [
+    "klusterletconfig-api"
+  ],
+  "APIs": [
+    "apis"
+  ],
+  "Documented troubleshooting": [
+    "documented-troubleshooting-mce"
+  ],
+  "Must-gather scenarios": [
+    "scenarios-mce"
+  ],
+  "Must-gather procedure": [
+    "procedure-mce"
+  ],
+  "Must-gather in a disconnected environment": [
+    "must-gather-disconnected-mce"
+  ],
+  "Running the must-gather command to troubleshoot": [
+    "running-the-must-gather-command-to-troubleshoot-mce"
+  ],
+  "Symptom: Installation for day two workers fails": [
+    "symptom-network-config-fail"
+  ],
+  "Resolving the problem: Recreate the node merging network configuration": [
+    "resolving-network-config-fail"
+  ],
+  "Troubleshooting: Adding day-two nodes to an existing cluster fails with pending user action": [
+    "troubleshooting-network-config-fail"
+  ],
+  "Symptom: An error occurs when destroying a hosted control plane cluster": [
+    "symptom-destroy-cluster-fail"
+  ],
+  "Resolving the problem: Remove the remaining machine resources manually": [
+    "resolving-destroy-cluster-fail"
+  ],
+  "Troubleshooting deletion failure of a hosted control plane cluster on the Agent platform": [
+    "troubleshooting-destroy-cluster-fail"
+  ],
+  "Symptom: Stuck in Pending status": [
+    "symptom-stuck-pending-mce"
+  ],
+  "Resolving the problem: Adjust worker node sizing": [
+    "resolving-the-problem-adjust-sizing-mce"
+  ],
+  "Troubleshooting installation status stuck in installing or pending": [
+    "troubleshooting-stuck-pending-mce"
+  ],
+  "Symptom: Reinstallation failure": [
+    "symptom-reinstallation-failure-mce"
+  ],
+  "Resolving the problem: Reinstallation failure": [
+    "resolving-the-problem-reinstallation-failure-mce"
+  ],
+  "Troubleshooting reinstallation failure": [
+    "troubleshooting-reinstallation-failure-mce"
+  ],
+  "Symptom: Cluster status is offline": [
+    "symptom-cluster-offline-mce"
+  ],
+  "Resolving the problem: Cluster status is offline": [
+    "resolving-cluster-offline-mce"
+  ],
+  "Troubleshooting an offline cluster": [
+    "troubleshooting-an-offline-cluster-mce"
+  ],
+  "Symptom: Imported cluster not available": [
+    "symptom-cluster-import-failed-mce"
+  ],
+  "Resolving the problem: Imported cluster not available": [
+    "resolving-cluster-import-failed-mce"
+  ],
+  "Troubleshooting a managed cluster import failure": [
+    "troubleshooting-a-managed-cluster-import-failure-mce"
+  ],
+  "Symptom: Reimporting cluster fails with unknown authority error": [
+    "symptom-cluster-reimport-kubeconfig-mce"
+  ],
+  "Identifying the problem: Reimporting cluster fails with unknown authority error": [
+    "identifying-the-problem-cluster-reimport-kubeconfig-mce"
+  ],
+  "Resolving the problem: Reimporting cluster fails with unknown authority error": [
+    "resolving-the-problem-reimport-kubeconfig-mce"
+  ],
+  "Reimporting cluster fails with unknown authority error": [
+    "troubleshooting-cluster-reimport-kubeconfig-mce"
+  ],
+  "Symptom: Cluster with pending import status": [
+    "symptom-cluster-with-pending-import-status-mce"
+  ],
+  "Identifying the problem: Cluster with pending import status": [
+    "identifying-the-problem-cluster-with-pending-import-status-mce"
+  ],
+  "Resolving the problem: Cluster with pending import status": [
+    "resolving-the-problem-cluster-with-pending-import-status-mce"
+  ],
+  "Troubleshooting cluster with pending import status": [
+    "troubleshooting-cluster-with-pending-import-status-mce"
+  ],
+  "Symptom: Clusters offline after certificate change": [
+    "symptom-clusters-offline-after-certificate-change-mce"
+  ],
+  "Identifying the problem: Clusters offline after certificate change": [
+    "identifying-clusters-offline-after-certificate-change-mce"
+  ],
+  "Resolving the problem: Clusters offline after certificate change": [
+    "resolving-clusters-offline-after-certificate-change-mce"
+  ],
+  "Troubleshooting imported clusters offline after certificate change": [
+    "troubleshooting-imported-clusters-offline-after-certificate-change-mce"
+  ],
+  "Symptom: Cluster status changing from offline to available": [
+    "symptom-cluster-status-changing-from-offline-to-available-mce"
+  ],
+  "Resolving the problem: Cluster status changing from offline to available": [
+    "resolving-the-problem-cluster-status-changing-from-offline-to-available-mce"
+  ],
+  "Troubleshooting cluster status changing from offline to available": [
+    "troubleshooting-cluster-status-offline-available-mce"
+  ],
+  "Symptom: Managed cluster creation fails with certificate IP SAN error": [
+    "symptom-vsphere-fails-cert-ip-san-mce"
+  ],
+  "Identifying the problem: Managed cluster creation fails with certificate IP SAN error": [
+    "identifying-the-problem-vsphere-fails-cert-ip-san-mce"
+  ],
+  "Resolving the problem: Managed cluster creation fails with certificate IP SAN error": [
+    "resolving-the-problem-vsphere-fails-cert-ip-san-mce"
+  ],
+  "Managed cluster creation fails with certificate IP SAN error": [
+    "_managed_cluster_creation_fails_with_certificate_ip_san_error"
+  ],
+  "Symptom: Managed cluster creation fails with unknown certificate authority": [
+    "symptom-vsphere-fails-cert-unknown-mce"
+  ],
+  "Identifying the problem: Managed cluster creation fails with unknown certificate authority": [
+    "identifying-the-problem-vsphere-fails-cert-unknown-mce"
+  ],
+  "Resolving the problem: Managed cluster creation fails with unknown certificate authority": [
+    "resolving-the-problem-vsphere-fails-cert-unknown-mce"
+  ],
+  "Managed cluster creation fails with unknown certificate authority": [
+    "_managed_cluster_creation_fails_with_unknown_certificate_authority"
+  ],
+  "Symptom: Managed cluster creation fails with expired certificate": [
+    "symptom-vsphere-fails-cert-expired-mce"
+  ],
+  "Identifying the problem: Managed cluster creation fails with expired certificate": [
+    "identifying-the-problem-vsphere-fails-cert-expired-mce"
+  ],
+  "Resolving the problem: Managed cluster creation fails with expired certificate": [
+    "resolving-the-problem-vsphere-fails-cert-expired-mce"
+  ],
+  "Managed cluster creation fails with expired certificate": [
+    "_managed_cluster_creation_fails_with_expired_certificate"
+  ],
+  "Symptom: Managed cluster creation fails with insufficient privilege for tagging": [
+    "symptom-vsphere-fails-tag-mce"
+  ],
+  "Identifying the problem: Managed cluster creation fails with insufficient privilege for tagging": [
+    "identifying-the-problem-vsphere-fails-tag-mce"
+  ],
+  "Resolving the problem: Managed cluster creation fails with insufficient privilege for tagging": [
+    "resolving-the-problem-vsphere-fails-tag-mce"
+  ],
+  "Managed cluster creation fails with insufficient privilege for tagging": [
+    "_managed_cluster_creation_fails_with_insufficient_privilege_for_tagging"
+  ],
+  "Symptom: Managed cluster creation fails with invalid dnsVIP": [
+    "symptom-vsphere-fails-dnsvip-mce"
+  ],
+  "Identifying the problem: Managed cluster creation fails with invalid dnsVIP": [
+    "identifying-the-problem-vsphere-fails-dnsvip-mce"
+  ],
+  "Resolving the problem: Managed cluster creation fails with invalid dnsVIP": [
+    "resolving-the-problem-vsphere-fails-dnsvip-mce"
+  ],
+  "Managed cluster creation fails with invalid dnsVIP": [
+    "_managed_cluster_creation_fails_with_invalid_dnsvip"
+  ],
+  "Symptom: Managed cluster creation fails with incorrect network type": [
+    "symptom-vsphere-fails-network-mce"
+  ],
+  "Identifying the problem: Managed cluster creation fails with incorrect network type": [
+    "identifying-the-problem-vsphere-fails-network-mce"
+  ],
+  "Resolving the problem: Managed cluster creation fails with incorrect network type": [
+    "resolving-the-problem-vsphere-fails-network-mce"
+  ],
+  "Managed cluster creation fails with incorrect network type": [
+    "_managed_cluster_creation_fails_with_incorrect_network_type"
+  ],
+  "Symptom: Adding the VMware vSphere managed cluster fails due to an error processing disk changes": [
+    "symptom-vsphere-fails-disk-mce"
+  ],
+  "Identifying the problem: Adding the VMware vSphere managed cluster fails due to an error processing disk changes": [
+    "identifying-the-problem-vsphere-fails-disk-mce"
+  ],
+  "Resolving the problem: Adding the VMware vSphere managed cluster fails due to an error processing disk changes": [
+    "resolving-the-problem-vsphere-fails-disk-mce"
+  ],
+  "Managed cluster creation fails with an error processing disk changes": [
+    "_managed_cluster_creation_fails_with_an_error_processing_disk_changes"
+  ],
+  "Troubleshooting cluster creation on VMware vSphere": [
+    "troubleshooting-cluster-creation-on-vmware-vsphere-mce"
+  ],
+  "Symptom: Cluster in console with pending or failed status": [
+    "symptom-cluster-in-console-with-pending-or-failed-status-mce"
+  ],
+  "Identifying the problem: Cluster in console with pending or failed status": [
+    "identifying-the-problem-cluster-in-console-with-pending-or-failed-status-mce"
+  ],
+  "Resolving the problem: Cluster in console with pending or failed status": [
+    "resolving-the-problem-cluster-in-console-with-pending-or-failed-status-mce"
+  ],
+  "Troubleshooting cluster in console with pending or failed status": [
+    "troubleshooting-cluster-in-console-with-pending-or-failed-status-mce"
+  ],
+  "Symptom: Klusterlet is in the degraded condition": [
+    "symptom-klusterlet-is-in-the-degraded-condition-mce"
+  ],
+  "Identifying the problem: Klusterlet is in the degraded condition": [
+    "identifying-the-problem-klusterlet-is-in-the-degraded-condition-mce"
+  ],
+  "Resolving the problem: Klusterlet is in the degraded condition": [
+    "resolving-the-problem-klusterlet-is-in-the-degraded-condition-mce"
+  ],
+  "Troubleshooting Klusterlet with degraded conditions": [
+    "troubleshooting-klusterlet-with-degraded-conditions-mce"
+  ],
+  "Symptom: Namespace remains after deleting a cluster": [
+    "symptom-trouble-cluster-remove-namespace-mce"
+  ],
+  "Resolving the problem: Namespace remains after deleting a cluster": [
+    "resolving-trouble-cluster-remove-namespace-mce"
+  ],
+  "Troubleshooting namespace that remains after deleting a cluster": [
+    "trouble-cluster-remove-namespace-mce"
+  ],
+  "Symptom: Auto import secret exists error when importing a cluster": [
+    "symptom-auto-import-secret-exists-mce"
+  ],
+  "Resolving the problem: Auto-import-secret-exists error when importing a cluster": [
+    "resolving-auto-import-secrets-exists-mce"
+  ],
+  "Auto-import-secret-exists error when importing a cluster": [
+    "trouble-auto-import-secret-exists-mce"
+  ],
+  "Symptom: Missing PlacementDecision after creating Placement": [
+    "symptom-no-placementdecision-mce"
+  ],
+  "Resolving the problem: Missing PlacementDecision after creating Placement": [
+    "resolving-no-placementdecision-mce"
+  ],
+  "Troubleshooting missing PlacementDecision after creating Placement": [
+    "troubleshooting-no-placementdecision-mce"
+  ],
+  "Symptom: Discovery failure of bare metal hosts on Dell hardware": [
+    "symptom-idrac-discovery-fails-mce"
+  ],
+  "Resolving the problem: Discovery failure of bare metal hosts on Dell hardware": [
+    "resolving-idrac-discovery-fails-mce"
+  ],
+  "Troubleshooting a discovery failure of bare metal hosts on Dell hardware": [
+    "troubleshooting-idrac-discovery-fails-mce"
+  ],
+  "Symptom: Minimal ISO boot failures": [
+    "symptom-min-iso-boot"
+  ],
+  "Resolving the problem: Minimal ISO boot failures": [
+    "resolving-min-iso-boot"
+  ],
+  "Troubleshooting Minimal ISO boot failures": [
+    "trouble-min-iso-boot"
+  ],
+  "Symptom:": [
+    "symptom-mirror-rhcos-image"
+  ],
+  "Resolving the problem:": [
+    "resolving-mirror-rhcos-image"
+  ],
+  "Troubleshooting the RHCOS image mirroring": [
+    "trouble-mirror-rhcos-image"
+  ],
+  "Symptom: Returning non bare metal clusters to the late binding pool": [
+    "symptom-return-non-bm-cluster"
+  ],
+  "Resolving the problem: Returning non bare metal clusters to the late binding pool": [
+    "resolving-return-non-bm-cluster"
+  ],
+  "Troubleshooting: Returning non bare metal clusters to the late binding pool": [
+    "troubleshooting-return-non-bm-cluster"
+  ],
+  "Symptom: All managed clusters are in": [
+    "symptom-unknown-status-rosa-hcp"
+  ],
+  "Resolving the problem: All managed clusters are in": [
+    "resolving-the-problem-unknown-status-rosa-hcp"
+  ],
+  "Troubleshooting managed clusters": [
+    "trouble-unknown-status-rosa-hcp"
+  ],
+  "Symptom: Attempt to upgrade managed cluster with missing OpenShift Container Platform version": [
+    "symptom-missing-ocp"
+  ],
+  "Resolving the problem: Attempt to upgrade managed cluster with missing OpenShift Container Platform version": [
+    "resolve-missing-ocp"
+  ],
+  "Troubleshooting an attempt to upgrade managed cluster with missing OpenShift Container Platform version": [
+    "upgrade-managed-missing-ocp"
+  ],
+  "Symptom: Certificate authority update error on Hive and Assisted Installer clusters": [
+    "symptom-ca-update-error-hive-ai"
+  ],
+  "Resolving the problem: Certificate authority update error on Hive and Assisted Installer clusters": [
+    "resolving-ca-update-error-hive-ai"
+  ],
+  "Troubleshooting certificate authority update error on Hive and Assisted Installer clusters": [
+    "ca-update-error-hive-ai"
+  ],
+  "Symptom: Missing": [
+    "symptom-miss-namespace"
+  ],
+  "Identifying the problem: Missing": [
+    "identif-ymiss-namespace"
+  ],
+  "Resolving the problem: Missing": [
+    "resolve-miss-namespace"
+  ],
+  "Troubleshooting: Missing": [
+    "trouble-miss-namespace"
+  ],
+  "Troubleshooting": [
+    "troubleshooting-mce"
+  ],
+  "Cluster lifecycle with multicluster engine operator overview": [
+    "cluster_mce_overview"
+  ]
+}

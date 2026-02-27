@@ -88,6 +88,22 @@ Hat OpenShift Service on AWS clusters. Red Hat Advanced Cluster
 Management on the AWS Marketplace offers billing consistency, flexible
 resource consumption, and cost efficiency.
 
+- Purchase from the AWS Marketplace, then you can install
+  `MultiClusterHub` resources and manage your clusters. To view the
+  overall consumption, go to console.redhat.com. Click **Subscriptions
+  Usage** \> **OpenShift**. Select **Variant: Red Hat Advanced Cluster
+  Management** from the drop-down menu.
+
+- Use the Attach feature with Red Hat OpenShift Lightspeed, a generative
+  AI-powered virtual assistant for Red Hat OpenShift Container Platform,
+  to add managed cluster resource details as context for questions. See
+  the Red Hat OpenShift Lightspeed installation documentation to learn
+  how to install Lightspeed. After installing, click **Infrastructure**
+  \> **Clusters** \> **Cluster details** on any managed cluster page to
+  access the assistant. The Attach feature automatically adds the
+  relevant cluster YAML file details from the `ManagedCluster` and
+  `ManagedClusterInfo` resource to the agent conversation.
+
 ### New features and enhancements for each component
 
 Some features and components are identified and released as Technology
@@ -138,6 +154,30 @@ For new features that are related to multicluster engine operator, see
 New features and enhancements for Cluster lifecycle with multicluster
 engine operator in the *Cluster* section of the documentation.
 
+For cluster management with Red Hat Advanced Cluster Management, see the
+following new features and enhancements:
+
+- You can now manage and define Kubernetes native resources such as
+  `Roles`, `ClusterRoles`, `RoleBindings`, and `ClusterRoleBindings`
+  resources by using the `ClusterPermission` resource. For more
+  information, see Role-based access control for your managed clusters
+  with cluster permissions.
+
+- You can now enable the `validate` specification to check the existence
+  of your `Role` and `ClusterRole` resources. For more information, see
+  Enabling validation for cluster permissions.
+
+- You can now enable role-based access control for cluster management to
+  create multiple cluster role bindings for your `ClusterPermission`
+  resources. For more details, see Implementing role-based access
+  control.
+
+- **Technology Preview:** Enable the following fine-grained roles to
+  manage the access of your virtual machine resources:
+  `kubevirt.io-acm-managed:admin`, `kubevirt.io-acm-managed:view`,
+  `kubevirt.io-acm-hub:admin`, and `kubevirt.io-acm-hub:view`. For more
+  information, see Implementing role-based access control.
+
 View other cluster management tasks and support information at Cluster
 lifecycle with multicluster engine operator overview.
 
@@ -145,11 +185,66 @@ lifecycle with multicluster engine operator overview.
 
 Learn what is new for multicluster global hub this release.
 
+- The following features are now generally available: Migrating managed
+  clusters and Importing a managed hub cluster in the hosted mode.
+
+- You can migrate your managed clusters directly by name or by the
+  `Placement` resource. Then, you can track the migration status. For
+  more information, see Migrating managed clusters
+
+- Enable the Observability service on your multicluster global hub for
+  collecting and viewing metrics from your multicluster global hub and
+  hub cluster. For more details, see multicluster global hub.
+
+- For other multicluster global hub topics, see multicluster global hub.
+
 ### Applications
 
 Learn about new features for application management.
 
+- You can manage the Red Hat OpenShift GitOps add-on to help you
+  automate the deployment and lifecycle management of your managed
+  clusters. For more information, see Managing the Red Hat OpenShift
+  GitOps add-on
+
+- You can choose to enable the OpenShift GitOps add-on with or without
+  the `ArgoCD` agent that gives you detailed statuses on the health of
+  your application. For more information see Enabling Red Hat OpenShift
+  GitOps add-on with ArgoCD agent and Enabling Red Hat OpenShift GitOps
+  add-on without the ArgoCD agent.
+
+- You can skip specific OpenShift GitOps add-on functionalities that you
+  do not want, or you can completely uninstall the OpenShift GitOps
+  add-on. For more information, see Skipping the OpenShift GitOps add-on
+  enforcement and Uninstalling the OpenShift GitOps add-on.
+
+- You can verify that your OpenShift GitOps add-on works and that your
+  `ArgoCD` agent works. For more information, see Verifying the
+  {gitops-short) add-on functions and Verifying the ArgoCD agent
+  function.
+
+- You can deploy `ApplicationSet` resources in any namespace on your hub
+  cluster. For more information, see Deploying the Argo CD
+  ApplicationSet resource in any namespace for pull model (Technology
+  Preview).
+
+- For other Application and GitOps topics, see Managing applications.
+
 ### Observability
+
+- **Technology Preview:** Use `RightSizingRecommendation` to optimize
+  workloads and understand resource usage across your virtual machines.
+  To learn more, see RightSizingRecommendation guides (Technology
+  Preview).
+
+- Enable the multicluster observability add-on as an alternative way to
+  collect platform metrics and user workloads from your managed
+  clusters. For more information, see Multicluster observability add-on.
+
+- The Observability service is compatible with certain versions of
+  technology. Learn which versions are supported with the current
+  version of the Observability service. See the table list of component
+  versions in the Observability architecture topic.
 
 See Observability service to learn more.
 
@@ -171,6 +266,10 @@ See Observability service to learn more.
   cluster state without manually exporting and supporting resource
   files. For more information, see Policy command-line tool.
 
+- You can now view the last 10 events in the status of the policy on
+  your managed cluster. For more details about policy event history, see
+  Policy deployment.
+
 - See Governance to learn more about the dashboard and the policy
   framework.
 
@@ -178,6 +277,14 @@ See Observability service to learn more.
 
 Learn about new features for *Back up and restore* and *VolSync*
 components.
+
+- You can back up and restore the management capability of hosted
+  clusters that are managed by Red Hat Advanced Cluster Management.
+  Follow steps to ensure a successful recovery of both the Red Hat
+  Advanced Cluster Management hub cluster and the management capability
+  of hosted clusters. For more information, see Backup and restore for
+  hosted control planes and hosted clusters and Restoring hosted control
+  plane management configuration.
 
 To learn about VolSync, which enables asynchronous replication of
 persistent volumes within a cluster, see VolSync persistent volume
@@ -187,9 +294,25 @@ To learn about Backup and restore, see Backup and restore.
 
 ### Networking
 
+- You can now deploy dual-stack clusters with OVN-Kubernetes Container
+  Network Interface on Submariner without Globalnet. For more details,
+  see Configuring Submariner.
+
 See Networking.
 
 ### Virtualization
+
+- **Technology Preview:** You can migrate virtual machines for your
+  managed clusters to help you move cluster resources during upgrades
+  and configuration changes. For more information, see Migrating virtual
+  machines between clusters (Technology Preview).
+
+- **Important:** To use virtualization capabilities in Red Hat Advanced
+  Cluster Management, ensure that a supported version of OpenShift
+  Container Platform and the Red Hat OpenShift Virtualization operator
+  is installed on the clusters that you want to manage. For Red Hat
+  Advanced Cluster Management 2.15, you need to use Red Hat OpenShift
+  Virtualization 4.20.1 or later.
 
 See Virtualization.
 
@@ -197,6 +320,22 @@ See Virtualization.
 
 See more information about the release, as well as support information
 for the product.
+
+- See more release notes, such as *Known Issues and Limitations*, in
+  Release notes for Red Hat Advanced Cluster Management.
+
+- Get an overview of Red Hat Advanced Cluster Management from the
+  Welcome to Red Hat Advanced Cluster Management for Kubernetes topic.
+
+- See the Multicluster architecture topic to learn more about major
+  components of the product.
+
+- See support information and more in the Red Hat Advanced Cluster
+  Management Troubleshooting.
+
+- Access the open source *Open Cluster Management* community for
+  interaction, growth, and contributions from the open community. To get
+  involved, see open-cluster-management.io.
 
 ## Fixed issues for Red Hat Advanced Cluster Management
 
@@ -217,6 +356,49 @@ multicluster engine operator, which is a software operator that enhances
 cluster fleet management. Release notes for multicluster engine
 operator-specific features are found in at Release notes for Cluster
 lifecycle with multicluster engine operator.
+
+### Errata 2.15.1
+
+- Delivers updates to one or more product container images.
+
+- Fixes a problem where `ConfigurationPolicies` that check status
+  incorrectly report that the policy is `Compliant` when the status
+  field is missing. With this fix, `ConfigurationPolicies` properly
+  report as `NonCompliant` until that status field matches what is
+  defined in the policy. ACM-28224
+
+- Corrects the problem where the cluster monitoring config map contains
+  duplicated `AlertmanagerConfigs` due to the change in the Alertmanager
+  secret names in Red Hat Advanced Cluster Management 2.15. ACM-27841
+
+- Fixes a blocker that occurred during cluster deprovisioning, causing
+  the `BareMetalHost` deletion to hang due to a foreground deletion
+  policy deadlock with the `PreprovisioningImage`. ACM-27747
+
+- Resolves an issue where `ClusterInstance` status incorrectly reported
+  `Provisioning in progress` for clusters imported after it was
+  previously installed by using the Agent-Based Installer or the
+  Installer-Provisioned Infrastructure. `ClusterInstance` status now
+  correctly reflects a completed state for imported clusters that are
+  already provisioned. ACM-27639
+
+- Fixes an issue where adding the `observability=disabled` label failed
+  to remove all observability add-on resources for a target managed
+  cluster. With this fix, all observability add-on resources are removed
+  when the label is added. ACM-27632
+
+- Optimizes the watcher controller to fix overconsumption of resources,
+  specifically memory and CPU, which was causing scalability issues. The
+  fix optimizes the reconciliation process by implementing a lookup
+  cache, which replaces the previous resource-intensive checks that are
+  used to verify if updated `ConfigMaps` or `Secrets` are used by the
+  `multicluster-observability-addon`. ACM-27304
+
+- Fixes an issue where the hub Alertmanager secrets in the
+  `openshift-monitoring` namespace became too long, and therefore
+  causing statefulset not to start. The Alertmanager secrets are now
+  appended by a partial cluster ID instead of the cluster name.
+  ACM-27722
 
 ## Known issues Red Hat Advanced Cluster Management
 
@@ -298,6 +480,19 @@ for Red Hat Advanced Cluster Management.
 
 Backup and restore known issues and limitations are listed here, along
 with workarounds if they are available.
+
+#### The *BareMetalHost* resources are not backed up by default
+
+You can automatically add hosts to the host inventory by using
+`BareMetalHosts`. By default, your `BareMetalHosts` are not included in
+your backups.
+
+To include the `BareMetalHosts` to your backups, add the
+`cluster.open-cluster-management.io/backup: cluster-activation` label to
+the `BareMetalHosts`. For more information, see the topic, Resources
+restored at managed clusters activation time.
+
+ACM-26582
 
 ##### Velero restore limitations
 
@@ -435,6 +630,33 @@ Container Platform known issues.
 
 For more about deprecations and removals, see Deprecations and removals
 for Red Hat Advanced Cluster Management.
+
+#### External links in certain versions of the integrated console lead to incorrect pages
+
+If your Red Hat OpenShift Container Platform version is 4.18.29 or
+older, 4.19.20 or older, or 4.20.7 or older, completing one of the
+following actions causes part of the URL to be lost:
+
+- Opening a link that leads to the console
+
+- Opening a console link in a new tab
+
+- Entering a console URL manually
+
+- Refreshing a console page
+
+As a result, you see the wrong console page. For example, a link to the
+**Governance Policies** tab might open the **Governance Overview** tab
+instead.
+
+To resolve the issue, upgrade to Red Hat OpenShift Container Platform
+version 4.18.30, 4.19.21, or 4.20.8 or later.
+
+Alternatively, you can reload to try to access the correct page. You can
+also navigate to the correct page from the links in the console
+navigation menu, or use the search function.
+
+ACM-24689
 
 #### *klusterlet-addon-search* pod fails
 
@@ -645,6 +867,58 @@ is configured correctly. See Customizing nodes.
 
 ACM-5636
 
+### Virtualization known issues
+
+Review the known issues for Red Hat Advanced Cluster Management
+Virtualization capability. The following list contains known issues for
+this release, or known issues that continued from the previous release.
+
+For your Red Hat OpenShift Container Platform cluster, see OpenShift
+Container Platform known issues.
+
+For more about deprecations and removals, see Deprecations and removals
+for Red Hat Advanced Cluster Management.
+
+See the following known issues and limitations that might occur while
+using Red Hat OpenShift Virtualization with Red Hat Advanced Cluster
+Management:
+
+#### Red Hat Advanced Cluster Management Virtualization requires Red Hat OpenShift Virtualization 4.20.1 or later
+
+Red Hat Advanced Cluster Management 2.15 Virtualization with Red Hat
+OpenShift Virtualization 4.20 is not supported. You need to use Red Hat
+OpenShift Virtualization 4.20.1 or later with Red Hat Advanced Cluster
+Management 2.15.
+
+#### Search result for only virtual machine resources are displayed
+
+After you enable fine-grained RBAC and attempt to search resources, only
+virtual machine resources in the `kubevirt.io` `ClusterRoles` are
+displayed and not other resources. To workaround this issue, disable the
+`fine-grained-rbac-preview` feature. Complete the following steps:
+
+1.  Disable `fine-grained-rbac-preview` in the `MultiClusterHub`
+    resource.
+
+    1.  Edit your `MultiClusterHub` resource by running the following
+        command:
+
+        ``` bash
+        oc edit mch -n open-cluster-management multiclusterhub
+        ```
+
+    2.  Edit to change the `configOverrides` specification from
+        `enabled: true` to `enabled: false`. See the following example
+        with the feature disabled:
+
+    ``` yaml
+        - configOverrides: {}
+          enabled: false
+          name: fine-grained-rbac-preview
+    ```
+
+ACM-26537
+
 ### Application known issues and limitations
 
 Review the known issues for application management. The following list
@@ -806,16 +1080,12 @@ the GitOps operator version 1.9.0, or later. To prevent conflicts, wait
 until the hub cluster and all the managed clusters are upgraded to
 GitOps operator version 1.9.0 before implementing the pull model.
 
-ACM-3404
-
 #### Resource fails to deploy
 
 All the resources listed in the `MulticlusterApplicationSetReport` are
 actually deployed on the managed clusters. If a resource fails to
 deploy, the resource is not included in the resource list, but the cause
 is listed in the error message.
-
-ACM-3910
 
 #### Resource allocation might take several minutes
 
@@ -842,8 +1112,6 @@ spec:
       requeueAfterSeconds: 0
 ```
 
-ACM-5177
-
 #### Application ObjectBucket channel type cannot use allow and deny lists
 
 You cannot specify allow and deny lists with ObjectBucket channel type
@@ -867,8 +1135,6 @@ changing the `multicluster_operators_subscription` image in the
 `multicluster-hub` image manifest ConfigMap, the `application-manager`
 add-on on the managed clusters does not use the new image until the
 subscription operator pod is restarted. You need to restart the pod.
-
-ACM-21013
 
 #### Policy resource not deployed unless by subscription administrator
 
@@ -975,8 +1241,6 @@ and see if the `application-manager` is running.
 If you cannot verify, attempt to import the cluster again and verify
 again.
 
-ACM-1449
-
 #### Subscription operator does not create an SCC
 
 Learn about Red Hat OpenShift Container Platform SCC at Managing
@@ -1034,8 +1298,6 @@ type channel, so do not create any additional channels in `charts-v1`.
 Ensure that you create your channel in a unique namespace. All channels
 need an individual namespace, except GitHub channels, which can share a
 namespace with another GitHub channel.
-
-ACM-2160
 
 #### Ansible Automation Platform job fail
 
@@ -1121,12 +1383,71 @@ Review the known issues for Red Hat Advanced Cluster Management for
 Kubernetes. The following list contains known issues for this release,
 or known issues that continued from the previous release.
 
-For your Red Hat OpenShift Container Platform cluster, see
-link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/release_notes#ocp-4-15-known-issues
-\[OpenShift Container Platform known issues\].
+For your Red Hat OpenShift Container Platform cluster, see OpenShift
+Container Platform known issues.
 
 For more about deprecations and removals, see Deprecations and removals
 for Red Hat Advanced Cluster Management.
+
+#### Multicluster observability add-on fails to collect metrics
+
+The `multicluster-observability-addon-manager` pod is in a `OOMKilled`
+state because the pod watches all config maps and secrets on the hub
+cluster, causing it to use too many resources. When you enable the
+multicluster observability add-on, the metric collection fails.
+
+To avoid this issue, do not enable the multicluster observability
+add-on. The multicluster observability add-on is disabled by default. If
+you enabled multicluster observability add-on, disable the add-on by
+setting `enabled` to `false` in the `MulticlusterObservability` custom
+resource. See the following `MultiClusterObservability` custom resource
+example:
+
+``` yaml
+apiVersion: observability.open-cluster-management.io/v1beta2
+kind: MultiClusterObservability
+metadata:
+  name: observability
+spec:
+  capabilities:
+    platform:
+      metrics:
+        default:
+          enabled: false
+    userWorkloads:
+      metrics:
+        default:
+          enabled: false
+```
+
+ACM-26604
+
+#### Manually configured alert forwarding fails
+
+When you upgrade to Red Hat Advanced Cluster Management 2.15 alert
+forwarding fails if you disabled automatic configuration by setting
+`mco-disable-alerting: true` in the `MultiClusterObservability` custom
+resource, and if you manually configured alert forwarding. The failure
+happens after you upgrade because the name of the
+`observability-alertmanager-accessor` and `hub-alertmanager-router-ca`
+secrets were changed to include a postfix of the hub cluster ID. The hub
+cluster ID is obtained from the `uuid` field in the metadata of the
+`ClusterVersion` custom resource on the hub cluster. The ID, with dashes
+removed and trimmed to the first 19 characters, is appended to the
+`alertmanager` secrets.
+
+To fix this issue, update your alert forwarding configuration that you
+manually configured to use the new names of the secrets.
+
+For platform alerts, update the secret name in the
+`cluster-monitoring-config` config map in the `openshift-monitoring`
+namespace. For user workload alerts, update the secret name in the
+`user-workload-monitoring-config` config map in the
+`openshift-user-workload-monitoring` namespace. Find the new secret
+names in the `openshift-monitoring` and
+`openshift-user-workload-monitoring` namespaces.
+
+ACM-26604
 
 #### Retention change causes data loss
 
@@ -1260,17 +1581,6 @@ Container Platform known issues.
 For more about deprecations and removals, see Deprecations and removals
 for Red Hat Advanced Cluster Management.
 
-#### The *ConfigurationPolicy* incorrectly processes *objectSelector* and *namespaceSelector* results
-
-When you use both the `objectSelector` and the `namespaceSelector`
-fields in a `ConfigurationPolicy` resource, the objects that the
-`objectSelector` return get applied to all the namespaces that the
-`namespaceSelector` return. The `ConfigurationPolicy` incorrectly
-processes the results. To workaround this issue, apply the
-`object-templates-raw` field to iterate over the objects.
-
-ACM-22676
-
 #### Configuration policy listed complaint when namespace is stuck in *Terminating* state
 
 When you have a configuration policy that is configured with
@@ -1345,16 +1655,6 @@ causes and solutions for the error:
 
 ACM-3109
 
-#### Duplicate policy template names create inconsistent results
-
-When you create a policy with identical policy template names, you
-receive inconsistent results that are not detected, but you might not
-know the cause. For example, defining a policy with multiple
-configuration policies named `create-pod` causes inconsistent results.
-**Best practice:** Avoid using duplicate names for policy templates.
-
-ACM-5754
-
 #### Kyverno policies no longer report a status for the latest version
 
 Kyverno policies generated by the Policy Generator report the following
@@ -1384,6 +1684,14 @@ for Red Hat Advanced Cluster Management.
 
 See the following known issues and limitations that might occur while
 using networking features.
+
+##### Submariner installation on IBM Power Systems fails
+
+If you are using Red Hat Advanced Cluster Management 2.15, you cannot
+install Submariner on IBM systems, as it is currently not supported for
+these versions.
+
+ACM-27270
 
 ##### Source IP not retained for applications on OpenShift Container Platform with OVN-Kubernetes
 
@@ -1636,6 +1944,15 @@ alternatives for the removed function. Consider the alternative actions
 in the *Recommended action* and details that are provided in the
 following table:
 
+- Product or category: Red Hat Advanced Cluster Management for
+  Kubernetes console - Affected item: Infrastructure \> Virtual machines
+  page - Version: 2.15 - Recommended action: On Red Hat OpenShift
+  Container Platform version 4.20, install Red Hat OpenShift
+  Virtualization 4.20 to work with virtual machines across your fleet
+  from the Fleet Virtualization perspective. Alternatively, use Search
+  to find and take actions on virtual machines. - More details and
+  links: None
+
 - Product or category: multicluster global hub - Affected item: You are
   not required to migrate the resources, ConfigMaps and Secrets when you
   migrate managed clusters. - Version: 2.15 - Recommended action:
@@ -1663,14 +1980,6 @@ following table:
   new default Overview page. - More details and links: The previous
   layout of the Red Hat Advanced Cluster Management Overview page is
   redesigned.
-
-- Product or category: Policy compliance history API - Affected item:
-  Governance - Version: 2.13 - Recommended action: Use the existing
-  policy metrics to see the compliance status changes. You can also view
-  the config-policy-controller and cert-policy-controller pod logs to
-  get a detailed compliance history for each managed cluster. - More
-  details and links: For more information, see Policy controller
-  advanced configuration.
 
 ## Red Hat Advanced Cluster Management platform considerations for GDPR readiness
 
@@ -2112,19 +2421,3 @@ components and features for FIPS readiness.
 - The Red Hat Edge Manager (Technolgy Preview) component that is
   integrated with Red Hat Advanced Cluster Management is not developed
   for FIPS readiness.
-
-## Observability support
-
-- Red Hat Advanced Cluster Management is tested with and fully supported
-  by Red Hat OpenShift Data Foundation, formerly Red Hat OpenShift
-  Container Platform.
-
-- Red Hat Advanced Cluster Management supports the function of the
-  multicluster observability operator on user-provided third-party
-  object storage that is S3 API compatible. The observability service
-  uses Thanos supported, stable object stores.
-
-- Red Hat Advanced Cluster Management support efforts include reasonable
-  efforts to identify root causes. If you open a support ticket and the
-  root cause is the S3 compatible object storage that you provided, then
-  you must open an issue using the customer support channels.

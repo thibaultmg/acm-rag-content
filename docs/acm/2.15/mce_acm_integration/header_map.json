@@ -1,0 +1,194 @@
+{
+  "multicluster engine operator with Red Hat Advanced Cluster Management integration": [
+    "mce-acm-integration"
+  ],
+  "Central Red Hat Advanced Cluster Management hub cluster": [
+    "_central_red_hat_advanced_cluster_management_hub_cluster"
+  ],
+  "multicluster engine operator hosting infrastructure": [
+    "_multicluster_engine_operator_hosting_infrastructure"
+  ],
+  "Implementation considerations": [
+    "_implementation_considerations"
+  ],
+  "Integrated hosted control plane fleet management architecture pattern": [
+    "hosted-pattern"
+  ],
+  "Configuring Red Hat Advanced Cluster Management to import multicluster engine operator clusters": [
+    "hosted-import-config"
+  ],
+  "Importing multicluster engine operator manually": [
+    "hosted-import-mce"
+  ],
+  "Discovering hosted clusters": [
+    "hosted-discover"
+  ],
+  "Discovering multicluster engine operator hosted clusters in Red Hat Advanced Cluster Management": [
+    "discover-hosted-acm"
+  ],
+  "Prerequisites": [
+    "auto-import-hcp-preq",
+    "autoimport-disc-prereq",
+    "enable-preq",
+    "install-clusters-preq",
+    "deprovision-clusters-preq",
+    "scale-in-preq",
+    "scale-out-preq",
+    "ibbf-prereqs"
+  ],
+  "Configuring settings for automatic import": [
+    "config-hcp-autoimport"
+  ],
+  "Creating the placement definition": [
+    "create-hcp-placement",
+    "create-rosa-placement"
+  ],
+  "Binding the import policy to a placement definition": [
+    "bind-hcp-placement",
+    "bind-rosa-placement"
+  ],
+  "Automating import for discovered hosted clusters": [
+    "auto-import-hcp"
+  ],
+  "Creating the automatic import policy": [
+    "creating-rosa-policy"
+  ],
+  "Automating import for discovered Red Hat OpenShift Service on AWS clusters": [
+    "import-discover-rosa"
+  ],
+  "Working with hosted clusters in Red Hat Advanced Cluster Management": [
+    "hosted-acm"
+  ],
+  "Observing hosted control planes": [
+    "observe-hcp"
+  ],
+  "Observability integration": [
+    "mce-acm-observability"
+  ],
+  "The SiteConfig operator flow": [
+    "operator-flow"
+  ],
+  "About the SiteConfig operator": [
+    "siteconfig-about"
+  ],
+  "Template functions": [
+    "template-functions"
+  ],
+  "Default set of templates": [
+    "default-templates"
+  ],
+  "Special template variables": [
+    "special-template-variables"
+  ],
+  "Customization of the manifests order": [
+    "custom-manifest-order"
+  ],
+  "Configuration of additional annotations and labels": [
+    "extra-annotations-labels"
+  ],
+  "Permissible changes after provisioning": [
+    "permissible-changes"
+  ],
+  "Installation templates overview": [
+    "install-templates"
+  ],
+  "Enabling the SiteConfig operator from the": [
+    "enable-siteconfig-mch"
+  ],
+  "Enabling the SiteConfig operator": [
+    "enabling-sco"
+  ],
+  "Creating the target namespace": [
+    "install-create-target-ns"
+  ],
+  "Creating the pull secret": [
+    "install-create-pull-secret"
+  ],
+  "Creating the BMC secret": [
+    "install-create-bmc-secret"
+  ],
+  "Optional: Creating the extra manifests": [
+    "install-create-extra-manifests"
+  ],
+  "Rendering the installation manifests": [
+    "install-render-manifests"
+  ],
+  "Installing single-node OpenShift clusters with the SiteConfig operator": [
+    "install-clusters"
+  ],
+  "Deprovisioning single-node OpenShift clusters": [
+    "deprovision-steps"
+  ],
+  "Deprovisioning single-node OpenShift clusters with the SiteConfig operator": [
+    "deprovision-clusters"
+  ],
+  "Image Based Install Operator": [
+    "ibio-intro"
+  ],
+  "Creating custom templates with the SiteConfig operator": [
+    "create-custom-templates"
+  ],
+  "Adding an annotation to your worker node": [
+    "scale-add-annotation"
+  ],
+  "Deleting the": [
+    "scale-in-delete-baremetal-host"
+  ],
+  "Scaling in a single-node OpenShift cluster with the SiteConfig operator": [
+    "scale-in-worker-nodes"
+  ],
+  "Adding a worker node": [
+    "scale-out-annotation"
+  ],
+  "Scaling out a single-node OpenShift cluster with the SiteConfig operator": [
+    "scale-out-worker-nodes"
+  ],
+  "Mirroring images for disconnected environments": [
+    "mirror-images-disconnected"
+  ],
+  "Cluster identity preservation": [
+    "cluster-identity-preservation"
+  ],
+  "Cluster reinstallation workflow": [
+    "cluster-reinstallation-workflow"
+  ],
+  "Resource labeling for preservation": [
+    "resources-labeling-for-preservation"
+  ],
+  "Cluster reinstallation monitoring": [
+    "cluster-reinstallation-monitoring"
+  ],
+  "Cluster reinstallation with the SiteConfig operator (Technology Preview)": [
+    "cluster-reinstallation"
+  ],
+  "Enabling cluster reinstallation": [
+    "enabling-cluster-reinstallation"
+  ],
+  "Labeling resources for preservation": [
+    "labeling-resources-for-preservation"
+  ],
+  "Initiating a cluster reinstallation": [
+    "initiating-cluster-reinstallation"
+  ],
+  "Monitoring the cluster reinstallation": [
+    "monitoring-cluster-reinstallation"
+  ],
+  "Reinstalling a cluster with the SiteConfig operator (Technology Preview)": [
+    "reinstalling-cluster"
+  ],
+  "Image-Based Break/Fix cluster reinstallation workflow": [
+    "ibbf-workflow"
+  ],
+  "Initiating the Image-Based Break/Fix cluster reinstallation": [
+    "ibbf-initiating-reinstallation"
+  ],
+  "Replacing hardware with Image-Based Break/Fix for single-node OpenShift (Technology Preview)": [
+    "ibbf-sno-hardware-replacement"
+  ],
+  "SiteConfig advanced topics": [
+    "siteconfig-advanced-topics"
+  ],
+  "SiteConfig": [
+    "siteconfig-intro"
+  ]
+}

@@ -1,0 +1,230 @@
+{
+  "Red Hat Edge Manager agent and service": [
+    "agent-service"
+  ],
+  "Red Hat Edge Manager API server": [
+    "api-server"
+  ],
+  "Enrollment methods": [
+    "enrollment-methods"
+  ],
+  "Device enrollment": [
+    "rhem-enrollment"
+  ],
+  "Red Hat Edge Manager architecture": [
+    "rhem-architecture"
+  ],
+  "Prerequisites": [
+    "rhem-enable-preq",
+    "build-prerequisites",
+    "sign-disk-image-prereq",
+    "provisioning-virt-prereq",
+    "enroll-device-prereqs",
+    "view-device-prereqs",
+    "prereqs"
+  ],
+  "Enabling the Red Hat Edge Manager from the": [
+    "enable-rhem-mch"
+  ],
+  "Enabling the Red Hat Edge Manager console": [
+    "enable-rhem-plugin"
+  ],
+  "Red Hat Edge Manager RBAC roles": [
+    "rhem-rbac-roles"
+  ],
+  "Red Hat Edge Manager authorization resources": [
+    "rhem-auth-resources"
+  ],
+  "Red Hat Edge Manager authorization": [
+    "rhem-rbac"
+  ],
+  "Enabling the Red Hat Edge Manager": [
+    "rhem-enable"
+  ],
+  "Build-time configuration over dynamic runtime configuration": [
+    "buildtime-runtime"
+  ],
+  "Configuration in": [
+    "usr-directory"
+  ],
+  "Drop-in directories": [
+    "dropin-directory"
+  ],
+  "Operating system images with scripts": [
+    "os-img-script"
+  ],
+  "Special considerations for building images": [
+    "build-images-consider"
+  ],
+  "Installing the Red Hat Edge Manager CLI": [
+    "install-rhem-cli"
+  ],
+  "Optional: Requesting an enrollment certificate for early binding": [
+    "request-cert"
+  ],
+  "Optional: Using image pull secrets": [
+    "image-pullsecrets"
+  ],
+  "Building the operating system image with": [
+    "build-bootc-image"
+  ],
+  "Signing and publishing the": [
+    "build-sign-image"
+  ],
+  "Building the operating system disk image": [
+    "build-disk-image"
+  ],
+  "Optional: Signing and publishing the operating system disk image to an OCI registry": [
+    "sign-disk-image-proc"
+  ],
+  "Optional: Signing and publishing the operating system disk image to an Open Container Initiative registry": [
+    "sign-disk-image"
+  ],
+  "Building a": [
+    "edge-mgr-build"
+  ],
+  "Building images for Red Hat OpenShift Virtualization": [
+    "rhem-ocp-virt"
+  ],
+  "Building images for VMware vSphere": [
+    "rhem-vmware"
+  ],
+  "Building for specific target platforms": [
+    "edge-mgr-build-platforms"
+  ],
+  "Operating system images for the Red Hat Edge Manager": [
+    "edge-mgr-images"
+  ],
+  "Provisioning physical devices": [
+    "edge-mgr-provision-physical"
+  ],
+  "Creating the": [
+    "provisioning-virt-cloudinit-config"
+  ],
+  "Creating the virtual machine": [
+    "provisioning-virt-create-vm"
+  ],
+  "Provisioning devices on OpenShift Virtualization": [
+    "edge-mgr-provision-openshift-virt"
+  ],
+  "Provisioning devices": [
+    "provision-devices-intro"
+  ],
+  "Enrolling devices using the CLI": [
+    "enroll-cli"
+  ],
+  "Enrolling devices": [
+    "enroll"
+  ],
+  "View device inventory and device details": [
+    "view-device-details"
+  ],
+  "Viewing devices": [
+    "view-devices"
+  ],
+  "Labels and label selectors": [
+    "device-labels"
+  ],
+  "Viewing devices and their labels using the CLI": [
+    "view-labels"
+  ],
+  "Updating labels using the CLI": [
+    "update-labels-cli"
+  ],
+  "Using labels": [
+    "using-labels"
+  ],
+  "Supported fields": [
+    "supported-fields"
+  ],
+  "List of additional supported fields": [
+    "additional-supported-fields"
+  ],
+  "Examples": [
+    "supported-fields-examples"
+  ],
+  "Field discovery": [
+    "field-discovery"
+  ],
+  "Supported operators": [
+    "supported-operators"
+  ],
+  "Operators usage by field type": [
+    "operator-usage"
+  ],
+  "Field selectors": [
+    "field-selectors"
+  ],
+  "Updating the operating system on the CLI": [
+    "update-os-cli"
+  ],
+  "Updating the operating system": [
+    "update-os"
+  ],
+  "Configuration from a Git repository": [
+    "config-git"
+  ],
+  "Secrets from a Kubernetes cluster": [
+    "config-k8s-secret"
+  ],
+  "Configuration from an HTTP server": [
+    "config-http"
+  ],
+  "Configuration inline in the device specification": [
+    "config-inline"
+  ],
+  "Configuration providers": [
+    "config-providers"
+  ],
+  "Operating system configuration for edge devices": [
+    "manage-os-config"
+  ],
+  "Configuring your device template": [
+    "edge-config-device-template"
+  ],
+  "Configuring fleets to auto-register MicroShift clusters": [
+    "edge-config-auto-register"
+  ],
+  "Managing the device configuration from a Git repository on the CLI": [
+    "device-config-git-cli"
+  ],
+  "Rule files": [
+    "rule-files"
+  ],
+  "Device lifecycle hooks": [
+    "device-lifecycle-hooks"
+  ],
+  "Monitoring device resources using the CLI": [
+    "device-resources-cli"
+  ],
+  "Monitoring device resources": [
+    "device-resources"
+  ],
+  "Managing devices": [
+    "manage-devices-intro"
+  ],
+  "Building an application package image": [
+    "build-app-packages"
+  ],
+  "Deploying applications to a device using the CLI": [
+    "deploy-apps"
+  ],
+  "Managing applications on an edge device": [
+    "rhem-manage-apps"
+  ],
+  "Device selection into a fleet": [
+    "device-selection"
+  ],
+  "Device templates": [
+    "device-templates"
+  ],
+  "Selecting devices into a fleet by using the CLI": [
+    "select-devices"
+  ],
+  "Managing device fleets": [
+    "device-fleets"
+  ],
+  "Red Hat Edge Manager (Technology Preview)": [
+    "edge-mgr-intro"
+  ]
+}

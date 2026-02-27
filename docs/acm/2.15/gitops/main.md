@@ -76,6 +76,16 @@ following sections:
 
 **Required access:** Cluster administrator
 
+**Prerequisites**
+
+- Complete the procedures to register your managed clusters. For
+  directions, see Registering managed clusters to Red Hat OpenShift
+  GitOps operator.
+
+- Complete the procedures to enable the `ApplicationSet` and
+  `Application` resources in any custom namespace. For directions, see
+  Enabling the ApplicationSet resource in any namespace.
+
 ### Deploying the *ApplicationSet* resource for standard configurations
 
 If you have limited support for role-based access control (RBAC), then
@@ -1434,24 +1444,6 @@ Enable the `policyDefaults.orderManifests` parameter and disable
 configuration manifest to automatically set up dependencies between the
 manifests.
 
-### Additional resources
-
-- See Generating a policy that installs the Compliance Operator.
-
-- See Deploying policies by using GitOps for more details.
-
-- See OpenShift GitOps and the Operator documentation for more details.
-
-- See Adding Operators to a cluster.
-
-- See the Compliance Operator documentation for more details.
-
-- See Using Init Containers to perform tasks before a pod is deployed.
-
-- See Argo CD.
-
-- 
-
 ## Creating a customized service account for Argo CD push model
 
 Create a service account on a managed cluster by creating a
@@ -1956,13 +1948,7 @@ fully automated OpenShift GitOps experience.
 To enable the OpenShift GitOps add-on with the `ArgoCD` agent, complete
 the following sections:
 
-<div>
-
-<div class="title">
-
-Prerequisites
-
-</div>
+**Prerequisites**
 
 - Red Hat Advanced Cluster Management hub cluster installed
 
@@ -1978,8 +1964,6 @@ Prerequisites
   agent environment
 
 - The `ArgoCD` custom resource that are configured for the `Agent` mode
-
-</div>
 
 ### Configuring subscriptions and resources
 
@@ -2200,13 +2184,7 @@ clusters that you selected with the `Placement`.
 After enabling the add-on, the `Basic` mode deploys the OpenShift GitOps
 `ArgoCD` components that are suitable for the cluster workflows.
 
-<div>
-
-<div class="title">
-
-Prerequisites
-
-</div>
+**Prerequisites**
 
 - Red Hat Advanced Cluster Management hub cluster installed
 
@@ -2219,8 +2197,6 @@ Prerequisites
   clusters
 
 - `ManagedClusterSet` that is bound to the target namespace
-
-</div>
 
 To enable a OpenShift GitOps add-on without the `ArgoCD` agent, complete
 the following sections:
@@ -2702,21 +2678,21 @@ strategy. See the following examples:
   the following command on your hub cluster:
 
   ``` bash
-  oc -n openshift-gitops label application/cluster1-guestbook-app envLabel=env-dev
+  oc -n openshift-gitops label applications.argoproj.io/cluster1-guestbook-app envLabel=env-dev
   ```
 
 - If you want to specify an application for quality assurance, run the
   following command:
 
   ``` bash
-  oc -n openshift-gitops label application/cluster2-guestbook-app envLabel=env-qa
+  oc -n openshift-gitops label applications.argoproj.io/cluster2-guestbook-app envLabel=env-qa
   ```
 
 - If you want to specify an application group for product, run the
   following command:
 
 ``` bash
-oc -n openshift-gitops label application/cluster3-guestbook-app envLabel=env-prod
+oc -n openshift-gitops label applications.argoproj.io/cluster3-guestbook-app envLabel=env-prod
 ```
 
 ### Understanding changes to the Git repository that uses the progressive rollout strategy

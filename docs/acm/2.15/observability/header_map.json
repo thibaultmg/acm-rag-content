@@ -1,0 +1,274 @@
+{
+  "Observability open source components": [
+    "_observability_open_source_components"
+  ],
+  "Observability component versions": [
+    "_observability_component_versions"
+  ],
+  "Observability architecture diagram": [
+    "_observability_architecture_diagram"
+  ],
+  "Persistent stores used in the observability service": [
+    "_persistent_stores_used_in_the_observability_service"
+  ],
+  "Observability support": [
+    "_observability_support"
+  ],
+  "Observability architecture": [
+    "observability-arch"
+  ],
+  "Metric types": [
+    "metric-types"
+  ],
+  "Default metrics": [
+    "obs-default-metrics"
+  ],
+  "Observability pod capacity requests": [
+    "observability-pod-capacity-requests"
+  ],
+  "Observability configuration": [
+    "obs-config"
+  ],
+  "Adding Platform metrics": [
+    "adding-platform-metrics"
+  ],
+  "Adding User workload metrics": [
+    "adding-user-workload-metrics"
+  ],
+  "Removing default metrics": [
+    "removing-default-metrics"
+  ],
+  "Dynamic metrics for single-node OpenShift clusters": [
+    "dynamic-metrics-for-sno"
+  ],
+  "Adding custom metrics": [
+    "adding-custom-metrics"
+  ],
+  "Increasing and decreasing metrics collection": [
+    "inc-dec-metric"
+  ],
+  "Scaling metrics collection (Technology Preview)": [
+    "obs-scale-metrics"
+  ],
+  "Prerequisites": [
+    "config-proxy-obs-prereq",
+    "prerequisites-observability",
+    "alert-prereqs",
+    "prerequisites-obs-insights"
+  ],
+  "Configuring proxy settings": [
+    "config-proxy-obs-steps"
+  ],
+  "Disabling proxy settings for observability add-ons": [
+    "disable-proxy-obs"
+  ],
+  "Configuring proxy settings for observability add-ons": [
+    "config-proxy-obs"
+  ],
+  "Customizing certificates for accessing the object store": [
+    "customizing-certificates-object-store"
+  ],
+  "Customizing route certificate": [
+    "customizing-route-cert"
+  ],
+  "Creating custom rules": [
+    "creating-custom-rules"
+  ],
+  "Updating the": [
+    "updating-mco-custom-replicas"
+  ],
+  "Increasing and decreasing persistent volumes and persistent volume claims": [
+    "increase-decrease-pv-pvc"
+  ],
+  "Customizing the managed cluster Observatorium API and Alertmanager URLs (Technology Preview)": [
+    "custom-obervatorium-alert-url"
+  ],
+  "Configuring fine-grain RBAC (Technology Preview)": [
+    "configure-fine-grain-rbac"
+  ],
+  "Observability advanced configuration": [
+    "adv-config-obs"
+  ],
+  "Configuring storage for AWS Security Token Service": [
+    "configuring-aws-sts"
+  ],
+  "Generating access keys using the AWS Security Service": [
+    "generate-access-keys"
+  ],
+  "Creating the MultiClusterObservability custom resource": [
+    "creating-mco-cr"
+  ],
+  "Enabling Observability from the command line interface": [
+    "enabling-observability"
+  ],
+  "Verifying the Thanos version": [
+    "verifying-thanos-version"
+  ],
+  "Enabling Observability from the Red Hat OpenShift Container Platform console": [
+    "enabling-observability-ocp"
+  ],
+  "Disabling Observability on all clusters": [
+    "disabling-observability-on-all-clusters"
+  ],
+  "Disabling Observability on a single cluster": [
+    "disabling-observability-on-a-single-cluster"
+  ],
+  "Disabling Observability": [
+    "disabling-observability"
+  ],
+  "Removing Observability": [
+    "removing-observability-resource"
+  ],
+  "Enabling the Observability service": [
+    "enabling-observability-service"
+  ],
+  "Exporting metrics to external endpoints": [
+    "exporting-metrics-to-external-endpoints"
+  ],
+  "Querying metrics using the Observability API": [
+    "external-metric-query"
+  ],
+  "Viewing historical data": [
+    "view-historical-data"
+  ],
+  "Viewing Red Hat Advanced Cluster Management dashboards": [
+    "acm-provided-dashboards"
+  ],
+  "Viewing the etcd table": [
+    "viewing-etcd-grafana"
+  ],
+  "Viewing the Kubernetes API server dashboard": [
+    "viewing-k8s-dashboards"
+  ],
+  "Viewing the OpenShift Virtualization dashboard": [
+    "viewing-ocpvirt-dashboards"
+  ],
+  "Viewing and exploring data by using dashboards": [
+    "viewing-and-exploring-data"
+  ],
+  "Verifying Grafana version": [
+    "verifying-grafana-version"
+  ],
+  "Setting up the Grafana developer instance": [
+    "setting-up-the-grafana-developer-instance"
+  ],
+  "Designing your Grafana dashboard with a ConfigMap": [
+    "designing-your-grafana-dashboard-with-configmap"
+  ],
+  "Designing your Grafana dashboard": [
+    "design-your-dashboard"
+  ],
+  "Uninstalling the Grafana developer instance": [
+    "uninstalling-the-grafana-developer-instance"
+  ],
+  "Using Grafana dashboards": [
+    "using-grafana-dashboards"
+  ],
+  "Adding managed cluster labels": [
+    "adding-managed-cluster-labels"
+  ],
+  "Enabling managed cluster labels": [
+    "enabling-managed-cluster-labels"
+  ],
+  "Disabling managed cluster labels": [
+    "disabling-managed-cluster-labels"
+  ],
+  "Using managed cluster labels in Grafana": [
+    "using-managed-cluster-labels"
+  ],
+  "Using Observability": [
+    "using-observability"
+  ],
+  "Configuring Alertmanager": [
+    "configuring-alertmanager"
+  ],
+  "Securing communication from Alertmanager to third-party endpoints": [
+    "secure-comm-alertmanager"
+  ],
+  "Forwarding alerts": [
+    "forward-alerts"
+  ],
+  "Disabling alert forwarding for managed clusters": [
+    "disabling-forward-alerts"
+  ],
+  "Disabling user workload alert forwarding for managed clusters": [
+    "disabe-uwl-forwarding"
+  ],
+  "Silencing alerts": [
+    "silence-alerts"
+  ],
+  "Migrating observability storage": [
+    "migrating-observability-storage"
+  ],
+  "Suppressing alerts": [
+    "supress-alerts"
+  ],
+  "Managing alerts": [
+    "observability-alerts"
+  ],
+  "Enabling": [
+    "enable-right-size-ns",
+    "enable-right-size-virt"
+  ],
+  "Optimizing workloads by using": [
+    "optimize-work-right-size"
+  ],
+  "Configuring": [
+    "config-right-size-ns",
+    "config-right-size-virt"
+  ],
+  "Managed cluster workloads": [
+    "_managed_cluster_workloads"
+  ],
+  "Configurable APIs": [
+    "_configurable_apis"
+  ],
+  "Default platform metrics": [
+    "_default_platform_metrics"
+  ],
+  "Health status of the multicluster observability add-on": [
+    "_health_status_of_the_multicluster_observability_add_on"
+  ],
+  "Enabling the multicluster observability add-on": [
+    "enable-mcoa"
+  ],
+  "Configuring APIs for the multicluster observability add-on": [
+    "config-apis-mcoa"
+  ],
+  "Adding custom metrics for the multicluster observability add-on": [
+    "add-custom-metrics-mcoa"
+  ],
+  "Federating user workloads from Cluster Observability Operator": [
+    "federate-uw-coo"
+  ],
+  "Relabeling default metrics for the multicluster observability add-on": [
+    "relabeling-mcoa-default-metrics"
+  ],
+  "Exporting metrics to external endpoints for the multicluster observability add-on": [
+    "export-metrics-external"
+  ],
+  "Forwarding alerts for multicluster observability add-on": [
+    "forward-alert-mcoa"
+  ],
+  "Multicluster observability add-on": [
+    "obs-mcoa-intro"
+  ],
+  "Observability service": [
+    "observing-environments-intro"
+  ],
+  "Searching for insight policy reports": [
+    "search-insight-policy-report-violation"
+  ],
+  "Viewing identified issues from the console": [
+    "viewing-vulnerabilities-insights"
+  ],
+  "Viewing update risk predictions": [
+    "update-risks"
+  ],
+  "Managing insight": [
+    "managing-insights"
+  ],
+  "Using observability with Red Hat Insights": [
+    "using-rh-insights"
+  ]
+}

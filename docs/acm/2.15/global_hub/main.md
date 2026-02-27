@@ -259,7 +259,15 @@ global hub in a disconnected environment:
 
 - Install Red Hat Advanced Cluster Management for Kubernetes.
 
-- 
+- Install the following command line interfaces:
+
+  - The OpenShift Container Platform command line. See Getting started
+    with the OpenShift Container Platform CLI.
+
+  - The `opm` command line. See Installing the opm CLI.
+
+  - The `oc-mirror` plugin. See Mirroring images for a disconnected
+    installation by using the oc-mirror plugin v2.
 
 ### Configuring a mirror registry
 
@@ -809,15 +817,6 @@ dashboards.
     2.  Follow the steps in Export and import dashboards in the official
         Grafana documentation to import a dashboard into the
         multicluster global hub Grafana instance.
-
-### Additional resources
-
-See User authentication in the STRIMZI documentation for more
-information about how to extract the `ca.crt` certificate from the
-secret.
-
-See User authentication in the STRIMZI documentation for the steps to
-extract the `user.crt` certificate from the secret.
 
 ## Importing a managed hub cluster in the default mode
 

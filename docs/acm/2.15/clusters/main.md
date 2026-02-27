@@ -463,13 +463,49 @@ operator by following the documentation and guidance.
   Hosted control planes overview to learn more about hosted control
   planes.
 
-- 
+- Prepare your environment for hosted control planes. See the following
+  documentation:
+
+  - Find the requirements for your environment in Requirements for
+    hosted control planes.
+
+  - Get sizing guidance from Sizing guidance for hosted control planes.
 
 - 
 
-- 
+- You can manage hosted clusters with multicluster engine operator. See
+  the following documentation:
 
-- 
+  - **Optional:** Manually import a hosted cluster. See Manually
+    importing a hosted cluster.
+
+  - Manage hosted clusters. See Managing hosted control planes.
+
+  - Learn about hosted control plane authentication, see Authentication
+    and authorization for hosted control planes.
+
+  - Learn about updating hosted clusters from the Updating hosted
+    control planes documentation.
+
+  - See Destroying a hosted cluster when you are ready.
+
+- With Red Hat Advanced Cluster Management enabled, you can discover and
+  manage hosted control plane clusters, while using Red Hat Advanced
+  Cluster Management capability. Learn about hosted control planes with
+  Red Hat Advanced Cluster Management from the following resources,
+  which require Red Hat Advanced Cluster Management:
+
+  - Learn about the integrated Red Hat Advanced Cluster Management and
+    multicluster engine operator hosted control plane fleet management
+    architecture pattern. See Integrated hosted control plane fleet
+    management architecture pattern.
+
+  - Discover hosted control plane clusters. See Discovering hosted
+    control plane clusters with Red Hat Advanced Cluster Management.
+
+  - Set up disaster recovery for hosted control plane clusters with Red
+    Hat Advanced Cluster Management. See Backup and restore for hosted
+    control planes and hosted clusters.
 
 ## Release notes for Cluster lifecycle with multicluster engine operator
 
@@ -554,6 +590,52 @@ Technology Preview.
 Learn about new features and enhancements that come with the
 multicluster engine operator installation:
 
+Learn about new features and enhancements for Cluster lifecycle with
+multicluster engine operator:
+
+- Cluster management with the Cluster API by using the `metal3`
+  infrastructure provider and the OpenShift Container Platform assisted
+  bootstrap and control plane providers is *Generally Available*. The
+  `cluster-api-provider-metal3` and
+  `cluster-api-provider-openshift-assisted` preview flags are removed
+  and the components are disabled by default. See Installing a managed
+  cluster with Cluster API to learn more.
+
+- **Technology Preview:** Automatically import clusters that you
+  provision by using Cluster API to save time when importing. See
+  Enabling automatic import for Cluster API clusters (Technology
+  Preview) to learn more.
+
+  - Create and delete a Red Hat OpenShift Service on AWS cluster with
+    Cluster API. See Creating a Red Hat OpenShift Service on AWS with
+    hosted control planes cluster with Cluster API.
+
+  - Switch from AWS credentials to IAM roles on your managed cluster to
+    avoid storing AWS credentials on your managed cluster. See Switching
+    from AWS credentials to IAM roles on your managed cluster.
+
+- Switch from Amazon Web Services credentials to Identity and Access
+  Management roles so that you can create Red Hat OpenShift Service on
+  AWS with hosted control planes clusters without storing AWS
+  credentials on your managed cluster. See Switching from AWS
+  credentials to IAM roles on your Cluster API managed cluster
+  (Technology Preview) to learn more.
+
+- Provision and manage the lifecycle of a Red Hat OpenShift Service on
+  AWS with hosted control planes cluster with Cluster API so that you
+  can use a GitOps approach to cluster liffecycle at scale. See Creating
+  a Red Hat OpenShift Service on AWS with hosted control planes cluster
+  with Cluster API (Technology Preview) to learn more.
+
+- You can now define managed namespaces for `ManagedClusterSet`
+  resources to manage and scale clusters efficiently, or to apply
+  configurations consistently across your fleet. See Setting managed
+  namespaces for ManagedClusterSets to learn more.
+
+- You can now install a TNF cluster to ensure redundancy at the edge and
+  limit hardware costs. See Installing a TNF cluster with Assisted
+  Installer (Technology Preview) to learn more.
+
 If you are using multicluster engine operator with Red Hat Advanced
 Cluster Management installed afterwards, see the New features and
 enhancements for Red Hat Advanced Cluster Management this release.
@@ -569,6 +651,10 @@ errata release at this time.
 to the content and used internally. Links that require access might not
 be available for the user. Learn about the types of errata releases from
 Red Hat.
+
+#### Errata 2.10.1
+
+- Delivers updates to one or more product container images.
 
 ### Known issues for Cluster lifecycle with multicluster engine operator
 
@@ -603,6 +689,9 @@ ACM-21686
 
 ##### *installNamespace* field can only have one value
 
+**Note:** The `spec.installNamespace` field is deprecated. See Product
+deprecations and removals to learn more.
+
 When enabling the `managed-serviceaccount` add-on, the
 `installNamespace` field in the `ManagedClusterAddOn` resource must have
 `open-cluster-management-agent-addon` as the value. Other values are
@@ -619,37 +708,128 @@ operator, such as issues with creating, discovering, importing, and
 removing clusters, and more cluster management issues for multicluster
 engine operator.
 
-##### *cluster-api-provider-aws* webhooks block hosted control plane deployments
+##### HyperShift operator does not receive infrastructure node configuration
 
-Hosted control planes for OpenShift Container Platform cannot manage
-infrastructure resources in AWS because of API conflicts between the
-`cluster-api-provider-aws` resource and the `hypershift` resource that
-is installed by the `hypershift-local-hosting` component.
+When Red Hat Advanced Cluster Management or multicluster engine operator
+is installed with infrastructure node selection configured, by using
+`nodeSelector` and `tolerations` for infrastructure node, the HyperShift
+operator deployment does not receive the settings.
 
-To use the `hypershift` component for the AWS platform hosted clusters,
-*do not* enable the `cluster-api` and `cluster-api-provider-aws`
-components, which are set to `enabled: false` by default. See the
-following default settings with the components disabled:
+Even if the `multicluster engine` subscription is configured to place
+pods on infrastructure nodes by using `nodeSelector` and `tolerations`,
+the HyperShift operator pods are scheduled on regular worker nodes
+instead of the designated infrastructure nodes.
 
-``` yaml
-      - configOverrides: {}
-        enabled: false
-        name: cluster-api
-      - configOverrides: {}
-        enabled: false
-        name: cluster-api-provider-aws
-```
+The HyperShift operator deployment does not automatically propagate the
+infrastructure node placement configuration from the subscription.
 
-Ensure that if `hypershift-local-hosting` is enabled, as it is in the
-following YAML sample, that the previous components are not enabled.
+After you install the HyperShift add-on, manually patch the HyperShift
+operator deployment to add the infrastructure node selector and
+tolerations. See the following example:
 
 ``` yaml
-      - configOverrides: {}
-        enabled: true
-        name: hypershift-local-hosting
+      nodeSelector:
+        node-role.kubernetes.io/infra: ""
+      tolerations:
+      - key: node-role.kubernetes.io/infra
+        operator: Exists
+        effect: NoSchedule
 ```
 
-ACM-21708
+To resolve the problem, apply a patch to the operator deployment in the
+`hypershift` namespace by running the following command with the
+specifications for your infrastructure nodes:
+
+``` bash
+oc patch deployment operator -n hypershift --type=merge -p '{"spec":{"template":{"spec":{"nodeSelector":{"node-role.kubernetes.io/infra":""},"tolerations":[{"key":"node-role.kubernetes.io/infra","operator":"Exists","effect":"NoSchedule"}]}}}}'
+```
+
+The manual patch ensures that the operator pods are placed on the
+correct nodes to comply with your infrastructure requirements.
+
+ACM-24191
+
+##### HyperShift installation fails on Red Hat OpenShift Service on AWS due to admission webhook error
+
+When you install multicluster engine for Kubernetes operator 2.10 on Red
+Hat OpenShift Service on AWS, the HyperShift installation job might fail
+repeatedly with an admission webhook error similar to the following
+message: `namespace-validation.managed.openshift.io denied the request`.
+See the following explanations for the error:
+
+- The installation process attempts to create a `hypershift` namespace
+  that includes the `openshift.io/cluster-monitoring: "true"` label.
+
+- The Red Hat OpenShift Service on AWS managed admission webhooks
+  prevent users from modifying protected labels on namespaces, including
+  the `cluster-monitoring` label.
+
+- The platform monitoring flag defaults to monitoring the operator,
+  which adds the `cluster-monitoring` label to the `hypershift`
+  namespace.
+
+- In managed environments, such as Red Hat OpenShift Service on AWS, the
+  service provider typically handles platform-level monitoring.
+  Therefore, this monitoring is not required and conflicts with
+  namespace protection policies.
+
+To resolve this issue, create a `ConfigMap` in the `local-cluster`
+namespace to disable platform monitoring by following these steps:
+
+1.  Create a YAML file for the `ConfigMap` with the following content:
+
+    ``` yaml
+    kind: ConfigMap
+    apiVersion: v1
+    metadata:
+      name: hypershift-operator-install-flags
+      namespace: local-cluster
+    data:
+      installFlagsToAdd: "--platform-monitoring=None"
+      installFlagsToRemove: ""
+    ```
+
+2.  Apply the `ConfigMap` to your cluster. Run the following command,
+    replacing `<filename>` with the name of your YAML file:
+
+    ``` bash
+    oc apply -f <filename>.yaml
+    ```
+
+This configuration instructs the HyperShift installer to skip the
+`cluster-monitoring` label, which avoids the admission webhook conflict.
+
+ACM-26040
+
+##### *ClusterCurator* status becomes stuck when upgrading the hub cluster
+
+When you use the `ClusterCurator` resource to upgrade the hub cluster,
+the `ClusterCurator` status becomes stuck, even if the upgrade is
+successful. During upgrade, the hub cluster reboots, which stops the
+`Job` resource pod monitoring.
+
+To work around the issue, manually upgrade the hub cluster. If you
+already used the cluster curator to upgrade the hub cluster, you must
+delete the `ClusterCurator` resource hub cluster namespace so that
+future upgrades appear in the console.
+
+ACM-26863
+
+##### The *clusterlifecycle-state-metrics* pod might crash and restart
+
+The `clusterlifecycle-state-metrics` pod in the `multicluster-engine`
+namespace might crash and restart. The behavior is inconsistent, but
+typically happens when managed cluster metrics are refreshed at the same
+time that you create, hibernate, or resume a Hive `ClusterDeployment`.
+
+After the crash, the pod restarts and functions normally. The crash does
+not affect cluster operations, but it can affect managed cluster
+metrics.
+
+If you restart while Prometheus is scraping metrics, you might lose the
+data for that moment.
+
+ACM-26874
 
 ##### Klusterlet add-on does not tolerate `node-role.kubernetes.io/infra` taint with `NoExecute` effect
 
@@ -804,6 +984,12 @@ pod log feature.
 See ManagedServiceAccount add-on to learn how to enable
 `ManagedServiceAccount` and see Configuring cluster proxy add-ons to
 learn how to enable a cluster proxy add-on.
+
+- To learn how to enable `ManagedServiceAccount` add-on, see
+  ManagedServiceAccount add-on.
+
+- To learn how to enable a cluster proxy add-on, see Using cluster proxy
+  add-ons.
 
 ACM-11034
 
@@ -966,6 +1152,12 @@ longer recommended for use and might become obsolete in future releases.
 Consider the alternative actions in the *Recommended action* and details
 that are provided in the following table:
 
+- Product or category: ManagedClusterAddon - Affected item: The
+  installNamespace field is deprecated in the ManagedClusterAddon
+  spec. - Version: multicluster engine operator 2.10 - Recommended
+  action: Use the AddonDeploymentConfig field. - More details and links:
+  None
+
 - Product or category: Documentation for APIs - Affected item: The
   multicluster engine operator API documentation - Version: multicluster
   engine operator 2.8 - Recommended action: View current and supported
@@ -1014,6 +1206,9 @@ Container Platform Life Cycle policy.
 **Important:** If you are using Red Hat Advanced Cluster Management,
 then multicluster engine for Kubernetes operator is already installed on
 the cluster.
+
+To learn about installing Red Hat Advanced Cluster Management, see
+Installing and upgrading.
 
 **Deprecated:** multicluster engine operator 2.4 and earlier versions
 are no longer supported. The documentation might remain available, but
@@ -1593,6 +1788,154 @@ disconnected environment:
     from the *Operator Lifecycle Manager* catalog.
 
 See Installing while connected online for the required steps.
+
+### Upgrading multicluster engine for Kubernetes operator
+
+Learn how to upgrade your multicluster engine operator. Control your
+multicluster engine operator upgrades by using the operator subscription
+settings in the OpenShift Container Platform console.
+
+**Required access:** OpenShift Container Platform administrator
+
+**Important:**
+
+- Upgrades are always supported from the immediate previous version. You
+  can upgrade to the next available feature release.
+
+- If you are on a version with an **Extended Update Support** (EUS)
+  status, you can upgrade to the next version, or you can skip to the
+  next EUS version.
+
+- You can perform skip-level upgrades from `<2.x>` to `<2.x+2>` on even
+  number versions of multicluster engine operator, starting with Red Hat
+  Advanced Cluster Management version 2.11. For instance, when you
+  upgrade multicluster engine operator 2.6, which is an EUS version, you
+  can choose to upgrade to version 2.8, which is also an EUS version.
+
+<div class="formalpara">
+
+<div class="title">
+
+Procedure
+
+</div>
+
+You can upgrade your `MultiClusterEngine` resource from the console. Use
+the Operator Lifecycle Manager `operatorcondition` to control how
+versions are upgraded. When you initially deploy multicluster engine
+operator by using the operator, you make the following selections:
+
+</div>
+
+Channel  
+Channel corresponds to the version of the product that you are
+installing. The initial channel setting is often the most current
+channel that was available at the time of installation.
+
+Approval  
+Approval specifies whether approval is required for updates within the
+channel, or if they are done automatically.
+
+- If set to `Automatic`, then minor release updates in the selected
+  channel are deployed without administrator intervention.
+
+- If set to `Manual`, then each update to the minor release within the
+  channel requires an administrator to approve the update.
+
+You also use these settings when you upgrade to the latest version of
+multicluster engine operator by using the operator. Complete the
+following steps to upgrade your operator:
+
+**Important:**
+
+Downgrading a version is not supported. You cannot revert back to an
+earlier version after upgrading to a later version in the channel
+selection. You must uninstall the operator and reinstall it with the
+earlier version to use a previous version.
+
+See the following procedure to upgrade your cluster:
+
+1.  Log in to your OpenShift Container Platform *Software Catalog*.
+
+2.  In the OpenShift Container Platform navigation, select **Operators**
+    \> **Installed operators**.
+
+3.  Select the **multicluster engine for Kubernetes operator** operator.
+
+4.  Select the **Subscription** tab to edit the subscription settings.
+
+5.  Ensure that the *Upgrade Status* is labeled `Up to date`. This
+    status indicates that the operator is at the latest level that is
+    available in the selected channel. If the *Upgrade Status* indicates
+    that there is an upgrade pending, complete the following steps to
+    update it to the latest minor release that is available in the
+    channel:
+
+    1.  Click the **Manual** setting in the *Approval* field to edit the
+        value.
+
+    2.  Select **Automatic** to enable automatic updates.
+
+    3.  Select **Save** to commit your change.
+
+    4.  Wait for the automatic updates to be applied to the operator.
+        The updates automatically add the required updates to the latest
+        version in the selected channel. When all of the updated updates
+        are complete, the *Upgrade Status* field indicates an
+        `Up to date` status.
+
+    **Note:** It can take up to 10 minutes for the `MultiClusterEngine`
+    custom resource to finish upgrading.
+
+6.  Run the following command to verify the upgrade process is started:
+
+    ``` bash
+    oc get mce
+    ```
+
+    While in the process of upgrading, the `Status` displays `Updating`.
+    After the upgrade is complete, the `Status` field changes to
+    `Available` status.
+
+7.  When the *Upgrade Status* is `Up to date`, click the value in the
+    *Channel* field to edit the channel.
+
+8.  Select the channel for the next available feature release, but do
+    not attempt to skip a channel.
+
+    The Operator Lifecycle Manager `operatorcondition` resource checks
+    for previous upgrades during the current upgrade process and
+    prevents skipping versions. You can check that same resource status
+    to see if the upgradable status is `true` or `false`.
+
+9.  Click **Save** to save your changes.
+
+10. Wait for the automatic upgrade to complete. After the upgrade to the
+    next feature release completes, the updates to the latest patch
+    releases within the channel are deployed.
+
+11. If you have to upgrade to a later feature release, repeat steps 7-9
+    until your operator is at the latest level of the desired channel.
+    Make sure that all of the patch releases are deployed for your final
+    channel.
+
+12. Optional: You can set your *Approval* setting to **Manual**, if you
+    want your future updates within the channel to require manual
+    approvals.
+
+13. If you performed a skip-level upgrade, see the following sub-steps
+    to verify your upgrade:
+
+    1.  Verify that the `csv` version from the previous release, for
+        instance, `2.6` (EUS), is replaced with the upgraded version,
+        for instance, `2.8` (EUS).
+
+    2.  Verify that the `MultiClusterEngine` instance
+        `status.currentVersion` specification value is set at `2.8` and
+        matches the `desiredVersion` status, which is also set at `2.8`.
+
+For more information about upgrading your operator, see Operators in the
+OpenShift Container Platform documentation.
 
 ### Upgrading disconnected clusters by using policies
 
@@ -2239,12 +2582,6 @@ component. In some cases, the upgrade process continues to cycle through
 attempts to complete the process. Rolling your cluster back to a
 previous version after a failed upgrade is not supported. Contact Red
 Hat support for assistance if your cluster upgrade fails.
-
-##### Additional resources
-
-See Configuring additional trust stores for image registry access in the
-OpenShift Container Platform documentation to learn more about the
-external registry CA certificate.
 
 ### Advanced configuration
 
@@ -3100,10 +3437,6 @@ data:
   Management console, the credentials you previoulsy created are copied
   to the managed cluster namespace as the opaque secret.
 
-#### Additional resources
-
-Return to Creating a credential for Google Cloud Platform.
-
 ### Creating a credential for VMware vSphere
 
 You need a credential to use multicluster engine operator console to
@@ -3490,6 +3823,15 @@ clusters.
 
 You need an API token for the OpenShift Cluster Manager account, or you
 can use a separate Service Account.
+
+- To obtain an API token, see Downloading the OpenShift Cluster Manager
+  API token.
+
+- To use a Service Account, you must obtain the client ID and client
+  secret when you are creating the Service Account. Enter the
+  credentials to create the OpenShift Cluster Manager credential on your
+  multicluster engine for Kubernetes operator. See Creating and managing
+  a service account.
 
 #### Adding a credential by using the console
 
@@ -4035,7 +4377,20 @@ images while disconnected:
 2.  Copy the `clusterImageSets` directory to a system that can access
     the disconnected multicluster engine operator cluster.
 
-3.  
+3.  Add the mapping between the managed cluster and the disconnected
+    repository with your cluster image sets by completing the following
+    steps that fits your managed cluster:
+
+    - For an OpenShift Container Platform managed cluster, see
+      Configuring image registry repository mirroring for information
+      about using your `ImageContentSourcePolicy` object to complete the
+      mapping.
+
+    - For a managed cluster that is not an OpenShift Container Platform
+      cluster, use the `ManageClusterImageRegistry` custom resource
+      definition to override the location of the image sets. See
+      Specifying registry images on managed clusters for import for
+      information about how to override the cluster for the mapping.
 
 4.  Add the YAML files for the images that you want available when you
     create a cluster by using the console or CLI to manually add the
@@ -7326,14 +7681,26 @@ import strategies exist:
 
 `ImportOnly`  
 If a managed cluster is missing the `ManagedClusterImportSucceeded`
-condition, or the condition is not set to `True`, the hub cluster
-controller initiates the import by applying the klusterlet manifests to
-the managed cluster. After the cluster joins the hub cluster, the hub
-controller stops applying klusterlet manifests. Now, only the klusterlet
-agent on the managed cluster keeps the hub configuration synchronized.
-If the klusterlet agent stops working, the manifests might become
-outdated, and might cause the managed cluster to appear in an `Unknown`
-state on the hub cluster. You must then import the cluster manually.
+condition, or the condition is set to `False`, the hub cluster
+controller applies the klusterlet manifests to the managed cluster to
+initiate the import.
+
+After the managed cluster joins the hub cluster and the
+`ManagedClusterImportSucceeded` condition is set to `True`, the hub
+cluster controller stops applying klusterlet manifests and skips
+automatic import operations for the cluster. From this point, only the
+klusterlet agent on the managed cluster synchronizes the hub cluster
+configuration.
+
+If the klusterlet agent fails, the manifests can become outdated, and
+might cause the managed cluster to appear in an `Unknown` state on the
+hub cluster. You must then import the cluster manually.
+
+Use the `ImportOnly` strategy for a hub cluster disaster recovery
+scenario where you want to prevent the initial hub cluster from
+recovering the managed clusters, if the initial hub cluster restarts
+unexpectedly after the managed clusters were moved to a different hub
+cluster.
 
 `ImportAndSync`  
 The hub cluster controller applies the klusterlet manifests until the
@@ -7342,8 +7709,13 @@ and the klusterlet agent continuously synchronize the klusterlet
 manifests with the hub cluster configuration, ensuring consistency even
 if one component stops working.
 
-The default automatic import strategy is `ImportOnly`. To change the
-import strategy, use a `ConfigMap` object, named
+If you are using multicluster engine for Kubernetes operator 2.9 or
+later, the default automatic import strategy is `ImportOnly`. If you
+upgraded your hub cluster from an earlier release, the automatic import
+strategy is set to `ImportAndSync` to preserve the existing automatic
+import behavior.
+
+To change the import strategy, use a `ConfigMap` object, named
 `import-controller-config`, in the multicluster engine operator install
 namespace. Complete the following steps:
 
@@ -7378,13 +7750,7 @@ cluster.
 
 **Required access:** Cluster administrator
 
-<div>
-
-<div class="title">
-
-Prerequisites
-
-</div>
+**Prerequisites**
 
 - You must configure the intermediate component so that the hub cluster
   API server is accessible for the managed cluster.
@@ -7404,8 +7770,6 @@ Prerequisites
 
   **Note:** If you bridge the SSL connections, the cluster proxy add-on
   does not work.
-
-</div>
 
 <div class="formalpara">
 
@@ -8653,6 +9017,9 @@ the following steps:
     - If you specify a HTTPS proxy in the `httpsProxy` field, set the
       proxy server CA bundle.
 
+      **Note:** The `spec.installNamespace` field is deprecated. See
+      Product deprecations and removals to learn more.
+
 2.  Update the `ManagedClusterAddOn` resource by referencing the
     `AddOnDeploymentConfig` resource that you created. See the following
     example:
@@ -8672,16 +9039,18 @@ the following steps:
       namespace: <namespace> 
     ```
 
-- Add your managed cluster name.
+    - Add your managed cluster name.
 
-- Add your add-on deployment config name.
+    - Add your add-on deployment config name.
 
-- Add your managed cluster name.
+    - Add your managed cluster name.
 
-  1.  Verify the proxy settings by checking if the cluster proxy agent
-      pod in the `open-cluster-management-addon` namespace has
-      `HTTPS_PROXY` or `NO_PROXY` environment variables on the managed
-      cluster.
+      **Note:** The `spec.installNamespace` field is deprecated. See
+      Product deprecations and removals to learn more.
+
+3.  Verify the proxy settings by checking if the cluster proxy agent pod
+    in the `open-cluster-management-addon` namespace has `HTTPS_PROXY`
+    or `NO_PROXY` environment variables on the managed cluster.
 
 ### Customizing the hub cluster *KubeAPIServer* certificates
 
@@ -8697,16 +9066,36 @@ between the managed cluster and the hub cluster. When you add the named
 certificate before installing the product, you can avoid an issue that
 might leave your managed clusters in an offline state.
 
+The following list contains some examples of when you might need to
+update your certificates:
+
+- You want to replace the default API server certificate for the
+  external load balancer with your own certificate. By following the
+  guidance in Adding API server certificates in the OpenShift Container
+  Platform documentation, you can add a named certificate with host name
+  `api.<cluster_name>.<base_domain>` to replace the default API server
+  certificate for the external load balancer. Replacing the certificate
+  might cause some of your managed clusters to move to an offline state.
+  If your clusters are in an offline state after upgrading the
+  certificates, follow the troubleshooting instructions for
+  Troubleshooting imported clusters offline after certificate change to
+  resolve it.
+
 **Note:** Adding the named certificate before installing the product
 helps to avoid your clusters moving to an offline state.
 
-<div>
+- The named certificate for the external load balancer is expiring and
+  you need to replace it. If both the old and the new certificate share
+  the same root CA certificate, despite the number of intermediate
+  certificates, you can follow the guidance in Adding API server
+  certificates in the OpenShift Container Platform documentation to
+  create a new secret for the new certificate. Then update the serving
+  certificate reference for host name `api.<cluster_name>.<base_domain>`
+  to the new secret in the `APIServer` custom resource. Otherwise, when
+  the old and new certificates have different root CA certificates,
+  complete the following steps to replace the certificate:
 
-<div class="title">
-
-Procedure
-
-</div>
+**Procedure**
 
 1.  Locate your `APIServer` custom resource, which resembles the
     following example:
@@ -8802,8 +9191,6 @@ Procedure
             name: new-cert-secret
     ```
 
-</div>
-
 After about 15 minutes, the previous certificate is removed from the CA
 bundle, and the change is automatically propagated to the managed
 clusters.
@@ -8827,13 +9214,7 @@ cloud, and the managed cluster is in a private cloud environment within
 a firewall-protected network. The communications out of the private
 cloud can only go through a HTTP or HTTPS proxy server.
 
-<div>
-
-<div class="title">
-
-Prerequisites
-
-</div>
+**Prerequisites**
 
 - You have an active HTTP or HTTPS proxy server that supports HTTP
   tunnels. For example, HTTP connect method.
@@ -8841,8 +9222,6 @@ Prerequisites
 - You have a manged cluster that can reach the HTTP or HTTPS proxy
   server, and the proxy server can access the multicluster engine
   operator hub cluster.
-
-</div>
 
 Complete the following steps to configure the proxy settings between
 your hub cluster and managed cluster:
@@ -8972,6 +9351,10 @@ configure these settings:
 ### Accessing the managed cluster `kube-apiserver` resource to gather, configure, and view data
 
 **Required access:** Editor
+
+#### Prerequisites
+
+- You must enable cluster proxy add-ons.
 
 #### Gathering data with a managed cluster user token
 
@@ -11307,6 +11690,9 @@ managed cluster, complete the following steps:
       installNamespace: open-cluster-management-agent-addon
     ```
 
+    **Note:** The `spec.installNamespace` field is deprecated. See
+    Product deprecations and removals to learn more.
+
 3.  Run the following command to apply the file:
 
         oc apply -f -
@@ -11587,6 +11973,15 @@ from OpenShift Cluster Manager, you need to authenticate with a service
 account. Note that OpenShift Cluster Manager offline token is
 deprecated.
 
+**Prerequisites**
+
+- You must have an OpenShift Cluster Manager credential. See Creating a
+  credential for OpenShift Cluster Manager if you need to create a
+  credential.
+
+- Learn about creating an OpenShift Cluster Manager service account at
+  Service accounts.
+
 #### Authenticating
 
 See the following procedure to authenticate with a service account.
@@ -11644,13 +12039,7 @@ enable Discovery.
 **Required access**: Access to the namespace where the credential was
 created.
 
-<div>
-
-<div class="title">
-
-Prerequisites
-
-</div>
+**Prerequisites**
 
 - You need a credential. See Creating a credential for OpenShift Cluster
   Manager to connect to OpenShift Cluster Manager.
@@ -11718,8 +12107,6 @@ Prerequisites
 
   4.  You can now click **Import cluster** to create managed clusters.
 
-</div>
-
 ### Enable Discovery using the CLI
 
 Enable discovery using the CLI to find clusters that are available from
@@ -11727,17 +12114,9 @@ OpenShift Cluster Manager.
 
 **Required access**: Administrator
 
-<div>
-
-<div class="title">
-
-Prerequisites
-
-</div>
+**Prerequisites**
 
 - Create a credential to connect to OpenShift Cluster Manager.
-
-</div>
 
 #### Discovery set up and process
 
@@ -11818,13 +12197,7 @@ importing individual clusters.
 
 **Required access:** Cluster administrator
 
-<div>
-
-<div class="title">
-
-Prerequisites
-
-</div>
+**Prerequisites**
 
 - Discovery is enabled by default. If you changed default settings, you
   need to enable Discovery.
@@ -11832,8 +12205,6 @@ Prerequisites
 - You must set up the Red Hat OpenShift Service on AWS command-line
   interface. See Getting started with the Red Hat OpenShift Service on
   AWS CLI documentation.
-
-</div>
 
 #### Importing discovered Red Hat OpenShift Service on AWS and hosted control plane clusters automatically
 
@@ -11956,6 +12327,39 @@ is not imported due to the Discovery webhook.
 The host inventory management and on-premises cluster installation are
 available using the multicluster engine operator central infrastructure
 management feature.
+
+Continue reading to learn more about host inventories and central
+infrastructure management:
+
+- Host inventory overview
+
+- Enabling the central infrastructure management service
+
+- Enabling central infrastructure management on Amazon Web Services
+
+- Creating a host inventory by using the console
+
+- Creating a host inventory by using the command line interface
+
+- Configuring advanced networking for an infrastructure environment
+
+- Adding hosts to the host inventory by using the Discovery Image
+
+- Automatically adding bare metal hosts to the host inventory
+
+- Managing your host inventory
+
+- Managing a hub cluster by using central infrastructure management
+
+- Configuring mirror registries for each cluster
+
+- Creating a cluster in an on-premises environment
+
+- Importing an on-premises Red Hat OpenShift Container Platform cluster
+  manually by using central infrastructure management
+
+- Installing a two nodes with fencing cluster with Assisted Installer
+  (Technology Preview) to learn more.
 
 ### Host inventory overview
 
@@ -12655,6 +13059,12 @@ configuration options:
 - Select a Red Hat CoreOS version to boot for testing that is not the
   default option of the newest version
 
+**Prerequisites**
+
+- You must enable the central infrastructure management service. See
+  Enabling the central infrastructure management service for more
+  information.
+
 #### Creating a host inventory
 
 Complete the following steps to create a host inventory (infrastructure
@@ -12905,6 +13315,15 @@ referenced `NMStateConfig` resources. After booting, each host compares
 each configuration to its network interfaces and applies the appropriate
 configuration.
 
+#### Prerequisites
+
+- You must enable the central infrastructure management service. See
+  Enabling the central infrastructure management service for more
+  information.
+
+- You must create a host inventory. See Creating a host inventory by
+  using the console for more information.
+
 #### Configuring advanced networking by using the command line interface
 
 To configure advanced networking for your infrastructure environment by
@@ -13019,6 +13438,15 @@ using a virtual media, or by writing the ISO file to a USB drive.
 **Important:** To prevent the installation from failing, keep the
 Discovery ISO media connected to the device during the installation
 process, and set each host to boot from the device one time.
+
+#### Prerequisites
+
+- You must enable the central infrastructure management service. See
+  Enabling the central infrastructure management service for more
+  information.
+
+- You must create a host inventory. See Creating a host inventory by
+  using the console for more information.
 
 #### Adding hosts by using the console
 
@@ -13157,6 +13585,15 @@ The automation performs the following actions:
   `BareMetalHost`, such as hostname, role, and installation disk
 
 - Approves the `Agent` for use as a cluster node
+
+#### Prerequisites
+
+- You must enable the central infrastructure management service. See
+  Enabling the central infrastructure management service for more
+  information.
+
+- You must create a host inventory. See Creating a host inventory by
+  using the console for more information.
 
 #### Adding bare metal hosts by using the console
 
@@ -13335,17 +13772,9 @@ For example, you can cancel the installation if a production environment
 host becomes stuck during installation with the
 `installing-pending-user-action` status.
 
-<div>
-
-<div class="title">
-
-Prerequisites
-
-</div>
+**Prerequisites**
 
 - You are using the late binding feature on your managed cluster.
-
-</div>
 
 <div class="formalpara">
 
@@ -13608,6 +14037,12 @@ By default, central infrastructure management does not automatically
 manage your hub cluster. Enable the feature to add and manage additional
 hosts on your hub cluster by using central infrastructure management.
 
+**Prerequisites**
+
+- You must enable the central infrastructure management service. See
+  Enabling the central infrastructure management service for more
+  information.
+
 #### Enabling hub cluster management by using central infrastructure management
 
 Complete the following step to enable central infrastructure management
@@ -13749,6 +14184,210 @@ Complete the following steps:
     oc apply -f infraenv.yaml
     ```
 
+### Installing a TNF cluster with Assisted Installer (Technology Preview)
+
+**Technology Preview**: A two-node with fencing (TNF) cluster is an Red
+Hat OpenShift Container Platform cluster that has two control plane
+nodes. Use TNF clusters to ensure redundancy at the edge and limit
+hardware costs.
+
+**Prerequisites**
+
+- You are using the `baremetal` or `none` platform.
+
+- You have access to the baseboard management controller (BMC) of the
+  platform nodes.
+
+- Your OpenShift Container Platform managed cluster version is 4.20.
+
+<div class="formalpara">
+
+<div class="title">
+
+Procedure
+
+</div>
+
+Complete the following steps to install a TNF cluster by using Assisted
+Installer:
+
+</div>
+
+1.  Enable the TNF cluster installation feature with Assisted Installer
+    by setting an environment variable on the `assisted-service` pod.
+
+    1.  Create the following `ConfigMap` resource:
+
+        ``` yaml
+        apiVersion: v1
+        data:
+          TNF_CLUSTERS_SUPPORT: "true"
+        kind: ConfigMap
+        metadata:
+          name: assisted-service-custom
+          namespace: multicluster-engine
+        ```
+
+    2.  Reference the `ConfigMap` resource in an annotation on the
+        `AgentServiceConfig` resource. Run the following command:
+
+        ``` bash
+        oc annotate agentserviceconfig agent unsupported.agent-install.openshift.io/assisted-service-configmap=assisted-service-custom
+        ```
+
+2.  Configure the TNF cluster object on the hub cluster by creating the
+    required resources.
+
+    1.  Create a namespace. Use the following YAML sample:
+
+        ``` yaml
+        apiVersion: v1
+        kind: Namespace
+        metadata:
+          name: tnf-cluster
+        ```
+
+    2.  Create a pull secret. Use the following YAML sample. Replace
+        `<your-base64-pull-secret>` with the name of your pull secret:
+
+        ``` yaml
+        apiVersion: v1
+        kind: Secret
+        type: kubernetes.io/dockerconfigjson
+        metadata:
+          name: pull-secret
+          namespace: tnf-cluster
+        data:
+          .dockerconfigjson: <your-base64-pull-secret>
+        ```
+
+    3.  Create a `AgentClusterInstall` resource. Use the following YAML
+        sample. Replace `<your-public-ssh-key>` with your public SSH
+        key:
+
+        ``` yaml
+        apiVersion: extensions.hive.openshift.io/v1beta1
+        kind: AgentClusterInstall
+        metadata:
+          name: tnf-cluster
+          namespace: tnf-cluster
+        spec:
+          platformType: BareMetal
+          apiVIPs: [192.168.122.10]
+          ingressVIPs: [192.168.122.20]
+          clusterDeploymentRef:
+            name: tnf-cluster
+          imageSetRef:
+            name: img4.20.0-rc.3-x86-64-appsub
+          networking:
+            clusterNetwork:
+            - cidr: 10.128.0.0/14
+              hostPrefix: 23
+            machineNetwork:
+            - cidr: 192.168.122.0/24
+            serviceNetwork:
+            - 172.30.0.0/16
+          provisionRequirements:
+            controlPlaneAgents: 2
+          sshPublicKey: <your-public-ssh-key>
+        ```
+
+    4.  Create a `ClusterDeployment` resource. Use the following YAML
+        sample. Replace `<yourdomain.com>` with your domain address:
+
+        ``` yaml
+        apiVersion: hive.openshift.io/v1
+        kind: ClusterDeployment
+        metadata:
+          name: tnf-cluster
+          namespace: tnf-cluster
+        spec:
+          baseDomain: <yourdomain.com>
+          clusterInstallRef:
+            group: extensions.hive.openshift.io
+            kind: AgentClusterInstall
+            name: tnf-cluster
+            version: v1beta1
+          clusterName: tnf-cluster
+          controlPlaneConfig:
+            servingCertificates: {}
+          platform:
+            agentBareMetal:
+              agentSelector:
+                cluster: tnf
+          pullSecretRef:
+            name: pull-secret
+        ```
+
+    5.  Create an `InfraEnv` resource. Use the following YAML sample.
+        Replace `<your-public-ssh-key>` with your public SSH key:
+
+        ``` yaml
+        apiVersion: agent-install.openshift.io/v1beta1
+        kind: InfraEnv
+        metadata:
+          name: tnf-cluster
+          namespace: tnf-cluster
+        spec:
+          clusterRef:
+            name: tnf-cluster
+            namespace: tnf-cluster
+          pullSecretRef:
+            name: pull-secret
+          sshAuthorizedKey: <your-public-ssh-key>
+        ```
+
+3.  **Optional:** Create a fencing credentials secret for each node. Use
+    the following YAML sample. Replace `<username>` and `<password>`
+    with your username and password. The `certificateVerification` field
+    default value is `Enabled`:
+
+    ``` yaml
+    apiVersion: v1
+    stringData:
+      address: https://bmc.example.com
+      certificateVerification: Disabled
+      username: <username>
+      password: <password>
+    kind: Secret
+    metadata:
+      name: node-0-fencing-credentials
+      namespace: tnf-cluster
+    type: Opaque
+    ```
+
+    **Note:** Fencing credentials for an Agent are stored as a
+    Kubernetes secret in the Agent namespace that the Agent references
+    in the `agent.spec.fencingCredentialsSecretRef` field.
+
+4.  Use one of the following methods to set Agent fencing credentials.
+    The methods are listed in descending order of priority:
+
+    - Manually create the secret and add an annotation on the
+      `BareMetalHost` resource that references the secret. Use the
+      following annotation key:
+
+      ``` bash
+      bmac.agent-install.openshift.io/fencing-credentials-secret-name
+      ```
+
+      **Note:** The Assisted Installer sets the Agent
+      `fencingCredentialsSecretRef` field to the value of the
+      annotation.
+
+    - Set an annotation on the Agent `BareMetalHost` resource to create
+      the secret from the `BareMetalHost` BMC configuration. Use the
+      following annotation key:
+
+      ``` bash
+      bmac.agent-install.openshift.io/create-fencing-credentials-secret
+      ```
+
+      **Note:** You can use any value.
+
+    - Manually create the secret. Then, manually set the Agent
+      `fencingCredentialsSecretRef` field to the secret name.
+
 ## Cluster API
 
 ### Installing a managed cluster with Cluster API
@@ -13763,13 +14402,7 @@ providers.
 - The `ClusterInfrastructure` defines the cluster-level infrastructure
   details.
 
-<div>
-
-<div class="title">
-
-Prerequisites
-
-</div>
+**Prerequisites**
 
 - You need the `MultiClusterEngine` resource either from the Red Hat
   Advanced Cluster Management installation, or the multicluster engine
@@ -13779,12 +14412,26 @@ Prerequisites
   `api.<cluster_name>.<base_domain>`.
 
 - The following application base domain must point to the static IP
-  address for Ingress VIP: `*.apps.<cluster_name>.<base_domain>`.
+  address for Ingress VIP:
+
+      *.apps.<cluster_name>.<base_domain>
 
 - You need the internal API endpoint for the cluster:
   `api-int.<baseDomain>`.
 
-</div>
+- The Cluster API Provider OpenShift Assisted requires the following
+  components:
+
+  - Cluster API: The core components provide the required custom
+    resource definitions and controllers within the management cluster.
+
+  - Assisted service: The infrastructure operator for Red Hat OpenShift
+    in multicluster engine for Kubernetes operator provisions this
+    service. Ensure the service is reachable and active.
+
+  - Infrastructure provider: A provider, such as the
+    `cluster-api-provider-metal3`, manages the physical or virtual
+    resources.
 
 #### Provisioning a workload with Cluster API
 
@@ -14261,19 +14908,11 @@ by using the Cluster API.
 
 **Required access:** Cluster administrator
 
-<div>
-
-<div class="title">
-
-Prerequisites
-
-</div>
+**Prerequisites**
 
 - You need the `MultiClusterEngine` resource either from the Red Hat
   Advanced Cluster Management installation, or the multicluster engine
   operator standalone installation.
-
-</div>
 
 #### Preparing your hub cluster
 
@@ -14376,7 +15015,7 @@ following steps:
     oc apply -f <filename>.yaml
     ```
 
-### Switching from AWS credentials to IAM roles on your managed cluster (Technology Preview)
+### Switching from AWS credentials to IAM roles on your managed cluster
 
 You can switch to using Identity and Access Management (IAM) roles when
 deploying a managed cluster with Cluster API. If you created a managed
@@ -14387,13 +15026,7 @@ without storing AWS credentials on your managed cluster.
 
 **Required access:** Cluster administrator
 
-<div>
-
-<div class="title">
-
-Prerequisites
-
-</div>
+**Prerequisites**
 
 - You need a Red Hat OpenShift Container Platform or Red Hat OpenShift
   Service on AWS with hosted control planes bootstrap cluster that you
@@ -14406,8 +15039,6 @@ Prerequisites
 
 - You need to disable HyperShift components before enabling Cluster API
   and Cluster API Provider AWS.
-
-</div>
 
 <div class="formalpara">
 
@@ -14545,7 +15176,7 @@ Complete the following steps:
     oc rollout restart deployment capa-controller-manager -n multicluster-engine
     ```
 
-### Creating a Red Hat OpenShift Service on AWS with hosted control planes cluster with Cluster API (Technology Preview)
+### Creating a Red Hat OpenShift Service on AWS with hosted control planes cluster with Cluster API
 
 A Red Hat OpenShift Service on AWS with hosted control planes cluster is
 a deployment model for Red Hat OpenShift Service on AWS where the
@@ -14555,6 +15186,21 @@ create a Red Hat OpenShift Service on AWS with hosted control planes
 cluster by using Cluster API.
 
 **Required access:** Cluster administrator
+
+**Prerequisites**
+
+- You need an AWS access key. See Manage access keys for IAM users in
+  the AWS documentation to learn more.
+
+- The AWS Red Hat OpenShift Service on AWS managed policies are attached
+  to your AWS user permissions. See AWS managed policies for ROSA in the
+  AWS documentation to learn more.
+
+- You need the OpenShift CLI (`oc`). See OpenShift CLI (oc) in the
+  OpenShift Container Platform documentation to learn more.
+
+- You need the ROSA CLI (`rosa`). See ROSA CLI in the Red Hat OpenShift
+  Service on AWS documentation to learn more.
 
 #### Creating a service account
 
@@ -14883,7 +15529,7 @@ control planes cluster:
     **Note:** The default available `ROSAMachinePools` count is based on
     the assigned availability zones.
 
-### Deleting a Red Hat OpenShift Service on AWS with hosted control planes cluster with Cluster API (Technology Preview)
+### Deleting a Red Hat OpenShift Service on AWS with hosted control planes cluster with Cluster API
 
 Deleting the `ROSAControlPlane` deprovisions the Red Hat OpenShift
 Service on AWS with hosted control planes cluster. The process takes 30
@@ -14892,26 +15538,12 @@ are automatically deleted.
 
 **Required access:** Cluster administrator
 
-<div>
+**Prequisites**
 
-<div class="title">
-
-Prequisites
-
-</div>
-
-- You gave a Red Hat OpenShift Service on AWS with hosted control planes
+- You have a Red Hat OpenShift Service on AWS with hosted control planes
   cluster with Cluster API.
 
-</div>
-
-<div>
-
-<div class="title">
-
-Procedure
-
-</div>
+**Procedure**
 
 1.  Delete the `ROSAControlPlane` custom resource and the matching
     cluster custom resource. Run the following command. Replace values
@@ -14923,8 +15555,6 @@ Procedure
 
 2.  After the `ROSAControlPlane` deletion completes, delete the
     `ROSARoleConfig` and `ROSANetwork` resources.
-
-</div>
 
 ## APIs
 
@@ -18515,12 +19145,11 @@ resolve those issues:
   the condition message to get the problem details and attempt to
   resolve.
 
-### Namespace remains after deleting a cluster
+### Troubleshooting namespace that remains after deleting a cluster
 
 When you remove a managed cluster, the namespace is normally removed as
 part of the cluster removal process. In rare cases, the namespace
-remains with some artifacts in it. In that case, you must manually
-remove the namespace.
+remains with some artifacts, so you must manually remove the namespace.
 
 #### Symptom: Namespace remains after deleting a cluster
 
@@ -18533,24 +19162,28 @@ Complete the following steps to remove the namespace manually:
 1.  Run the following command to produce a list of the resources that
     remain in the \<cluster_name\> namespace:
 
-        oc api-resources --verbs=list --namespaced -o name | grep -E '^secrets|^serviceaccounts|^managedclusteraddons|^roles|^rolebindings|^manifestworks|^leases|^managedclusterinfo|^appliedmanifestworks'|^clusteroauths' | xargs -n 1 oc get --show-kind --ignore-not-found -n <cluster_name>
+    ``` bash
+    oc api-resources --verbs=list --namespaced -o name | grep -E '^secrets|^serviceaccounts|^managedclusteraddons|^roles|^rolebindings|^manifestworks|^leases|^managedclusterinfo|^appliedmanifestworks|^clusteroauths'| xargs -n 1 oc get --show-kind --ignore-not-found -n <cluster_name>
+    ```
 
-    Replace `cluster_name` with the name of the namespace for the
+    Replace `<cluster_name>` with the name of the namespace for the
     cluster that you attempted to remove.
 
 2.  Delete each identified resource on the list that does not have a
     status of `Delete` by entering the following command to edit the
     list:
 
-        oc edit <resource_kind> <resource_name> -n <namespace>
+    ``` bash
+    oc edit <resource_kind> <resource_name> -n <namespace>
+    ```
 
-    Replace `resource_kind` with the kind of the resource. Replace
-    `resource_name` with the name of the resource. Replace `namespace`
-    with the name of the namespace of the resource.
+    Replace `<resource_kind>` with the kind of the resource. Replace
+    `<resource_name>` with the name of the resource. Replace
+    `<namespace>` with the name of the namespace of the resource.
 
 3.  Locate the `finalizer` attribute in the in the metadata.
 
-4.  Delete the non-Kubernetes finalizers by using the vi editor `dd`
+4.  Delete the non-Kubernetes finalizers by using the `vi` editor `dd`
     command.
 
 5.  Save the list and exit the `vi` editor by entering the `:wq`
@@ -18558,9 +19191,11 @@ Complete the following steps to remove the namespace manually:
 
 6.  Delete the namespace by entering the following command:
 
-        oc delete ns <cluster-name>
+    ``` bash
+    oc delete ns <cluster-name>
+    ```
 
-    Replace `cluster-name` with the name of the namespace that you are
+    Replace `<cluster-name>` with the name of the namespace that you are
     trying to delete.
 
 ### Auto-import-secret-exists error when importing a cluster

@@ -1,5 +1,157 @@
 # multicluster engine operator with Red Hat Advanced Cluster Management integration
 
+If you are using multicluster engine operator and then you install Red
+Hat Advanced Cluster Management, you can access more multicluster
+management features, such as *Observability* and *Policy*. For
+integrated capability, see the following requirements:
+
+- You need to install Red Hat Advanced Cluster Management. See the Red
+  Hat Advanced Cluster Management Installing and upgrading
+  documentation.
+
+- See MultiClusterHub advanced configuration for details about Red Hat
+  Advanced Cluster Management after you install.
+
+# Working with hosted clusters in Red Hat Advanced Cluster Management
+
+If you have multicluster engine operator clusters that are hosting
+multiple *hosted clusters*, you can bring those hosted clusters to a Red
+Hat Advanced Cluster Management hub cluster to manage with Red Hat
+Advanced Cluster Management components, such as *Application lifecycle*
+and *Governance*.
+
+## Integrated hosted control plane fleet management architecture pattern
+
+As your Red Hat Advanced Cluster Management for Kubernetes and
+multicluster engine for Kubernetes operator hosted control plane
+deployment scales, you can strategically manage resource requirements
+and maintain centralized visibility across your fleet.
+
+Consider the following guidance for an architecture pattern for managing
+hosted control plane clusters at scale.
+
+Red Hat Advanced Cluster Management for Kubernetes or multicluster
+engine for Kubernetes operator enables hosted control plane
+capabilities. While deployments often begin with a single hub cluster,
+scaling the number of hosted control plane clusters introduces several
+challenges. See the following examples:
+
+- **Resource consumption:** Resource requirements grow proportionally
+  with the number of planes.
+
+- **Scaling complexity:** You must choose between scaling existing
+  clusters or provisioning new ones.
+
+- **Management overhead:** Managing multiple hosting clusters
+  individually becomes complex.
+
+- **Visibility gaps:** Maintaining centralized visibility and governance
+  across disparate clusters is difficult.
+
+To address these challenges, implement a *hierarchical management
+pattern*, which is an architecture that separates the management logic
+from the hosting infrastructure. Learn more about this pattern in the
+sections that follow.
+
+Learn about the benefits of this architecture pattern in the following
+table:
+
+- Benefit: Centralized management - Description: Provides a single pane
+  of glass for the entire fleet.
+
+- Benefit: Scalability - Description: Allows you to add multicluster
+  engine operator clusters as needed to increase capacity.
+
+- Benefit: Resource optimization - Description: Focuses multicluster
+  engine operator clusters on hosting and the Red Hat Advanced Cluster
+  Management hub cluster on management.
+
+- Benefit: Operational efficiency - Description: Enables unified policy
+  management and governance.
+
+- Benefit: Cost effectiveness - Description: Allows you to right-size
+  each component for a specific role.
+
+### Central Red Hat Advanced Cluster Management hub cluster
+
+The central Red Hat Advanced Cluster Management hub cluster serves as
+the primary management and visibility layer for the following functions:
+
+- Provides a single console for end-to-end fleet management
+
+- Manages operational policies across the entire infrastructure
+
+- Enables comprehensive monitoring and governance capabilities
+
+### multicluster engine operator hosting infrastructure
+
+Deploy multiple multicluster engine operator clusters to serve as the
+physical hosting infrastructure for control planes. See the following
+functions of the multicluster engine operator hosting cluster:
+
+- Provides hosted control plane components with a smaller footprint than
+  a full Red Hat Advanced Cluster Management installation.
+
+- Includes the management console and BareMetal infrastructure
+  operators.
+
+- Optimizes for hosting workloads rather than high-level fleet
+  management.
+
+### Implementation considerations
+
+Learn about the process and gather other important information for fleet
+management architecture.
+
+- The central Red Hat Advanced Cluster Management hub cluster manages
+  both the multicluster engine operator clusters and the attached hosted
+  control plane clusters
+
+- Policies and governance are applied consistently across the entire
+  infrastructure.
+
+- Monitoring and alerting are centralized while hosting capacity remains
+  distributed.
+
+See the following process overview:
+
+- **Deploy the central Red Hat Advanced Cluster Management hub
+  cluster:** Establish this cluster as your primary management
+  interface.
+
+- **Deploy multicluster engine operator clusters:** Use these as the
+  hosting infrastructure for your control planes.
+
+- **Configure discovery:** Ensure the Red Hat Advanced Cluster
+  Management hub cluster can manage both the multicluster engine
+  operator clusters and the attached hosted control plane clusters.
+
+For detailed instructions on discovery configuration, see Discovering
+multicluster engine operator hosted clusters in Red Hat Advanced Cluster
+Management
+
+**Important:** A Red Hat Advanced Cluster Management cluster cannot
+manage another Red Hat Advanced Cluster Management cluster.
+
+If you have already deployed multiple Red Hat Advanced Cluster
+Management hub clusters to host control planes, use the following
+process for this pattern architecture:
+
+- **Convert Red Hat Advanced Cluster Management hosting clusters to
+  multicluster engine operator:** Uninstall Red Hat Advanced Cluster
+  Management and install multicluster engine operator on the clusters
+  that are designated for hosting infrastructure.
+
+- **Preserve hosted control plane clusters:** Ensure the conversion
+  process does not disrupt existing hosted control plane clusters.
+
+- **Designate the hub cluster:** Select one Red Hat Advanced Cluster
+  Management cluster to serve as the central management hub cluster.
+
+To uninstall Red Hat Advanced Cluster Management from a cluster, follow
+the Uninstalling documentation. Then see the Installing multicluster
+engine operator documentation for installation instructions.
+
 ## Discovering multicluster engine operator hosted clusters in Red Hat Advanced Cluster Management
 
 If you have multicluster engine operator clusters that are hosting
@@ -21,13 +173,7 @@ planes.
 
 **Required access:** Cluster administrator
 
-<div>
-
-<div class="title">
-
-Prerequisites
-
-</div>
+**Prerequisites**
 
 - You need one or more multicluster engine operator clusters.
 
@@ -36,11 +182,9 @@ Prerequisites
 
 - Install the `clusteradm` CLI by running the following command:
 
-  ``` bash
-  curl -L https://raw.githubusercontent.com/open-cluster-management-io/clusteradm/main/install.sh | bash
-  ```
-
-</div>
+``` bash
+curl -L https://raw.githubusercontent.com/open-cluster-management-io/clusteradm/main/install.sh | bash
+```
 
 ### Configuring Red Hat Advanced Cluster Management to import multicluster engine operator clusters
 
@@ -68,124 +212,15 @@ following procedure:
 
 1.  Log in to your Red Hat Advanced Cluster Management with the CLI.
 
-2.  Create the `AddOnDeploymentConfig` resource to specify a different
-    add-on installation namespace. See the following example where
-    `agentInstallNamespace` references
-    `open-cluster-management-agent-addon-discovery`:
+2.  Update the `hypershift-addon-deploy-config` install add-ons in the
+    `open-cluster-management-agent-addon-discovery` namespace. Run the
+    following command:
 
-    ``` yaml
-    apiVersion: addon.open-cluster-management.io/v1alpha1
-    kind: AddOnDeploymentConfig
-    metadata:
-      name: addon-ns-config
-      namespace: multicluster-engine
-    spec:
-      agentInstallNamespace: open-cluster-management-agent-addon-discovery
+    ``` bash
+    oc patch addondeploymentconfig hypershift-addon-deploy-config -n multicluster-engine --type=merge -p '{"spec":{"customizedVariables":[{"name":"configureMceImport","value":"true"}]}}'
     ```
 
-3.  Run `oc apply -f <filename>.yaml` to apply the file.
-
-4.  Update the existing `ClusterManagementAddOn` resources for the
-    add-ons so that the add-ons are installed in the
-    `open-cluster-management-agent-addon-discovery` namespace that is
-    specified in the `AddOnDeploymentConfig` resource that you created.
-    See the following example with `open-cluster-management-global-set`
-    as the namespace:
-
-    ``` yaml
-    apiVersion: addon.open-cluster-management.io/v1alpha1
-    kind: ClusterManagementAddOn
-    metadata:
-      name: work-manager
-    spec:
-      addonMeta:
-        displayName: work-manager
-      installStrategy:
-        placements:
-        - name: global
-          namespace: open-cluster-management-global-set
-          rolloutStrategy:
-            type: All
-        type: Placements
-    ```
-
-    1.  Add the `addonDeploymentConfigs` to the
-        `ClusterManagementAddOn`. See the following example:
-
-        ``` yaml
-        apiVersion: addon.open-cluster-management.io/v1alpha1
-        kind: ClusterManagementAddOn
-        metadata:
-          name: work-manager
-        spec:
-          addonMeta:
-            displayName: work-manager
-          installStrategy:
-            placements:
-            - name: global
-              namespace: open-cluster-management-global-set
-              rolloutStrategy:
-                type: All
-              configs:
-              - group: addon.open-cluster-management.io
-                name: addon-ns-config
-                namespace: multicluster-engine
-                resource: addondeploymentconfigs
-            type: Placements
-        ```
-
-    2.  Add the `AddOnDeploymentConfig` to the `managed-serviceaccount`.
-        See the following example:
-
-        ``` yaml
-        apiVersion: addon.open-cluster-management.io/v1alpha1
-        kind: ClusterManagementAddOn
-        metadata:
-          name: managed-serviceaccount
-        spec:
-          addonMeta:
-            displayName: managed-serviceaccount
-          installStrategy:
-            placements:
-            - name: global
-              namespace: open-cluster-management-global-set
-              rolloutStrategy:
-                type: All
-              configs:
-              - group: addon.open-cluster-management.io
-                name: addon-ns-config
-                namespace: multicluster-engine
-                resource: addondeploymentconfigs
-            type: Placements
-        ```
-
-    3.  Add the `addondeploymentconfigs` value to the
-        `ClusterManagementAddOn` resource named, `cluster-proxy`. See
-        the following example:
-
-    ``` yaml
-    apiVersion: addon.open-cluster-management.io/v1alpha1
-    kind: ClusterManagementAddOn
-    metadata:
-      name: cluster-proxy
-    spec:
-      addonMeta:
-        displayName: cluster-proxy
-      installStrategy:
-        placements:
-        - name: global
-          namespace: open-cluster-management-global-set
-          rolloutStrategy:
-            type: All
-          configs:
-          - group: addon.open-cluster-management.io
-            name: addon-ns-config
-            namespace: multicluster-engine
-            resource: addondeploymentconfigs
-        type: Placements
-    ```
-
-5.  Run the following command to verify that the add-ons for the Red Hat
+3.  Run the following command to verify that the add-ons for the Red Hat
     Advanced Cluster Management `local-cluster` are re-installed into
     the namespace that you specified:
 
@@ -196,103 +231,26 @@ following procedure:
     See the following output example:
 
     ``` bash
-    NAME                                 READY   UP-TO-DATE   AVAILABLE    AGE
-    cluster-proxy-proxy-agent            1/1     1            1           24h
-    klusterlet-addon-workmgr             1/1     1            1           24h
-    managed-serviceaccount-addon-agent   1/1     1            1           24h
+    NAME                                                  READY   STATUS    RESTARTS   AGE
+    application-manager-6b7f74b8f7-7sd25                  1/1     Running   0          1d15h
+    cluster-proxy-proxy-agent-7985ddfdb6-kng5p            3/3     Running   0          1d15h
+    klusterlet-addon-workmgr-55fd575b4b-rs5vz             1/1     Running   0          1d15h
+    managed-serviceaccount-addon-agent-54bd989b94-g6gz9   1/1     Running   0          1d15h
     ```
 
-Create a *KlusterletConfig* resource. multicluster engine operator has a
-local-cluster, which is a hub cluster that is managed. A resource named
-`klusterlet` is created for this local-cluster.
+4.  Run the following command to check the status of your configuration:
 
-When your multicluster engine operator is imported into Red Hat Advanced
-Cluster Management, Red Hat Advanced Cluster Management installs the
-klusterlet with the same name, `klusterlet`, to manage the multicluster
-engine operator. This conflicts with the multicluster engine operator
-local-cluster klusterlet.
-
-You need to create a `KlusterletConfig` resource that is used by
-`ManagedCluster` resources to import multicluster engine operator
-clusters so that the klusterlet is installed with a different name to
-avoid the conflict. Complete the following procedure:
-
-1.  Create a `KlusterletConfig` resource using the following example.
-    When this `KlusterletConfig` resource is referenced in a managed
-    cluster, the value in the `spec.installMode.noOperator.postfix`
-    field is used as a suffix to the klusterlet name, such as
-    `klusterlet-mce-import`:
-
-    ``` yaml
-    kind: KlusterletConfig
-    apiVersion: config.open-cluster-management.io/v1alpha1
-    metadata:
-      name: mce-import-klusterlet-config
-    spec:
-      installMode:
-        type: noOperator
-        noOperator:
-           postfix: mce-import
+    ``` bash
+    oc get configmap hypershift-addon-deploy-config-info -n multicluster-engine -o yaml
     ```
-
-2.  Run `oc apply -f <filename>.yaml` to apply the file.
-
-Configure for backup and restore.
-
-Since you installed Red Hat Advanced Cluster Management, you can also
-use the *Backup and restore* feature.
-
-If the hub cluster is restored in a disaster recovery scenario, the
-imported multicluster engine operator clusters and hosted clusters are
-imported to the newer Red Hat Advanced Cluster Management hub cluster.
-
-In this scenario, you need to restore the previous configurations as
-part of Red Hat Advanced Cluster Management hub cluster restore.
-
-Add the `backup=true` label to enable backup. See the following steps
-for each add-on:
-
-- For your `addon-ns-config`, run the following command:
-
-  ``` bash
-  oc label addondeploymentconfig addon-ns-config -n multicluster-engine cluster.open-cluster-management.io/backup=true
-  ```
-
-- For your `hypershift-addon-deploy-config`, run the following command:
-
-  ``` bash
-  oc label addondeploymentconfig hypershift-addon-deploy-config -n multicluster-engine cluster.open-cluster-management.io/backup=true
-  ```
-
-- For your `work-manager`, run the following command:
-
-  ``` bash
-  oc label clustermanagementaddon work-manager cluster.open-cluster-management.io/backup=true
-  ```
-
-- For your \`cluster-proxy \`, run the following command:
-
-  ``` bash
-  oc label clustermanagementaddon cluster-proxy cluster.open-cluster-management.io/backup=true
-  ```
-
-- For your `managed-serviceaccount`, run the following command:
-
-  ``` bash
-  oc label clustermanagementaddon managed-serviceaccount cluster.open-cluster-management.io/backup=true
-  ```
-
-- For your `mce-import-klusterlet-config`, run the following command:
-
-  ``` bash
-  oc label KlusterletConfig mce-import-klusterlet-config cluster.open-cluster-management.io/backup=true
-  ```
 
 ### Importing multicluster engine operator manually
 
-To manually import an multicluster engine operator cluster from your Red
-Hat Advanced Cluster Management cluster, complete the following
-procedure:
+After configuring Red Hat Advanced Cluster Management add-ons to install
+in a different namespace than multicluster engine operator add-ons, you
+can start importing multicluster engine operator clusters. To manually
+import an multicluster engine operator cluster from your Red Hat
+Advanced Cluster Management cluster, complete the following procedure:
 
 1.  From your Red Hat Advanced Cluster Management cluster, create a
     `ManagedCluster` resource manually to import an multicluster engine
@@ -303,11 +261,11 @@ procedure:
     kind: ManagedCluster
     metadata:
       annotations:
-        agent.open-cluster-management.io/klusterlet-config: mce-import-klusterlet-config 
+        agent.open-cluster-management.io/klusterlet-config: mce-import-klusterlet-config
       labels:
         cloud: auto-detect
         vendor: auto-detect
-      name: mce-a 
+      name: <name>
     spec:
       hubAcceptsClient: true
       leaseDurationSeconds: 60
@@ -318,12 +276,38 @@ procedure:
       to install the Red Hat Advanced Cluster Management klusterlet with
       a different name in multicluster engine operator.
 
-    - The example imports an multicluster engine operator managed
-      cluster named `mce-a`.
+    - Replace `<mname>` with your cluster name.
 
 2.  Run `oc apply -f <filename>.yaml` to apply the file.
 
-3.  Create the `auto-import-secret` secret that references the
+3.  **Optional:** Create a `KlusterletAddonConfig` resource for each
+    multicluster engine operator cluster to enable additional Red Hat
+    Advanced Cluster Management add-ons. Use the following example:
+
+    ``` yaml
+    apiVersion: agent.open-cluster-management.io/v1
+    kind: KlusterletAddonConfig
+    metadata:
+      name: <host-name>  # Must match your ManagedCluster name
+      namespace: <host-namespace>  # Must match your ManagedCluster name
+    spec:
+      applicationManager:
+        enabled: true
+      certPolicyController:
+        enabled: true
+      policyController:
+        enabled: true
+      searchCollector:
+        enabled: true
+    ```
+
+    - Replace `<host-name>` with your managed cluster name.
+
+    - Replace `<host-namespace>` with your managed cluster namespace.
+
+4.  Run `oc apply -f <filename>.yaml` to apply the file.
+
+5.  Create the `auto-import-secret` secret that references the
     `kubeconfig` of the multicluster engine operator cluster. Go to
     *Importing a cluster by using the auto import secret* in Importing a
     managed cluster by using the CLI to add the auto import secret to
@@ -333,7 +317,22 @@ procedure:
     operator managed cluster namespace in the Red Hat Advanced Cluster
     Management cluster, the managed cluster is registered.
 
-4.  Run the following command to get the status:
+6.  Alternatively, extract the import manifest for your multicluster
+    engine operator cluster. Run the following command. Replace `<name>`
+    with the name of your multicluster engine operator cluster:
+
+    ``` bash
+    oc get secret mce-hosting-east-import -n <name> -o jsonpath={.data.import\\.yaml} | base64 --decode > import.yaml
+    ```
+
+7.  Apply the `import.yaml` file to your multicluster engine operator
+    cluster. Run the following command:
+
+    ``` bash
+    oc apply -f import.yaml
+    ```
+
+8.  Run the following command to get the status:
 
     ``` bash
     oc get managedcluster
@@ -495,6 +494,15 @@ hosted cluster lifecycle from the Red Hat Advanced Cluster Management
 console.
 
 **Required access:** Cluster administrator
+
+### Prerequisites
+
+- You need Red Hat Advanced Cluster Management installed. See the Red
+  Hat Advanced Cluster Management Installing and upgrading
+  documentation.
+
+- You need to learn about *Policies*. See the introduction to Governance
+  in the Red Hat Advanced Cluster Management documentation.
 
 ### Configuring settings for automatic import
 
@@ -725,6 +733,15 @@ cluster management, without manually importing individual clusters.
 
 **Required access:** Cluster administrator
 
+### Prerequisites
+
+- You need Red Hat Advanced Cluster Management installed. See the Red
+  Hat Advanced Cluster Management Installing and upgrading
+  documentation.
+
+- You need to learn about *Policies*. See the introduction to Governance
+  in the Red Hat Advanced Cluster Management documentation.
+
 ### Creating the automatic import policy
 
 The following policy and procedure is an example of how to import all
@@ -919,6 +936,22 @@ can view health and utilization of clusters across your fleet. You can
 install Red Hat Advanced Cluster Management and enable Observability.
 
 ## Observing hosted control planes
+
+After you enable the `multicluster-observability` pod, you can use Red
+Hat Advanced Cluster Management Observability Grafana dashboards to view
+the following information about your hosted control planes:
+
+- **ACM** \> **Hosted Control Planes Overview** dashboard to see cluster
+  capacity estimates for hosting hosted control planes, the related
+  cluster resources, and the list and status of existing hosted control
+  planes. For more information, see: Introduction to hosted control
+  planes.
+
+- **ACM** \> **Resources** \> **Hosted Control Plane** dashboard that
+  you can access from the *Overview* page to see the resource
+  utilization of the selected hosted control plane. For more
+  information, see Installing the hosted control planes command-line
+  interface.
 
 To enable, see Observability service.
 
@@ -1366,16 +1399,6 @@ operator is enabled. Complete the following procedure:
     ...
     ```
 
-# Image Based Install Operator
-
-Install the Image Based Install Operator so that you can complete and
-manage image-based cluster installations by using the same APIs as
-existing installation methods.
-
-For more information about, and to learn how to enable the Image Based
-Install Operator, see Image-based installations for single-node
-OpenShift.
-
 ## Installing single-node OpenShift clusters with the SiteConfig operator
 
 Install your clusters with the SiteConfig operator by using the default
@@ -1394,6 +1417,12 @@ Image-Based Install Operator to complete the procedure.
   default templates, see Default set of templates
 
 - Install and configure the underlying operator of your choice.
+
+  - To learn about and install the Image Based Install Operator for
+    single-node OpenShift, see Image Based Install Operator.
+
+  - To install the Assisted Installer, see Installing an on-premise
+    cluster with the Assisted Installer.
 
 Complete the following steps to install a cluster with the SiteConfig
 operator:
@@ -1706,6 +1735,16 @@ Complete the following steps to delete your clusters:
     ``` terminal
     Error from server (NotFound): clusterinstances.siteconfig.open-cluster-management.io "<cluster_name>" not found
     ```
+
+## Image Based Install Operator
+
+Install the Image Based Install Operator so that you can complete and
+manage image-based cluster installations by using the same APIs as
+existing installation methods.
+
+For more information about, and to learn how to enable the Image Based
+Install Operator, see Image-based installations for single-node
+OpenShift.
 
 ## SiteConfig advanced topics
 

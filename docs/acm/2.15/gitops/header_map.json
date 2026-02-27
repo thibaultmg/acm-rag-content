@@ -1,0 +1,159 @@
+{
+  "Prerequisites": [
+    "gitops-console-prereqs",
+    "prerequisites-argo",
+    "prereqs-pull-model",
+    "gitops-pol-def-prereq",
+    "integrate-pol-gen-prereq"
+  ],
+  "Querying Argo CD applications": [
+    "querying-argo-apps"
+  ],
+  "GitOps console": [
+    "gitops-console"
+  ],
+  "Deploying the": [
+    "_deploying_the_applicationset_resource_for_standard_configurations",
+    "_deploying_the_applicationset_resource_for_advanced_configurations"
+  ],
+  "Deploying the Argo CD": [
+    "deploy-gitops-argocd-appset"
+  ],
+  "Enabling the": [
+    "_enabling_the_applicationset_resource_in_any_namespace_on_the_hub_cluster",
+    "_enabling_the_application_resource_in_any_namespace_on_the_managed_clusters",
+    "enable-gitops-appset"
+  ],
+  "Registering managed clusters to Red Hat OpenShift GitOps": [
+    "register-gitops"
+  ],
+  "Registering non-OpenShift Container Platform clusters to Red Hat OpenShift GitOps": [
+    "register-non-ocp"
+  ],
+  "Red Hat OpenShift GitOps token": [
+    "secret-gitops"
+  ],
+  "Registering managed clusters to Red Hat OpenShift GitOps operator": [
+    "gitops-register"
+  ],
+  "Configuring application placement tolerations for GitOps": [
+    "tolerations-config"
+  ],
+  "Architecture Push model": [
+    "arch-push"
+  ],
+  "Architecture Pull model": [
+    "arch-pull"
+  ],
+  "Architecture": [
+    "arch-push-pull"
+  ],
+  "Creating the": [
+    "crd-pull-model"
+  ],
+  "Deploying Argo CD with Push and Pull model": [
+    "gitops-push-pull"
+  ],
+  "Creating a": [
+    "create-clusterrole-gitops",
+    "_creating_a_gitopscluster_resource"
+  ],
+  "Accessing the Policy Generator from OpenShift GitOps": [
+    "access-policy-gen-gitops"
+  ],
+  "Integrating the Policy Generator with OpenShift GitOps": [
+    "integrate-pol-gen-ocp-gitops"
+  ],
+  "Configuring policy health checks in OpenShift GitOps": [
+    "config-gitops-healthcheck"
+  ],
+  "Managing policy definitions with Red Hat OpenShift GitOps": [
+    "gitops-policy-definitions"
+  ],
+  "Generating a policy that installs OpenShift Container Platform GitOps": [
+    "policy-install-ocp-gitops"
+  ],
+  "Using policy dependencies with": [
+    "using-policy-dependencies-with-operatorgroups"
+  ],
+  "Generating a policy to install GitOps Operator": [
+    "gitops-policy-generator"
+  ],
+  "Creating a managed service account": [
+    "creating-service-account"
+  ],
+  "Using a managed service account in the": [
+    "using-service-account"
+  ],
+  "Creating an Argo CD application": [
+    "creating-argocd-application"
+  ],
+  "Using policy to create managed service accounts and cluster permissions": [
+    "using-policy"
+  ],
+  "Creating a customized service account for Argo CD push model": [
+    "gitops-service-account-argo-cd"
+  ],
+  "Configuring OpenShift GitOps add-on settings": [
+    "_configuring_openshift_gitops_add_on_settings"
+  ],
+  "Managing the Red Hat OpenShift GitOps add-on": [
+    "manage-gitops-addon"
+  ],
+  "Configuring subscriptions and resources": [
+    "_configuring_subscriptions_and_resources"
+  ],
+  "Enabling": [
+    "_enabling_argocd_agent"
+  ],
+  "Verifying the": [
+    "_verifying_the_argocd_installation",
+    "_verifying_the_gitopscluster_status",
+    "verify-argocd-agent"
+  ],
+  "Enabling Red Hat OpenShift GitOps add-on with": [
+    "enable-gitops-addon-with-argocd"
+  ],
+  "Verifying the installation": [
+    "_verifying_the_installation"
+  ],
+  "Enabling Red Hat OpenShift GitOps add-on without the": [
+    "enable-gitops-addon-without-argocd"
+  ],
+  "Skipping enforcements by customizing the": [
+    "_skipping_enforcements_by_customizing_the_argocd_custom_resource"
+  ],
+  "Skipping the OpenShift GitOps add-on enforcement": [
+    "skip-gitops-addon"
+  ],
+  "Uninstalling the OpenShift GitOps add-on": [
+    "uninstall-gitops-addon"
+  ],
+  "Verifying the OpenShift GitOps add-on controller logs": [
+    "_verifying_the_openshift_gitops_add_on_controller_logs"
+  ],
+  "Verifying the OpenShift GitOps operator": [
+    "_verifying_the_openshift_gitops_operator"
+  ],
+  "Verifying the {gitops-short) add-on functions": [
+    "verify-gitops-addon"
+  ],
+  "Enabling the progressive rollout strategy by using the": [
+    "enabling-rollout-strategy"
+  ],
+  "Understanding a sample": [
+    "understanding-applicationset"
+  ],
+  "Understanding labels for applications that use the progressive rollout strategy": [
+    "understanding-labels-applications"
+  ],
+  "Understanding changes to the Git repository that uses the progressive rollout strategy": [
+    "understanding-changes-git-repository"
+  ],
+  "Implementing progressive rollout strategy by using": [
+    "gitops_app_rollout_strategy"
+  ],
+  "GitOps overview": [
+    "gitops-overview"
+  ]
+}

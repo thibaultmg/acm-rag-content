@@ -1,0 +1,79 @@
+{
+  "Hub cluster": [
+    "hub-cluster",
+    "h-term-hub"
+  ],
+  "Managed cluster": [
+    "managed-cluster",
+    "m-term-managed"
+  ],
+  "Cluster lifecycle": [
+    "cluster-lifecycle",
+    "c-term-cluster-life"
+  ],
+  "Application lifecycle": [
+    "application-lifecycle",
+    "a-term-app-life"
+  ],
+  "Governance": [
+    "governance-mc-arch",
+    "g-term-3-governance"
+  ],
+  "Observability": [
+    "observability-arch"
+  ],
+  "References": [
+    "ref-arch"
+  ],
+  "Multicluster architecture": [
+    "multicluster-architecture"
+  ],
+  "Channel": [
+    "c-term-channel"
+  ],
+  "Console": [
+    "c-term-console"
+  ],
+  "Deployable": [
+    "deployable-d-term-deployable"
+  ],
+  "Hosted cluster": [
+    "h-term-hosted-cluster"
+  ],
+  "Hosted cluster infrastructure": [
+    "h-term-hosted-cluster-infrastructure"
+  ],
+  "Hosted control plane": [
+    "h-term-hosted-control-plane"
+  ],
+  "Hosted control plane infrastructure": [
+    "h-term-hosted-control-plane-infrastructure"
+  ],
+  "Hosting service cluster": [
+    "h-term-hosting-service-cluster"
+  ],
+  "Hosted service cluster infrastructure": [
+    "h-term-hosted-service-cluster-infrastructure"
+  ],
+  "klusterlet": [
+    "k-term-klusterlet"
+  ],
+  "Klusterlet add-on": [
+    "k-term-addon"
+  ],
+  "Placement binding": [
+    "p-term-placement-binding"
+  ],
+  "Placement policy": [
+    "p-term-policy"
+  ],
+  "Subscriptions": [
+    "s-term-sub"
+  ],
+  "Glossary of terms": [
+    "glossary-of-terms"
+  ],
+  "Welcome to Red Hat Advanced Cluster Management for Kubernetes": [
+    "welcome-to-red-hat-advanced-cluster-management-for-kubernetes"
+  ]
+}

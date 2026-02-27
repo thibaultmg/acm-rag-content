@@ -7,6 +7,10 @@ visibility into your Kubernetes resources across all of your clusters.
 Search also indexes the Kubernetes resources and the relationships to
 other resources.
 
+Search is configured by default on the hub cluster. When you provision
+or manually import a managed cluster, the `klusterlet-addon-search` is
+enabled.
+
 ### Search components
 
 The search architecture is composed of the following components:
@@ -50,143 +54,6 @@ The search architecture is composed of the following components:
 
 - Component name: search-postgres - Description: Stores collected data
   from all managed clusters in an instance of the PostgreSQL database.
-
-Search is configured by default on the hub cluster. When you provision
-or manually import a managed cluster, the `klusterlet-addon-search` is
-enabled. If you want to disable search on your managed cluster, see
-Modifying the klusterlet add-ons settings of your cluster for more
-information.
-
-### Search customization and configurations
-
-You can modify the default values in the `search-v2-operator` custom
-resource. To view details of the custom resource, run the following
-command:
-
-``` bash
-oc get search search-v2-operator -o yaml
-```
-
-The search operator watches the `search-v2-operator` custom resource,
-reconciles the changes and updates active pods. View the following
-descriptions of the configurations:
-
-- PostgreSQL database storage:
-
-  When you install Red Hat Advanced Cluster Management, the PostgreSQL
-  database is configured to save the PostgreSQL data in an empty
-  directory (`emptyDir`) volume. If the empty directory size is limited,
-  you can save the PostgreSQL data on a Persistent Volume Claim (PVC) to
-  improve search performance. You can select a storageclass from your
-  Red Hat Advanced Cluster Management hub cluster to back up your search
-  data. For example, if you select the `gp2` storageclass your
-  configuration might resemble the following example:
-
-  ``` yaml
-  apiVersion: search.open-cluster-management.io/v1alpha1
-  kind: Search
-  metadata:
-    name: search-v2-operator
-    namespace: open-cluster-management
-    labels:
-      cluster.open-cluster-management.io/backup: ""
-  spec:
-    dbStorage:
-      size: 10Gi
-      storageClassName: gp2
-  ```
-
-  This configuration creates a PVC named `gp2-search` and is mounted to
-  the `search-postgres` pod. By default, the storage size is `10Gi`. You
-  can modify the storage size. For example, `20Gi` might be sufficient
-  for about 200 managed clusters.
-
-- Optimize cost by tuning the pod memory or CPU requirements, replica
-  count, and update log levels for any of the four search pods
-  (`indexer`, `database`, `queryapi`, or `collector` pod). Update the
-  `deployment` section of the `search-v2-operator` custom resource.
-  There are four deployments managed by the `search-v2-operator`, which
-  can be updated individually. Your `search-v2-operator` custom resource
-  might resemble the following file:
-
-  ``` yaml
-  apiVersion: search.open-cluster-management.io/v1alpha1
-  kind: Search
-  metadata:
-    name: search-v2-operator
-    namespace: open-cluster-management
-  spec:
-    deployments:
-      collector:
-        resources: 
-          limits:
-            cpu: 500m
-            memory: 128Mi
-          requests:
-            cpu: 250m
-            memory: 64Mi
-      indexer:
-        replicaCount: 3
-      database: 
-          envVar:
-            - name: POSTGRESQL_EFFECTIVE_CACHE_SIZE
-              value: 1024MB
-            - name: POSTGRESQL_SHARED_BUFFERS
-              value: 512MB
-            - name: WORK_MEM
-              value: 128MB
-      queryapi:
-        arguments: 
-        - -v=3
-  ```
-
-  - You can apply resources to an `indexer`, `database`, `queryapi`, or
-    `collector` pod.
-
-  - You can add multiple environment variables in the `envVar` section
-    to specify a value for each variable that you name.
-
-  - You can control the log level verbosity for any of the previous four
-    pods by adding the `- -v=3` argument.
-
-    See the following example where memory resources are applied to the
-    indexer pod:
-
-    ``` yaml
-        indexer:
-          resources:
-            limits:
-              memory: 5Gi
-            requests:
-              memory: 1Gi
-    ```
-
-- You can define the node placement for search pods.
-
-  You can update the `Placement` resource of search pods by using the
-  `nodeSelector` parameter, or the `tolerations` parameter. View the
-  following example configuration:
-
-  ``` yaml
-  spec:
-   dbStorage:
-    size: 10Gi
-   deployments:
-    collector: {}
-    database: {}
-    indexer: {}
-    queryapi: {}
-   nodeSelector:
-    node-role.kubernetes.io/infra: ""
-   tolerations:
-   - effect: NoSchedule
-    key: node-role.kubernetes.io/infra
-    operator: Exists
-  ```
-
-- Specify your search query by selecting the **Advanced search**
-  drop-down button to filter the *Column*, *Operator*, and *Value*
-  options or add a search constraint.
 
 ### Search operations and data types
 
@@ -281,10 +148,191 @@ Complete the following steps:
       excluded. Resources listed in `AllowedResources` and
       `DeniedResources` at the same time are also excluded.
 
-### Customizing the search console
+## Customizing the Search service
 
-Customize your search results and limits. Complete the following tasks
-to perform the customization:
+Customize the Search service to set up persistent storage, to fine-tune
+for performance and scalability, or to modify certain behaviors through
+environment variables. Access the search configuration options from the
+search operator which watches the `search-v2-operator` custom resource,
+reconciles the changes, and updates active pods.
+
+**Required access:** Cluster administrator
+
+**Prerequisites**
+
+- You must have access to the `open-cluster-management` namespace.
+
+<div class="formalpara">
+
+<div class="title">
+
+Procedure
+
+</div>
+
+Complete the following steps to customize the Search service:
+
+</div>
+
+1.  Modify the default values in the `search-v2-operator` custom
+    resource.
+
+    1.  To view details of the custom resource, run the following
+        command:
+
+        ``` bash
+        oc get search search-v2-operator -n <acm-namespace> -o yaml
+        ```
+
+    2.  Configure a persistent volume claim for your clusters that are
+        in production. If the empty directory size is limited for your
+        PostgreSQL database, save your PostgreSQL data on a persistent
+        volume claim to improve search performance.
+
+        **Notes:**
+
+        - When you install Red Hat Advanced Cluster Management, the
+          PostgreSQL database is configured to save the PostgreSQL data
+          in an empty directory (`emptyDir`) volume.
+
+        - When a persistent volume claim is not configured, the
+          `SearchPVCNotPresent` alert is displayed in the Status pane.
+
+    3.  To persist your search data, select a storage class from your
+        Red Hat Advanced Cluster Management hub cluster.
+
+    4.  For example, create a persistent volume claim if you select the
+        `gp2` storageclass and mount the claim to the `search-postgres`
+        pod. Your configuration might resemble the following example:
+
+    ``` yaml
+    apiVersion: search.open-cluster-management.io/v1alpha1
+    kind: Search
+    metadata:
+      name: search-v2-operator
+      namespace: open-cluster-management
+      labels:
+        cluster.open-cluster-management.io/backup: ""
+    spec:
+      dbStorage:
+        size: 10Gi
+        storageClassName: gp2
+    ```
+
+    1.  Modify the storage size if you need to. By default, the storage
+        size is `10Gi`. For example, `20Gi` might be sufficient for
+        about 200 managed clusters.
+
+2.  Optimize cost by tuning the pod memory or CPU requirements, replica
+    count, and update log levels for any of the four search pods:
+    `indexer`, `database`, `queryapi`, or `collector`.
+
+    1.  Update the `deployment` section of the `search-v2-operator`
+        custom resource. There are four deployments managed by the
+        `search-v2-operator`, which can be updated individually.
+
+    2.  Apply resources for the `indexer`, `database`, `queryapi`, or
+        `collector` pod.
+
+    3.  Add multiple environment variables in the `envVar` section to
+        specify a value for each variable that you name.
+
+    4.  Specify a value for each variable that you name by adding
+        multiple environment variables in the `envVar` specification.
+
+    5.  Add the `- -v=3` argument for the `queryapi` specification to
+        control the log level verbosity for any of the four pods. Your
+        `search-v2-operator` custom resource might resemble the
+        following file:
+
+    ``` yaml
+    apiVersion: search.open-cluster-management.io/v1alpha1
+    kind: Search
+    metadata:
+      name: search-v2-operator
+      namespace: open-cluster-management
+    spec:
+      deployments:
+        collector:
+          resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+            requests:
+              cpu: 250m
+              memory: 64Mi
+        indexer:
+          replicaCount: 3
+        database:
+            envVar:
+              - name: POSTGRESQL_EFFECTIVE_CACHE_SIZE
+                value: 1024MB
+              - name: POSTGRESQL_SHARED_BUFFERS
+                value: 512MB
+              - name: WORK_MEM
+                value: 128MB
+        queryapi:
+          arguments:
+          - -v=3
+    ```
+
+3.  Apply memory resources for the `indexer` pod. See the following
+    example:
+
+    ``` yaml
+        indexer:
+          resources:
+            limits:
+              memory: 5Gi
+            requests:
+              memory: 1Gi
+    ```
+
+4.  Define the node placement for search pods.
+
+    1.  Update the `Placement` resource of search pods by using the
+        `nodeSelector` parameter, or the `tolerations` parameter. View
+        the following example configuration:
+
+    ``` yaml
+    spec:
+     dbStorage:
+      size: 10Gi
+     deployments:
+      collector: {}
+      database: {}
+      indexer: {}
+      queryapi: {}
+     nodeSelector:
+      node-role.kubernetes.io/infra: ""
+     tolerations:
+     - effect: NoSchedule
+      key: node-role.kubernetes.io/infra
+      operator: Exists
+    ```
+
+## Customizing the console for Search
+
+Customize your console for Search to specify how you want data and
+search results to be displayed.
+
+**Required access:** Cluster administrator
+
+**Prerequisites**
+
+- You must have access to the `open-cluster-management` namespace.
+
+<div class="formalpara">
+
+<div class="title">
+
+Procedure
+
+</div>
+
+Complete the following tasks to perform the customization:
+
+</div>
 
 1.  Customize the search result limit from the OpenShift Container
     Platform console.
@@ -308,8 +356,8 @@ to perform the customization:
           suggestions retrieved for the search bar typeahead. Default
           value is `10,000`. To remove this limit set to `-1`.
 
-    2.  Run the following `patch` command from the OpenShift Container
-        Platform console to change the search result to 100 items:
+    2.  Change the search result to `100` items by running the following
+        `patch` command from the OpenShift Container Platform console:
 
     ``` bash
     oc patch configmap console-mce-config -n multicluster-engine --type merge -p '{"data":{"SEARCH_RESULT_LIMIT":"100"}}'
@@ -319,14 +367,17 @@ to perform the customization:
     named `console-search-config` and configure the `suggestedSearches`
     section. Suggested searches that are listed are also displayed from
     the console. It is required to have an `id, name, and searchText`
-    for each search object. View the following config map example:
+    for each search object.
+
+    1.  Add the namespace where search is enabled. View the following
+        config map example:
 
     ``` yaml
     kind: ConfigMap
     apiVersion: v1
     metadata:
       name: console-search-config
-      namespace: <acm-namespace> 
+      namespace: <acm-namespace>
     data:
       suggestedSearches: |-
         [
@@ -357,13 +408,15 @@ to perform the customization:
         ]
     ```
 
-    - Add the namespace where search is enabled.
-
 ### Querying in the console
 
 You can type any text value in the *Search box* and results include
 anything with that value from any property, such as a name or namespace.
 Queries that contain an empty space are not supported.
+
+As you search for resources, you receive other resources that are
+related to your original search result, which help you visualize how the
+resources interact with other resources in the system.
 
 **Required access:** Cluster administrator
 
@@ -372,6 +425,32 @@ search. You can combine related values for the property for a more
 precise scope of your search. For example, search for `cluster:dev red`
 to receive results that match the string "red" in the `dev` cluster.
 
+<div class="formalpara">
+
+<div class="title">
+
+Procedure
+
+</div>
+
+Search returns and lists each cluster with the resource that you search.
+For resources in the *hub* cluster, the cluster name is displayed as
+*local-cluster*.
+
+</div>
+
+You can change the `local-cluster` name if the `enabled` field is set to
+`false`. You must use 34 or fewer characters for the
+`<your-local-cluster-name>` value. The `local-cluster` cannot be renamed
+if it is set as `enabled: true`.
+
+**Note:** If you change the default name of your `local-cluster` to
+another value, the results appear within the changed local cluster name.
+
+Your search results are grouped by `kind`, and each resource `kind` is
+grouped in a table. Search options depend on your cluster objects.
+Refine your results with specific labels.
+
 Complete the following steps to make queries with search:
 
 1.  Click **Search** in the navigation menu.
@@ -379,24 +458,12 @@ Complete the following steps to make queries with search:
 2.  Type a word in the *Search box*, then Search finds your resources
     that contain that value.
 
-    - As you search for resources, you receive other resources that are
-      related to your original search result, which help you visualize
-      how the resources interact with other resources in the system.
+    **Note:** Search is case-sensitive when you query labels.
 
-    - Search returns and lists each cluster with the resource that you
-      search. For resources in the *hub* cluster, the cluster name is
-      displayed as *local-cluster*.
-
-    - Your search results are grouped by `kind`, and each resource
-      `kind` is grouped in a table.
-
-    - Your search options depend on your cluster objects.
-
-    - You can refine your results with specific labels. Search is
-      case-sensitive when you query labels. See the following examples
-      that you can select for filtering: `name`, `namespace`, `status`,
-      and other resource fields. Auto-complete provides suggestions to
-      refine your search. See the following example:
+3.  See the following examples that you can select for filtering:
+    `name`, `namespace`, `status`, and other resource fields.
+    Auto-complete provides suggestions to refine your search. See the
+    following example:
 
     - Search for a single field, such as `kind:pod` to find all pod
       resources.
@@ -406,25 +473,29 @@ Complete the following steps to make queries with search:
 
       **Notes:**
 
-      - When you search for more than one property selector with
-        multiple values, the search returns either of the values that
-        were queried. View the following examples:
+    - When you search for more than one property selector with multiple
+      values, the search returns either of the values that were queried.
+      View the following examples:
 
-      - When you search for `kind:Pod name:a`, any pod named `a` is
-        returned.
+    - When you search for `kind:Pod name:a`, any pod named `a` is
+      returned.
 
-      - When you search for `kind:Pod name:a,b`, any pod named `a` or
-        `b` are returned.
+    - When you search for `kind:Pod name:a,b`, any pod named `a` or `b`
+      are returned.
 
-      - Search for `kind:pod status:!Running` to find all pod resources
-        where the status is not `Running`.
+    - Search for `kind:pod status:!Running` to find all pod resources
+      where the status is not `Running`.
 
-      - Search for `kind:pod restarts:>1` to find all pods that
-        restarted at least twice.
+    - Search for `kind:pod restarts:>1` to find all pods that restarted
+      at least twice.
 
-3.  If you want to save your search, click the **Save search** icon.
+4.  Specify your search query by selecting the **Advanced search**
+    drop-down button to filter the *Column*, *Operator*, and *Value*
+    options or add a search constraint.
 
-4.  To download your search results, select the **Export as CSV**
+5.  If you want to save your search, click the **Save search** icon.
+
+6.  To download your search results, select the **Export as CSV**
     button.
 
 ## Updating klusterlet-addon-search deployments

@@ -447,6 +447,18 @@ that is selected in the policy set, but the placements remain. The
 policy set controller only checks for violations in clusters that
 include the policy set placement.
 
+**Notes:**
+
+- The Red Hat Advanced Cluster Management sample policy set uses cluster
+  placement. If you use cluster placement, bind the namespace containing
+  the policy to the managed cluster set. See Deploying policies to your
+  cluster for more details on using cluster placement.
+
+- In order to use a `Placement` resource, a `ManagedClusterSet` resource
+  must be bound to the namespace of the `Placement` resource with a
+  `ManagedClusterSetBinding` resource. Refer to Creating a
+  ManagedClusterSetBinding resource for additional details.
+
 #### Policy set YAML structure
 
 Your policy set might resemble the following YAML file:
@@ -1376,17 +1388,18 @@ View the following example that selects objects that have the label
 
 ``` yaml
 ...
-objectSelector:
-  matchExpressions:
-  - key: foo
-    operator: In
-    values:
-    - bar
-objectDefinition:
-  apiVersion: v1
-  kind: ConfigMap
-  data:
-    key: '{{ skipObject (hasSuffix "-prod" .ObjectName) }}{{ hasNodesWithExactRoles "infra" }}'
+object-templates:
+  - objectSelector:
+      matchExpressions:
+      - key: foo
+        operator: In
+        values:
+        - bar
+    objectDefinition:
+      apiVersion: v1
+      kind: ConfigMap
+      data:
+        key: '{{ skipObject (hasSuffix "-prod" .ObjectName) }}{{ hasNodesWithExactRoles "infra" }}'
 ```
 
 ##### Sprig open source
@@ -1492,17 +1505,18 @@ See the following YAML sample that selects objects that have the label
 
 ``` yaml
 ...
-objectSelector:
-  matchExpressions:
-  - key: foo
-    operator: In
-    values:
-    - bar
-objectDefinition:
-  apiVersion: v1
-  kind: ConfigMap
-  data:
-    key: '{{ if (hasSuffix "-prod" .ObjectName) }}{{ skipObject }}{{ end }}{{ hasNodesWithExactRoles "infra" }}'
+object-templates:
+  - objectSelector:
+      matchExpressions:
+      - key: foo
+        operator: In
+        values:
+        - bar
+    objectDefinition:
+      apiVersion: v1
+      kind: ConfigMap
+      data:
+        key: '{{ if (hasSuffix "-prod" .ObjectName) }}{{ skipObject }}{{ end }}{{ hasNodesWithExactRoles "infra" }}'
 ```
 
 #### Processing raw templates in configuration policies
@@ -1661,6 +1675,9 @@ the following steps:
       installNamespace: open-cluster-management-agent-addon
     ```
 
+    **Note:** The `spec.installNamespace` field is deprecated. See
+    Product deprecations and removals to learn more.
+
 By default, the agent on the managed cluster only has access to the
 `ManagedCluster` resources on the hub cluster. You can use the
 `.ManagedClusterLabels` template variable in the hub cluster templates
@@ -1756,14 +1773,14 @@ strategy is more suitable for your use case:
 - Feature: Policy grouping - Policy framework: Yes, you can have a
   combination of statuses and deployments through Policy and PolicySet
   resources. - Deployed with external tools: You can use Kubernetes
-  labels on the policy resources to logically group related policies and
-  view the in the Discovered policies table. You can also use Argo CD
+  labels on your policy resources to logically group related policies
+  and view the Discovered policies table. You can also use Argo CD
   Application objects for grouping and to get a high-level status.
 
 - Feature: Policy event history - Policy framework: You can view the
-  last 10 events per cluster per policy stored on the hub cluster. -
-  Deployed with external tools: No, but you can scrape the policy event
-  history from the controller logs on each managed cluster.
+  last 10 events per cluster per policy stored on your hub cluster. -
+  Deployed with external tools: You can view the last 10 events in the
+  status of the policy on your managed cluster.
 
 - Feature: Policy dependencies - Policy framework: Yes - Deployed with
   external tools: No. Alternatively, you can use the Argo CD sync waves
@@ -3347,6 +3364,11 @@ Advanced Cluster Management console.
   `stable-2.x-cluster-scoped`. Select the **All namespaces on the
   cluster (default)** installation mode.
 
+- You can install the Ansible Automation Platform Resource Operator on a
+  different cluster than the hub cluster. If you install the Ansible
+  Automation Platform Resource Operator on the hub cluster, the operator
+  must be the same version as the Ansible Automation Platform Tower.
+
   **Note:** Ensure that the Ansible Automation Platform job template is
   idempotent when you run it. If you do not have Ansible Automation
   Platform Resource Operator, you can find it from the Red Hat OpenShift
@@ -3507,6 +3529,9 @@ spec:
   installNamespace: open-cluster-management-agent-addon
 ```
 
+**Note:** The `spec.installNamespace` field is deprecated. See Product
+deprecations and removals to learn more.
+
 To set the `client-qps` and `client-burst` annotations, update the
 `ManagedClusterAddOn` resource and define the parameters.
 
@@ -3526,6 +3551,9 @@ metadata:
 spec:
   installNamespace: open-cluster-management-agent-addon
 ```
+
+**Note:** The `spec.installNamespace` field is deprecated. See Product
+deprecations and removals to learn more.
 
 ## Configure the concurrency of the configuration policy controller
 
@@ -3555,6 +3583,9 @@ metadata:
 spec:
   installNamespace: open-cluster-management-agent-addon
 ```
+
+**Note:** The `spec.installNamespace` field is deprecated. See Product
+deprecations and removals to learn more.
 
 ## Configure the rate of requests to the API server
 
@@ -3589,6 +3620,9 @@ metadata:
 spec:
   installNamespace: open-cluster-management-agent-addon
 ```
+
+**Note:** The `spec.installNamespace` field is deprecated. See Product
+deprecations and removals to learn more.
 
 ## Configure debug log
 
@@ -4228,6 +4262,17 @@ Platform and from Kubernetes v1.25 and later. If you apply a
 non-compliant message:
 
     violation - couldn't find mapping resource with kind PodSecurityPolicy, please check if you have CRD deployed
+
+- For more information including the deprecation notice, see *Pod
+  Security Policies* in the Kubernetes documentation.
+
+- To view the sample policy, review `policy-psp.yaml`. View Creating
+  configuration policies for more information.
+
+- Refer to the Hub cluster policy framework documentation for a full
+  description of the policy YAML structure, and Kubernetes configuration
+  policy controller to view other configuration policies that are
+  monitored by the controller.
 
 ## Role policy
 
@@ -4978,6 +5023,16 @@ following policies:
           kind: ImageManifestVuln # checking for a Kind
   ```
 
+### Image vulnerability policy sample
+
+For more information, see:
+
+- See Managing security policies and `policy-imagemanifestvuln.yaml`.
+
+- Refer to Kubernetes configuration policy controller to view other
+  configuration policies that are monitored by the configuration
+  controller.
+
 ## Red Hat OpenShift Platform Plus policy set
 
 Configure and apply the OpenShift Platform Plus policy set
@@ -5721,10 +5776,6 @@ managed cluster:
 oc -n <managed cluster namespace> get operatorpolicy install-quay
 ```
 
-#### Additional resources
-
-See Operator policy controller
-
 # Gatekeeper operator overview
 
 The Gatekeeper operator installs Gatekeeper, which is a validating
@@ -5747,11 +5798,13 @@ following benefits:
 
 - Use OPA as the policy engine and use Rego as the policy language.
 
-**Prerequisite:** You need a Red Hat Advanced Cluster Management for
-Kubernetes or Red Hat OpenShift Container Platform Plus subscription to
-install Gatekeeper and apply Gatekeeper policies to your cluster.
-
 ## General support
+
+Red Hat supports only the Gatekeeper Operator and does not support
+individual Gatekeeper policies. Support ensures that the operator is
+functioning. To receive support, you need a Red Hat Advanced Cluster
+Management for Kubernetes or Red Hat OpenShift Container Platform Plus
+subscription.
 
 To understand the support you receive from the Gatekeeper operator, see
 the following list:
@@ -5792,167 +5845,316 @@ operator by using the governance framework. After you install the
 Gatekeeper operator, configure the Gatekeeper operator custom resource
 to install Gatekeeper.
 
-### Prerequisites
+**Required access**: Cluster administrator
 
-- **Required access**: Cluster administrator.
+**Prerequisites**
+
+- You need a Red Hat Advanced Cluster Management for Kubernetes or Red
+  Hat OpenShift Container Platform Plus subscription to install
+  Gatekeeper and apply Gatekeeper policies to your cluster.
 
 - Understand how to use the Operator Lifecycle Manager and the Red Hat
   OpenShift Software Catalog by completing the *Adding Operators to a
   cluster* and the *Additional resources* section in the OpenShift
   Container Platform documentation.
 
-### Gatekeeper custom resource sample
+<div class="formalpara">
 
-The Gatekeeper operator custom resource tells the Gatekeeper operator to
-start the Gatekeeper installation on the cluster. To install Gatekeeper,
-use the following sample YAML, which includes sample and default values:
+<div class="title">
 
-``` yaml
-apiVersion: operator.gatekeeper.sh/v1alpha1
-kind: Gatekeeper
-metadata:
-  name: gatekeeper
-spec:
-  audit:
-    auditChunkSize: 66
-    auditEventsInvolvedNamespace: Enabled 
-    auditFromCache: Enabled
-    auditInterval: 10s
-    constraintViolationLimit: 55
-    containerArguments: 
-    - name: ""
-      value: ""
-    resources:
-      limits:
-        cpu: 500m
-        memory: 150Mi
-      requests:
-        cpu: 500m
-        memory: 130Mi
-    emitAuditEvents: Enabled
-    logLevel: DEBUG
-    podAnnotations: {} 
-    replicas: 1
-  validatingWebhook: Enabled
-  mutatingWebhook: Enabled
-  webhook:
-    admissionEventsInvolvedNamespace: Enabled 
-    containerArguments: 
-    - name: ""
-      value: ""
-    disabledBuiltins:
-     - http.send
-    emitAdmissionEvents: Enabled
-    failurePolicy: Fail
-    operations: 
-     - CREATE
-     - UPDATE
-     - CONNECT
-    replicas: 3
-    resources:
-      limits:
-        cpu: 480m
-        memory: 140Mi
-      requests:
-        cpu: 400m
-        memory: 120Mi
-    rules: 
-    - operations: []
-      resources: []
-    timeoutSeconds: 3 
-  mutatingWebhookConfig: 
-    failurePolicy: ""
-    logMutations: Disabled
-    mutationAnnotations: Disabled
-    namespaceSelector: {}
-    operations: []
-    rules: 
-    - operations: []
-      resources: []
-    timeoutSeconds: 1 
-  config: 
-    matches:
-      - excludedNamespaces: ["test-*", "my-namespace"]
-        processes: ["*"]
-    disableDefaultMatches: false 
-  nodeSelector:
-    region: "EMEA"
-  affinity:
-    podAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchLabels:
-              auditKey: "auditValue"
-          topologyKey: topology.kubernetes.io/zone
-  tolerations:
-    - key: "Example"
-      operator: "Exists"
-      effect: "NoSchedule"
-  podAnnotations:
-    some-annotation: "this is a test"
-    other-annotation: "another test"
-```
+Procedure
 
-- Enable the `auditEventsInvolvedNamespace` parameter to manage the
-  namespace audit event you want to create. When you enable this
-  parameter, the Gatekeeper controller deployment runs with the
-  following argument: `--audit-events-involved-namespace=true`.
+</div>
 
-- For version 3.20 and later, specify `audit.podAnnotations` specific to
-  the audit pod by providing a list of annotation names and values to
-  add to the pod. An omitted value is treated as `true`.
+The Gatekeeper operator custom resource is a cluster-scoped resource and
+must be named `gatekeeper`. Both the validating and mutating webhooks
+are enabled by default. Use the `validatingWebhook` and
+`mutatingWebhook` parameters to enable or disable the webhooks. Complete
+the following steps to configure the Gatekeeper operator custom
+resource:
 
-- Enable the `admissionEventsInvolvedNamespace` parameter to manage the
-  namespace admission event you want to create. When you enable this
-  parameter, the Gatekeeper controller deployment runs with the
-  following argument: `--admission-events-involved-namespace=true`.
+</div>
 
-- Specify `containerArguments` by providing a list of argument names and
-  values to pass to the container. Omit leading dashes from the argument
-  name. An omitted value is treated as `true`. Arguments that you
-  provide are ignored if the argument is set previously by the operator
-  or configurations from other fields. See the following list of flags
-  that are deny-listed and are not currently supported:
+1.  Enable the `validatingWebhook` and `mutatingWebhook` parameters.
+    Your YAML file might resemble the following example:
 
-  - `port`
+    ``` yaml
+    apiVersion: operator.gatekeeper.sh/v1alpha1
+    kind: Gatekeeper
+    metadata:
+     name: gatekeeper
+    spec:
+     validatingWebhook: Enabled
+     mutatingWebhook: Enabled
+    ```
 
-  - `prometheus-port`
+2.  Enable the `auditEventsInvolvedNamespace` parameter to manage the
+    namespace audit event you want to create. When you enable this
+    parameter, the Gatekeeper controller deployment runs with the
+    following argument: `--audit-events-involved-namespace=true`. See
+    the following example:
 
-  - `health-addr`
+    ``` yaml
+    ...
+    spec:
+      audit:
+        auditEventsInvolvedNamespace: Enabled
+    ```
 
-  - `validating-webhook-configuration-name`
+3.  Specify `containerArguments` in the `audit` and `webhook`
+    specification by providing a list of argument names and values to
+    pass to the container. Omit leading dashes from the argument name.
+    An omitted value is treated as `true`. Arguments that you provide
+    are ignored if the argument is set previously by the operator or
+    configurations from other fields. See the following list of flags
+    that are deny-listed and are not currently supported:
 
-  - `mutating-webhook-configuration-name`
+    - `port`
 
-  - `disable-cert-rotation`
+    - `prometheus-port`
 
-  - `client-cert-name`
+    - `health-addr`
 
-  - `tls-min-version`
+    - `validating-webhook-configuration-name`
 
-- Use `operations` to manage the operations for which the webhook is
-  invoked. For example, `CREATE`, `UPDATE`, `CONNECT`, and `DELETE`.
+    - `mutating-webhook-configuration-name`
 
-- For version 3.20 and later, specify `rules` to overwrite the rules
-  configuration in the webhook configuration. When set, this field takes
-  precedence over the Operations field.
+    - `disable-cert-rotation`
 
-- For version 3.20 and later, specify the timeout for the webhook
-  configuration.
+    - `client-cert-name`
 
-- For version 3.20 and later, use the `mutatingWebhookConfig` section to
-  configure the mutating webhook with configurations that override the
-  values from `spec.webhook` or are specific to the mutating webhook.
+    - `tls-min-version`
 
-- Use the `config` section to exclude namespaces from certain processes
-  for all constraints on your cluster.
+      View the following partial YAML file example:
 
-- The `disableDefaultMatches` parameter is a boolean parameter that
-  disables appending the default exempt namespaces provided by the
-  Gatekeeper operator. The default exempt namespaces are OpenShift
-  Container Platform or Kubernetes system namespaces. By default, this
-  parameter is set to `false` to allow the default namespaces to be
-  appended.
+    ``` yaml
+    ...
+    spec:
+      webhook:
+        containerArguments:
+        - name: exempt-namespace-prefix
+          value: sample-test-
+    ```
+
+4.  For Gatekeeper version 3.20 and later, specify
+    `audit.podAnnotations` that are specific to the audit pod by
+    providing a list of annotation names and values to add to the pod.
+    View the following example:
+
+    ``` yaml
+    ...
+    spec:
+      audit:
+        podAnnotations:
+          foo: bar
+    ```
+
+5.  Enable the `admissionEventsInvolvedNamespace` parameter to manage
+    the namespace admission event you want to create. When you enable
+    this parameter, the Gatekeeper controller deployment runs with the
+    following argument: `--admission-events-involved-namespace=true`.
+    See the following example:
+
+    ``` yaml
+    ...
+    spec:
+      webhook:
+        admissionEventsInvolvedNamespace: Enabled
+    ```
+
+6.  **Optional:** If you want to enforce your Gatekeeper constraints,
+    set the `failurePolicy` parameter to `Fail`. By default, the
+    `failurePolicy` parameter for Gatekeeper is set to `Ignore`. If the
+    Gatekeeper webhook becomes unavailable, constraints are not
+    enforced.
+
+    ``` yaml
+    ...
+    spec:
+      webhook:
+        failurePolicy: Fail
+    ```
+
+7.  Define `operations` for your webhook. Use one or more of the
+    following supported values: `CREATE`, `UPDATE`, `CONNECT`, and
+    `DELETE`. By default, the operations are `CREATE` and `UPDATE`. See
+    the following example:
+
+    ``` yaml
+    ...
+    spec:
+      webhook:
+         operations:
+         - CREATE
+         - UPDATE
+         - CONNECT
+    ```
+
+8.  For version 3.20 and later, specify `rules` to overwrite the `rules`
+    in the `webhook` and `mutatingWebhookConfig` specifications. The
+    `rules` parameter supersedes the `operations` field. See the
+    following example:
+
+    ``` yaml
+    ...
+    spec:
+      webhook:
+        rules:
+        - apiGroups:
+          - ""
+          apiVersions:
+          - v1
+          operations:
+          - CREATE
+          - UPDATE
+          resources:
+          - Pods
+          - Deployments
+    ```
+
+9.  For version 3.20 and later, specify a custom timeout for the webhook
+    configuration by defining a value for the `timeoutSeconds`
+    parameter.
+
+    ``` yaml
+    ...
+    spec:
+      webhook:
+        timeoutSeconds: 10
+    ```
+
+10. For version 3.20 and later, configure the mutating webhook by adding
+    configurations for the `mutatingWebhookConfig` specification. The
+    configurations override the values from `spec.webhook` or are
+    specific to the mutating webhook. See the following example:
+
+    ``` yaml
+    ...
+    spec:
+      mutatingWebhookConfig:
+        failurePolicy: Ignore
+        logMutations: Disabled
+        mutationAnnotations: Disabled
+        namespaceSelector: {}
+        operations: []
+        rules: []
+        timeoutSeconds: 1
+    ```
+
+11. Use the `config` section to exclude namespaces from certain
+    processes for all constraints on your cluster using the Gatekeeper
+    `Config` custom resource. See the following example:
+
+    ``` yaml
+    ...
+    spec:
+      config:
+        matches:
+          - excludedNamespaces: ["test-*", "my-namespace"]
+            processes: ["*"]
+    ```
+
+12. The `disableDefaultMatches` parameter is a boolean parameter that
+    disables appending the default exempt namespaces provided by the
+    Gatekeeper operator. The default exempt namespaces are OpenShift
+    Container Platform or Kubernetes system namespaces. By default, this
+    parameter is set to `false` to allow the default namespaces to be
+    appended. See the following example:
+
+    ``` yaml
+    ...
+    spec:
+      config:
+        disableDefaultMatches: false
+    ```
+
+    See the following sample YAML file:
+
+    ``` yaml
+    apiVersion: operator.gatekeeper.sh/v1alpha1
+    kind: Gatekeeper
+    metadata:
+      name: gatekeeper
+    spec:
+      audit:
+        auditChunkSize: 66
+        auditEventsInvolvedNamespace: Enabled
+        auditFromCache: Enabled
+        auditInterval: 10s
+        constraintViolationLimit: 55
+        containerArguments:
+        - name: ""
+          value: ""
+        resources:
+          limits:
+            cpu: 500m
+            memory: 150Mi
+          requests:
+            cpu: 500m
+            memory: 130Mi
+        emitAuditEvents: Enabled
+        logLevel: DEBUG
+        podAnnotations: {}
+        replicas: 1
+      validatingWebhook: Enabled
+      mutatingWebhook: Enabled
+      webhook:
+        admissionEventsInvolvedNamespace: Enabled
+        containerArguments:
+        - name: ""
+          value: ""
+        disabledBuiltins:
+         - http.send
+        emitAdmissionEvents: Enabled
+        failurePolicy: Fail
+        operations:
+         - CREATE
+         - UPDATE
+         - CONNECT
+        replicas: 3
+        resources:
+          limits:
+            cpu: 480m
+            memory: 140Mi
+          requests:
+            cpu: 400m
+            memory: 120Mi
+        rules:
+        - operations: []
+          resources: []
+        timeoutSeconds: 3
+      mutatingWebhookConfig:
+        failurePolicy: ""
+        logMutations: Disabled
+        mutationAnnotations: Disabled
+        namespaceSelector: {}
+        operations: []
+        rules:
+        - operations: []
+          resources: []
+        timeoutSeconds: 1
+      config:
+        matches:
+          - excludedNamespaces: ["test-*", "my-namespace"]
+            processes: ["*"]
+        disableDefaultMatches: false
+      nodeSelector:
+        region: "EMEA"
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  auditKey: "auditValue"
+              topologyKey: topology.kubernetes.io/zone
+      tolerations:
+        - key: "Example"
+          operator: "Exists"
+          effect: "NoSchedule"
+      podAnnotations:
+        some-annotation: "this is a test"
+        other-annotation: "another test"
+    ```
 
 ### Configuring *auditFromCache* for sync details
 
@@ -5965,11 +6167,6 @@ When you set the `auditFromCache` parameter to `Automatic`, the
 Gatekeeper operator collects resources from constraints and inserts
 those resources into your Gatekeeper `Config` resource. If the resource
 does not exist, the Gatekeeper operator creates the `Config` resource.
-
-If you set the `auditFromCache` parameter to `Enabled`, you need to
-manually set the Gatekeeper `Config` resource with the objects to sync
-to the cache. For more information, see *Configuring Audit* in the
-Gatekeeper documentation.
 
 To configure the `auditFromCache` parameter for resource collection from
 constraints, complete the following steps:
@@ -5988,6 +6185,11 @@ constraints, complete the following steps:
         logLevel: DEBUG
         auditFromCache: Automatic
     ```
+
+    **Note:** If you set the `auditFromCache` parameter to `Enabled`,
+    you need to manually set the Gatekeeper `Config` resource with the
+    objects to sync to the cache. For more information, see *Configuring
+    Audit* in the Gatekeeper documentation.
 
 2.  To verify that the resources are added to your `Config` resource,
     view that the `syncOnly` parameter section is added. Run the
@@ -6016,13 +6218,28 @@ constraints, complete the following steps:
          kind: "Pod"
     ```
 
-**Optional:** You can view the explanation of the `auditFromCache`
-setting from the description of the Gatekeeper operator custom resource
-by running the following command:
+3.  **Optional:** You can view the explanation of the `auditFromCache`
+    setting from the description of the Gatekeeper operator custom
+    resource by running the following command:
 
-``` bash
-oc explain gatekeeper.spec.audit.auditFromCache
-```
+    ``` bash
+    oc explain gatekeeper.spec.audit.auditFromCache
+    ```
+
+**Additional resources**
+
+- For more information, see Configuring Audit in the Gatekeeper
+  documentation.
+
+- For more information about configuring fail-open and fail-closed
+  behavior, see Gatekeeper documentation.
+
+- For a list of arguments to use for the `containerArguments` parameter,
+  see Runtime Flags in the Gatekeeper documentation.
+
+- To read explanations about the difference betewwen the `Config`
+  resource and the flags for exempting namespaces, see Exempting
+  Namespaces in the Gatekeeper documentation.
 
 ## Managing the Gatekeeper operator installation policies
 
@@ -6146,10 +6363,13 @@ the following steps:
 
 ## Integrating Gatekeeper constraints and constraint templates
 
-To create Gatekeeper policies, use `ConstraintTemplates` and
-constraints. Add templates and constraints to the `policy-templates` of
-a `Policy` resource. View the following YAML examples that use
-Gatekeeper constraints in Red Hat Advanced Cluster Management policies:
+Integrate Gatekeeper constraints and constraint templates to create
+`Gatekeeper` policies for multicluster distribution of Gatekeeper
+constraints and audit results. Add templates and constraints to the
+`policy-templates` of a `Policy` resource.
+
+View the following YAML examples that use Gatekeeper constraints in Red
+Hat Advanced Cluster Management policies:
 
 - `ConstraintTemplates` and constraints: Use the Gatekeeper integration
   feature by using Red Hat Advanced Cluster Management policies for

@@ -1,0 +1,462 @@
+{
+  "Configuration policy YAML structure": [
+    "configuration-policy-yaml"
+  ],
+  "Configuration policy YAML table": [
+    "configuration-policy-yaml-table"
+  ],
+  "Kubernetes configuration policy controller": [
+    "kubernetes-config-policy-controller"
+  ],
+  "Certificate policy controller YAML table": [
+    "certificate-policy-controller-yaml-table"
+  ],
+  "Certificate policy controller YAML structure": [
+    "certificate-policy-controller-yaml-structure"
+  ],
+  "Certificate policy sample": [
+    "certificate-policy-sample"
+  ],
+  "Certificate policy controller": [
+    "certificate-policy-controller"
+  ],
+  "Policy set YAML structure": [
+    "policy-set-yaml-structure"
+  ],
+  "Policy set table": [
+    "policy-set-table"
+  ],
+  "Policy set sample": [
+    "policy-set-sample"
+  ],
+  "Policy set controller": [
+    "policy-set-controller"
+  ],
+  "Prerequisites": [
+    "prereq-operator-policy",
+    "create-config-policy-prereq",
+    "prerequisites-grc-ansible",
+    "prerequisites-opp",
+    "prerequisites-apply-opp-set"
+  ],
+  "Operator policy YAML table": [
+    "operator-policy-yaml-table"
+  ],
+  "Operator policy controller": [
+    "operator-policy-ctrl"
+  ],
+  "Policy controllers": [
+    "policy-controllers"
+  ],
+  "Comparison of hub cluster and managed cluster templates": [
+    "template-comparison-table"
+  ],
+  "Sprig open source": [
+    "open-source-community-functions"
+  ],
+  "Template function descriptions": [
+    "_template_function_descriptions"
+  ],
+  "Template functions": [
+    "template-functions"
+  ],
+  "Special annotation for reprocessing": [
+    "special-annotation-processing"
+  ],
+  "Bypassing template processing": [
+    "bypass-template-processing"
+  ],
+  "Configuration policy": [
+    "object-selector"
+  ],
+  "Processing raw templates in configuration policies": [
+    "raw-object-template-processing"
+  ],
+  "Resolving hub templates after defining configuration policies": [
+    "resolve-hub-templates"
+  ],
+  "Using advanced template processing in policies": [
+    "adv-template-processing"
+  ],
+  "Template processing": [
+    "template-processing"
+  ],
+  "Governance": [
+    "governance"
+  ],
+  "Deployment options": [
+    "_deployment_options"
+  ],
+  "Requirements": [
+    "hub-policy-reqs"
+  ],
+  "Policy YAML structure": [
+    "policy-yaml-structure"
+  ],
+  "Policy YAML table": [
+    "policy-yaml-table"
+  ],
+  "Policy sample file": [
+    "policy-sample-file"
+  ],
+  "Hub cluster policy components": [
+    "hub-policy-components"
+  ],
+  "Policy dependencies": [
+    "policy-dependencies"
+  ],
+  "Integrating Policy Generator": [
+    "integrate-policy-generator"
+  ],
+  "Policy Generator capabilities": [
+    "policy-generator-capabilities"
+  ],
+  "Policy Generator configuration structure": [
+    "policy-generator-configuration"
+  ],
+  "Policy Generator configuration reference table": [
+    "policy-generator-yaml-table"
+  ],
+  "Policy Generator": [
+    "policy-generator"
+  ],
+  "Generating a policy that installs the Compliance Operator": [
+    "generate-policy-comp-operator"
+  ],
+  "Governance architecture components": [
+    "gov-arch-components"
+  ],
+  "Governance policy framework architecture": [
+    "governance-architecture"
+  ],
+  "Governance page": [
+    "grc-view"
+  ],
+  "Governance automation configuration": [
+    "grc-automation-configuration"
+  ],
+  "Governance dashboard": [
+    "grc-dashboard"
+  ],
+  "Viewing your configuration policy from the CLI": [
+    "viewing-your-configuration-policy-from-the-cli"
+  ],
+  "Viewing your configuration policy from the console": [
+    "viewing-your-configuration-policy-from-the-console"
+  ],
+  "Creating a configuration policy from the CLI": [
+    "creating-a-configuration-policy-from-the-cli"
+  ],
+  "Disabling configuration policies": [
+    "disabling-configuration-policies"
+  ],
+  "Deleting a configuration policy": [
+    "deleting-a-configuration-policy"
+  ],
+  "Creating configuration policies": [
+    "create-configuration-policies"
+  ],
+  "Creating a policy violation automation from the console": [
+    "creating-a-policy-violation-auto-console"
+  ],
+  "Creating a policy violation automation from the CLI": [
+    "creating-a-policy-violation-auto-cli"
+  ],
+  "Configuring Ansible Automation Platform for Governance": [
+    "configuring-governance-ansible"
+  ],
+  "Hub cluster policy framework": [
+    "hub-policy-framework"
+  ],
+  "Deployment workflow": [
+    "policy-ext-tools-workflow"
+  ],
+  "Policy deployment with external tools": [
+    "policy-deploy-ext-tools"
+  ],
+  "Policy deployment": [
+    "policy-deployment"
+  ],
+  "Configure the concurrency of the governance framework": [
+    "configure-gov-framework"
+  ],
+  "Configure the concurrency of the configuration policy controller": [
+    "configure-concurrency"
+  ],
+  "Configure the rate of requests to the API server": [
+    "configure-qps-rates"
+  ],
+  "Configure debug log": [
+    "configure-debug-log"
+  ],
+  "Metric: policy_governance_info": [
+    "metric-policy-governance-info"
+  ],
+  "Metric: cluster_policy_governance_info": [
+    "metric-cluster-policy-governance-info"
+  ],
+  "Metric:": [
+    "metric-config-policies-evaluation-duration"
+  ],
+  "Governance metric": [
+    "gov-metric"
+  ],
+  "Verify configuration changes": [
+    "verify-configuration-changes"
+  ],
+  "Policy controller advanced configuration": [
+    "policy-controller-advanced-config"
+  ],
+  "Table of sample configuration policies": [
+    "configuration-policy-sample-table"
+  ],
+  "Namespace policy YAML structure": [
+    "namespace-policy-yaml-structure"
+  ],
+  "Namespace policy YAML table": [
+    "namespace-policy-yaml-table"
+  ],
+  "Namespace policy sample": [
+    "namespace-policy-sample"
+  ],
+  "Namespace policy": [
+    "namespace-policy"
+  ],
+  "Pod policy YAML structure": [
+    "pod-policy-yaml-structure"
+  ],
+  "Pod policy table": [
+    "pod-policy-table"
+  ],
+  "Pod policy sample": [
+    "pod-policy-sample"
+  ],
+  "Pod policy": [
+    "pod-policy"
+  ],
+  "Memory usage policy YAML structure": [
+    "memory-usage-policy-yaml-structure"
+  ],
+  "Memory usage policy table": [
+    "memory-usage-policy-table"
+  ],
+  "Memory usage policy sample": [
+    "memory-usage-policy-sample"
+  ],
+  "Memory usage policy": [
+    "memory-usage-policy"
+  ],
+  "Pod security policy YAML structure": [
+    "pod-security-policy-yaml-structure"
+  ],
+  "Pod security policy table": [
+    "pod-security-policy-table"
+  ],
+  "Pod security policy sample": [
+    "pod-security-policy-sample"
+  ],
+  "Pod security policy (Deprecated)": [
+    "pod-security-policy"
+  ],
+  "Role policy YAML structure": [
+    "role-policy-yaml-structure"
+  ],
+  "Role policy table": [
+    "role-policy-table"
+  ],
+  "Role policy sample": [
+    "role-policy-sample"
+  ],
+  "Role policy": [
+    "role-policy"
+  ],
+  "Role binding policy YAML structure": [
+    "role-binding-policy-yaml-structure"
+  ],
+  "Role binding policy table": [
+    "role-binding-policy-table"
+  ],
+  "Role binding policy sample": [
+    "role-binding-policy-sample"
+  ],
+  "Role binding policy": [
+    "role-binding-policy"
+  ],
+  "SCC policy YAML structure": [
+    "scc-policy-yaml-structure"
+  ],
+  "SCC policy table": [
+    "scc-policy-table"
+  ],
+  "SCC policy sample": [
+    "scc-policy-sample"
+  ],
+  "Security Context Constraints policy": [
+    "security-context-constraints-policy"
+  ],
+  "ETCD encryption policy YAML structure": [
+    "etcd-encryption-policy-yaml-structure"
+  ],
+  "ETCD encryption policy table": [
+    "etcd-encryption-policy-table"
+  ],
+  "ETCD encryption policy sample": [
+    "etcd-encryption-policy-sample"
+  ],
+  "ETCD encryption policy": [
+    "etcd-encryption-policy"
+  ],
+  "Compliance Operator policy overview": [
+    "compliance-operator-policy-overview"
+  ],
+  "Compliance operator resources": [
+    "compliance-operator-resources"
+  ],
+  "Compliance Operator policy": [
+    "compliance-operator-policy"
+  ],
+  "E8 scan policy resources": [
+    "e8-scan-policy-resources"
+  ],
+  "E8 scan policy": [
+    "e8-scan-policy"
+  ],
+  "OpenShift CIS resources": [
+    "ocp-cis-policy-resources"
+  ],
+  "OpenShift CIS scan policy": [
+    "ocp-cis-policy"
+  ],
+  "Image vulnerability policy YAML structure": [
+    "image-vulnerability-policy-yaml-structure"
+  ],
+  "Image vulnerability policy sample": [
+    "image-vulnerability-policy-sample"
+  ],
+  "Image vulnerability policy": [
+    "image-vulnerability-policy"
+  ],
+  "OpenShift Platform Plus policy set components": [
+    "opp-components"
+  ],
+  "Red Hat OpenShift Platform Plus policy set": [
+    "opp-policy-set"
+  ],
+  "Viewing your security policy from the command line": [
+    "viewing-your-security-policy-from-the-cli"
+  ],
+  "Creating a security policy from the command line interface": [
+    "creating-a-security-policy-from-the-command-line-interface"
+  ],
+  "Viewing your security policy from the console": [
+    "viewing-your-security-policy-from-the-console"
+  ],
+  "Creating a cluster security policy from the console": [
+    "creating-a-cluster-security-policy-from-the-console"
+  ],
+  "Creating policy sets from the command line": [
+    "creating-policy-sets-cli"
+  ],
+  "Creating policy sets from the console": [
+    "creating-policy-sets-ui"
+  ],
+  "Creating a security policy": [
+    "creating-a-security-policy"
+  ],
+  "Adding a policy to a policy set from the command line": [
+    "adding-policy-set-cli"
+  ],
+  "Adding a policy to a policy set from the console": [
+    "adding-a-policy-ui"
+  ],
+  "Disabling security policies": [
+    "disabling-security-policies"
+  ],
+  "Updating security policies": [
+    "updating-security-policies"
+  ],
+  "Deleting policy sets from the console": [
+    "deleting-policy-sets"
+  ],
+  "Deleting a security policy": [
+    "deleting-a-security-policy"
+  ],
+  "Cleaning up resources that are created by policies": [
+    "cleaning-up-resources-from-policies"
+  ],
+  "Policy command-line tool": [
+    "policy-cli-commands"
+  ],
+  "Managing operator policies in disconnected environments": [
+    "managing-operator-policies-disconnected"
+  ],
+  "Applying Red Hat OpenShift Platform Plus policy set": [
+    "apply-opp-policy-set"
+  ],
+  "Installing Red Hat OpenShift Platform Plus by using a policy set": [
+    "install-opp-policy-set"
+  ],
+  "Creating an": [
+    "create-operator-policy"
+  ],
+  "Installing an operator by using the": [
+    "install-operator-with-policy"
+  ],
+  "Managing security policies": [
+    "managing-security-policies"
+  ],
+  "Supported Red Hat Advanced Cluster Management for Kubernetes policies": [
+    "supported-policies"
+  ],
+  "General support": [
+    "general-support"
+  ],
+  "Operator channels": [
+    "operator-channels"
+  ],
+  "Configuring": [
+    "_configuring_auditfromcache_for_sync_details"
+  ],
+  "Configuring the Gatekeeper operator": [
+    "config-gk-operator"
+  ],
+  "Installing Gatekeeper using a Gatekeeper operator policy": [
+    "installing-gk-operator-policy"
+  ],
+  "Viewing the Gatekeeper operator policy": [
+    "viewing-gk-operator-policy"
+  ],
+  "Creating a Gatekeeper policy from the console": [
+    "creating-gk-operator-console"
+  ],
+  "Upgrading Gatekeeper and the Gatekeeper operator": [
+    "upgrading-gk-and-gk-operator"
+  ],
+  "Disabling Gatekeeper operator policy": [
+    "disabling-gk-operator-policy"
+  ],
+  "Deleting Gatekeeper operator policy": [
+    "deleting-gk-operator-policy"
+  ],
+  "Removing Gatekeeper constraints": [
+    "removing-gk-constraint"
+  ],
+  "Removing Gatekeeper instance": [
+    "removing-gk-instance"
+  ],
+  "Removing Gatekeeper operator": [
+    "removing-gk-operator"
+  ],
+  "Uninstalling Gatekeeper constraints, Gatekeeper instance, and Gatekeeper operator policy": [
+    "uninstalling-gk"
+  ],
+  "Managing the Gatekeeper operator installation policies": [
+    "managing-gk-policies"
+  ],
+  "Integrating Gatekeeper constraints and constraint templates": [
+    "integrate-gk-constraints-templates"
+  ],
+  "Gatekeeper operator overview": [
+    "gk-operator-overview"
+  ]
+}

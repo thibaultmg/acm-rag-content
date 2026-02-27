@@ -1,0 +1,316 @@
+{
+  "Applications": [
+    "applications"
+  ],
+  "Supported Git repository servers": [
+    "supported-git-servers"
+  ],
+  "Channels": [
+    "channels"
+  ],
+  "Subscriptions": [
+    "subscriptions"
+  ],
+  "ApplicationSet": [
+    "applicationset"
+  ],
+  "Application model and definitions (Deprecated)": [
+    "application-model-and-definitions"
+  ],
+  "Application console": [
+    "application-console"
+  ],
+  "SubscriptionStatus package-level": [
+    "package-subscription-status"
+  ],
+  "SubscriptionReport cluster-level": [
+    "subscription-report-cluster"
+  ],
+  "SubscriptionReport application-level": [
+    "application-level"
+  ],
+  "ManagedClusterView": [
+    "managed-cluster-view"
+  ],
+  "CLI application-level status": [
+    "cli-appsub-status"
+  ],
+  "CLI Last Update Time": [
+    "cli-last-update"
+  ],
+  "Subscription reports": [
+    "subscription-reports"
+  ],
+  "More examples": [
+    "more-examples"
+  ],
+  "Keeping deployed resources after deleting subscription with Git": [
+    "git-keep-resource-after-sub-delete"
+  ],
+  "Managing apps with Git repositories": [
+    "managing-apps-with-git-repositories"
+  ],
+  "Sample YAML": [
+    "sample-yaml-helm",
+    "sample-yaml-object"
+  ],
+  "Keeping deployed resources after deleting subscription with Helm": [
+    "helm-keep-resource-after-sub-delete"
+  ],
+  "Managing apps with Helm repositories": [
+    "managing-apps-with-helm-cluster-repositories"
+  ],
+  "Creating your Amazon Web Services (AWS) S3 object storage bucket": [
+    "creating-aws-object-bucket"
+  ],
+  "Subscribing to the object in the AWS bucket": [
+    "subscribing-to-aws-bucket"
+  ],
+  "Sample AWS subscription": [
+    "sample-aws-subscription"
+  ],
+  "Keeping deployed resources after deleting subscription with Object storage": [
+    "object-storage-keep-resource-after-sub-delete"
+  ],
+  "Managing apps with Object storage repositories": [
+    "managing-apps-with-object-storage-repositories"
+  ],
+  "Managing application resources": [
+    "managing-application-resources"
+  ],
+  "Prehook": [
+    "prehook"
+  ],
+  "Posthook": [
+    "posthook"
+  ],
+  "Integration and components": [
+    "ansible-integration"
+  ],
+  "Prerequisites": [
+    "prerequisites-for-ansible-integration"
+  ],
+  "Installing Ansible Automation Platform Resource Operator": [
+    "install-ansible"
+  ],
+  "Setting up Ansible Automation Platform": [
+    "setting-up-ansible"
+  ],
+  "Setting up Ansible Automation Platform secrets": [
+    "ansible-secrets"
+  ],
+  "Setting secret reconciliation": [
+    "ansible-secret-reconciliation"
+  ],
+  "Using Ansible Automation Platform sample YAML files": [
+    "ansible-sample-yaml"
+  ],
+  "Launching Workflow": [
+    "launch-workflow"
+  ],
+  "Using Ansible Automation Platform sample YAML Workflow": [
+    "workflow-sample-yaml"
+  ],
+  "Configuring Ansible Automation Platform": [
+    "ansible_config"
+  ],
+  "Ansible Automation Platform integration": [
+    "aap-intro"
+  ],
+  "Creating application resources in Git": [
+    "creating-application-resources-git"
+  ],
+  "Application to different namespaces": [
+    "different-namespace"
+  ],
+  "Application to same namespace": [
+    "same-namespace"
+  ],
+  "Application namespace example": [
+    "namespace-example"
+  ],
+  "Default merge option": [
+    "default-merge-option"
+  ],
+  "mergeAndOwn option": [
+    "mergeandown-option"
+  ],
+  "Replace option": [
+    "replace-option"
+  ],
+  "Resource overwrite example": [
+    "resource-overwrite-example"
+  ],
+  "Subscribing to a specific branch": [
+    "subscribing-specific-branch"
+  ],
+  "Subscribing to a specific commit": [
+    "subscribing-specific-commit"
+  ],
+  "Subscribing to a specific tag": [
+    "subscribing-specific-tag"
+  ],
+  "Subscribing specific Git elements": [
+    "subscribing-specific-git"
+  ],
+  "Subscribing Git resources": [
+    "subscribing-git-resources"
+  ],
+  "Granting subscription administrator privilege": [
+    "granting-subscription-admin-privilege"
+  ],
+  "Creating an allow and deny list as subscription administrator": [
+    "creating-allow-deny-list"
+  ],
+  "Reconcile frequency Git channel": [
+    "reconcile-frequency-git"
+  ],
+  "Reconcile frequency Helm channel": [
+    "reconcile-frequency-helm"
+  ],
+  "Adding reconcile options": [
+    "reconcile-options"
+  ],
+  "Editing the controller flag": [
+    "controller-change"
+  ],
+  "Configuring leader election": [
+    "config_leader_election"
+  ],
+  "Connecting to a private repo with user and access token": [
+    "connecting-with-user-access-token"
+  ],
+  "Making an insecure HTTPS connection to a Git server": [
+    "insecure-http-server"
+  ],
+  "Using custom CA certificates for a secure HTTPS connection": [
+    "using-custom-CA-certificates-for-secure-HTTPS-connection",
+    "using-certificates-secure-https-connection"
+  ],
+  "Making an SSH connection to a Git server": [
+    "git-SSH-connection"
+  ],
+  "Updating certificates and SSH keys": [
+    "update-channel-secret-config"
+  ],
+  "Configuring application channel and subscription for a secure Git connection": [
+    "configuring-git-channel"
+  ],
+  "Creating an insecure HTTPS connection to an object storage server": [
+    "creating-insecure-http-object-server"
+  ],
+  "Configuring application channel and subscription for a secure object storage connection": [
+    "configuring-object-channel"
+  ],
+  "Configuring": [
+    "configure-watch"
+  ],
+  "Configuring Helm to watch namespace resources": [
+    "helm-watch-config"
+  ],
+  "Scheduling a deployment": [
+    "scheduling-a-deployment"
+  ],
+  "Configuring package overrides": [
+    "configuring-package-overrides"
+  ],
+  "Channel YAML structure": [
+    "channel-yaml-structure"
+  ],
+  "Channel YAML table": [
+    "channel-yaml-table"
+  ],
+  "Object storage bucket (ObjectBucket) channel": [
+    "object-storage-bucket-object-storage-channel"
+  ],
+  "Helm repository (": [
+    "helm-repository-channel"
+  ],
+  "Git (": [
+    "github-repository-channel"
+  ],
+  "Channel samples overview": [
+    "channel-samples"
+  ],
+  "Subscription YAML structure": [
+    "subscription-yaml-structure"
+  ],
+  "Subscription YAML table": [
+    "subscription-yaml-table"
+  ],
+  "Subscription file samples": [
+    "subscription-file-samples"
+  ],
+  "Subscription time window example": [
+    "subscription-time-window-example"
+  ],
+  "Subscription with overrides example": [
+    "subscription-with-overrides-example"
+  ],
+  "Helm repository subscription example": [
+    "helm-repository-subscription-example"
+  ],
+  "Subscribing specific branch and directory of Git repository": [
+    "subscribing-specific-branch-and-directory-of-github-repository"
+  ],
+  "Adding a": [
+    "adding-a-file"
+  ],
+  "Applying Kustomize": [
+    "applying-kustomize"
+  ],
+  "Payload URL": [
+    "payload-url"
+  ],
+  "Webhook secret": [
+    "webhook-secret"
+  ],
+  "Configuring WebHook in Git repository": [
+    "configuring-webhook-in-github-repository"
+  ],
+  "Enable WebHook event notification in channel": [
+    "enable-webhook-event-notification-in-channel"
+  ],
+  "Enabling Git WebHook": [
+    "enabling-github-webhook"
+  ],
+  "Git repository subscription example": [
+    "github-repository-subscription-example"
+  ],
+  "Secondary channel sample": [
+    "secondary-channel-samples"
+  ],
+  "Subscription samples overview": [
+    "subscription-samples"
+  ],
+  "Placement rule YAML structure": [
+    "placement-rule-yaml-structure"
+  ],
+  "Placement rule YAML values table": [
+    "placement-rule-yaml-values-table"
+  ],
+  "Placement rule sample files": [
+    "placement-rule-sample-files"
+  ],
+  "Placement rule samples overview (Deprecated)": [
+    "placement-rule-samples"
+  ],
+  "Application YAML structure": [
+    "application-yaml-structure"
+  ],
+  "Application YAML table": [
+    "application-yaml-table"
+  ],
+  "Application file samples": [
+    "application-file-samples"
+  ],
+  "Application samples": [
+    "application-samples"
+  ],
+  "Application advanced configuration (Deprecated)": [
+    "application-advanced-configuration"
+  ],
+  "Managing applications (Deprecated)": [
+    "managing-applications"
+  ]
+}

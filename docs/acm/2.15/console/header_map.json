@@ -1,0 +1,32 @@
+{
+  "Overview": [
+    "overview-page"
+  ],
+  "Command line tools": [
+    "command-line-tools"
+  ],
+  "Home": [
+    "home-page"
+  ],
+  "Infrastructure": [
+    "infrastructure-nav"
+  ],
+  "Applications": [
+    "applications-nav"
+  ],
+  "Governance": [
+    "governance-nav"
+  ],
+  "Credentials": [
+    "credentials-nav"
+  ],
+  "Console overview": [
+    "console-overview"
+  ],
+  "Accessing your console": [
+    "accessing-your-console"
+  ],
+  "Web console": [
+    "web-console"
+  ]
+}

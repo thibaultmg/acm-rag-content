@@ -1,0 +1,238 @@
+{
+  "Resources that are backed up": [
+    "backed-up-resources"
+  ],
+  "Backup files created by a Red Hat Advanced Cluster Management schedule": [
+    "backup-files-created-by-a-schedule"
+  ],
+  "Resources restored at managed clusters activation time": [
+    "resources-restored-managed-cluster-activation"
+  ],
+  "Backup and restore operator architecture": [
+    "backup-restore-architecture"
+  ],
+  "Active-passive configuration": [
+    "active-passive-config"
+  ],
+  "Disaster recovery": [
+    "disaster-recovery"
+  ],
+  "Configuring active-passive hub cluster": [
+    "dr4hub-config"
+  ],
+  "Setting up hub clusters for backup and restore operators": [
+    "setting-up-hub-clusters-for-backup-and-restore-operators"
+  ],
+  "Enabling the backup operator for your hub clusters": [
+    "enabling-backup-operator-clusters"
+  ],
+  "Creating the storage location secret": [
+    "creating-the-storage-location-secret"
+  ],
+  "Installing the OADP operator": [
+    "installing-the-oadp-operator"
+  ],
+  "Installing a custom OADP version": [
+    "installing-custom-oadp"
+  ],
+  "Creating a": [
+    "creating-a-dataprotectionapplication-resource"
+  ],
+  "Enabling the backup and restore component in a disconnected environment": [
+    "enabling-the-backup-and-restore-component-in-a-disconnected-environment"
+  ],
+  "Enabling the backup and restore operator": [
+    "enabling-backup-restore"
+  ],
+  "Installing the backup and restore operator": [
+    "dr4hub-install-backup-and-restore"
+  ],
+  "Understanding backup collisions": [
+    "understand-backup-collision"
+  ],
+  "Preventing backup collisions": [
+    "prevent-backup-collision"
+  ],
+  "Scheduling backups": [
+    "using-backup-restore"
+  ],
+  "Using the restore operation for backup types": [
+    "restoring-backup-restore-operation"
+  ],
+  "Preparing the new hub cluster": [
+    "prepare-new-hub"
+  ],
+  "Running a restore operation on a hub cluster with a newer version": [
+    "run-restore-operation"
+  ],
+  "Cleaning the hub cluster after restore": [
+    "clean-hub-restore"
+  ],
+  "Restoring passive resources while checking for backups": [
+    "restore-passive-resources-check-backups"
+  ],
+  "Restoring passive resources": [
+    "restore-passive-resources"
+  ],
+  "Restoring activation resources": [
+    "restore-activation-resources"
+  ],
+  "Restoring managed cluster activation data": [
+    "managed-cluster-activation-data"
+  ],
+  "Restoring all resources": [
+    "restore-all-resources"
+  ],
+  "Restoring imported managed clusters": [
+    "restore-imported-managed-clusters"
+  ],
+  "Using other restore samples": [
+    "more-restore-samples"
+  ],
+  "Using advanced restore options": [
+    "advanced-restore-options"
+  ],
+  "Viewing restore events": [
+    "viewing-restore-events"
+  ],
+  "Restoring a backup": [
+    "restore-backup"
+  ],
+  "Protecting data using server-side encryption": [
+    "protecting-data-using-server-side-encryption"
+  ],
+  "Validating your backup or restore configurations": [
+    "backup-validation-using-a-policy"
+  ],
+  "Enabling automatic import": [
+    "enabling-auto-import"
+  ],
+  "Automatic import considerations": [
+    "auto-import-considerations"
+  ],
+  "Disabling automatic import": [
+    "disabling-auto-import"
+  ],
+  "Connecting clusters for backup by using a ManagedServiceAccount": [
+    "auto-connect-clusters-msa"
+  ],
+  "Preparing the primary hub cluster": [
+    "keep-hub-active-restore-prepare",
+    "prepare-primary-hub"
+  ],
+  "Running the restore operation on the new hub cluster": [
+    "keep-hub-active-restore-run"
+  ],
+  "Cleaning up managed cluster resources on the backup hub cluster": [
+    "keep-hub-active-restore-clean"
+  ],
+  "Running the restore operation while the primary hub cluster is active": [
+    "keep-hub-active-restore"
+  ],
+  "Increasing resources to support more clusters": [
+    "_increasing_resources_to_support_more_clusters"
+  ],
+  "Configuring Velero resource requests and limits": [
+    "config-velero-res-limit"
+  ],
+  "Existing managed clusters are detached during the restore process": [
+    "existing-clusters-detached"
+  ],
+  "Restore hub cluster has more resources than the backup hub cluster": [
+    "restore-hub-resources"
+  ],
+  "Scenarios when using an existing hub cluster as a restore hub cluster": [
+    "using-existing-hub"
+  ],
+  "Prerequisites": [
+    "prerequisite-resources",
+    "volsync-prereq"
+  ],
+  "Tagging resources with the velero label": [
+    "tagging-resources-velero"
+  ],
+  "Tagging user resources with the backup label": [
+    "tagging-resources"
+  ],
+  "Making the new hub cluster the active hub cluster": [
+    "making-active-hub"
+  ],
+  "Returning to the primary hub cluster": [
+    "returning-primary-hub"
+  ],
+  "Enabling the backup schedule on the primary hub cluster": [
+    "enabling-backup-schedule"
+  ],
+  "Restoring data to the initial hub cluster": [
+    "restore-data-initial-hub"
+  ],
+  "Backup scope for hosted clusters": [
+    "_backup_scope_for_hosted_clusters"
+  ],
+  "Backup and restore for hosted control plane overview": [
+    "config-hcp-backup"
+  ],
+  "Restoring hosted control plane management configuration": [
+    "restore-hcp-management"
+  ],
+  "Backup and restore configuration for Observability": [
+    "backup-restore-obs-config"
+  ],
+  "Backing up and restoring Observability service": [
+    "backup-restore-obs"
+  ],
+  "Backup and restore": [
+    "backup-intro"
+  ],
+  "Installing VolSync by using labels": [
+    "volsync-install-label"
+  ],
+  "Installing VolSync by using a ManagedClusterAddOn": [
+    "volsync-install-mcaddon"
+  ],
+  "Installing VolSync on the managed clusters": [
+    "volsync-install-clusters"
+  ],
+  "Configuring Rsync-TLS replication across managed clusters": [
+    "volsync-rsync-tls-clusters"
+  ],
+  "Configuring an Rsync-TLS replication": [
+    "rsync-tls-replication-volsync"
+  ],
+  "Configuring Rsync replication across managed clusters": [
+    "volsync-rsync-clusters"
+  ],
+  "Configuring an Rsync replication": [
+    "rsync-replication-volsync"
+  ],
+  "Restoring a restic backup": [
+    "restore-restic-backup"
+  ],
+  "Configuring a restic backup": [
+    "restic-backup-volsync"
+  ],
+  "Configuring an Rclone replication": [
+    "rclone-replication-volsync"
+  ],
+  "Replicating persistent volumes with VolSync": [
+    "volsync-rep"
+  ],
+  "Converting a replicated image to a usable persistent volume claim": [
+    "volsync-convert-backup-pvc"
+  ],
+  "Scheduling your synchronization": [
+    "volsync-schedule"
+  ],
+  "Creating a secret for Rsync-TLS replication": [
+    "volsync-rsync-create-tls-secret"
+  ],
+  "VolSync advanced configuration": [
+    "advanced-config-volsync"
+  ],
+  "VolSync persistent volume replication service": [
+    "volsync"
+  ],
+  "Business continuity": [
+    "business-cont-overview"
+  ]
+}

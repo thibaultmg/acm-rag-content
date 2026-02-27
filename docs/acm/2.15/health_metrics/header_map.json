@@ -1,0 +1,23 @@
+{
+  "Accessing the hub cluster metrics service": [
+    "accessing-hub-metrics"
+  ],
+  "Scraping the hub cluster": [
+    "scraping-hub"
+  ],
+  "Scraping the managed cluster": [
+    "scraping-managed"
+  ],
+  "Scraping with Prometheus": [
+    "scraping-prometheus"
+  ],
+  "Scraping the standalone cluster": [
+    "scraping-standalone"
+  ],
+  "Using the metrics service": [
+    "using-metrics"
+  ],
+  "Health metrics": [
+    "health-metrics-intro"
+  ]
+}

@@ -160,6 +160,16 @@ Cluster Management installation.
 For more information about Observability, see Observing environments
 introduction.
 
+### References
+
+- Learn more about the release from the Release notes.
+
+- See the product Installing and upgrading section to prepare your
+  cluster and get configuration information.
+
+- See Cluster lifecycle overviewfor more information about the operator
+  that provides the cluster lifecycle features.
+
 ## Glossary of terms
 
 Red Hat Advanced Cluster Management for Kubernetes consists of several

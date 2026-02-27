@@ -188,6 +188,22 @@ Thanos uses object storage as the primary storage for metrics and
 metadata related to them. For more details about the object storage and
 downsampling, see *Enabling observability service*.
 
+### Observability support
+
+- Red Hat Advanced Cluster Management is tested with and fully supported
+  by Red Hat OpenShift Data Foundation, formerly Red Hat OpenShift
+  Container Platform.
+
+- Red Hat Advanced Cluster Management supports the function of the
+  multicluster observability operator on user-provided third-party
+  object storage that is S3 API compatible. The observability service
+  uses Thanos supported, stable object stores.
+
+- Red Hat Advanced Cluster Management support efforts include reasonable
+  efforts to identify root causes. If you open a support ticket and the
+  root cause is the S3 compatible object storage that you provided, then
+  you must open an issue using the customer support channels.
+
 ## Observability configuration
 
 When the observability service is enabled, the hub cluster is always
@@ -427,7 +443,7 @@ apiVersion: v1
 metadata:
   name: observability-metrics-custom-allowlist
   namespace: open-cluster-management-observability
-  data:
+data:
   metrics_list.yaml: |
     names: 
       - node_memory_MemTotal_bytes
@@ -459,7 +475,7 @@ apiVersion: v1
 metadata:
   name: observability-metrics-custom-allowlist
   namespace: open-cluster-management-addon-observability
-  data:
+data:
   metrics_list.yaml: |
     names: 
       - node_memory_MemTotal_bytes
@@ -686,6 +702,11 @@ requests that are made to Prometheus on your managed cluster.
 
 **Required access:** Cluster administrator
 
+**Prerequisites**
+
+- You have the Observability service enabled on your hub and managed
+  clusters. See Enabling the Observability service.
+
 #### Increasing and decreasing metrics collection
 
 To increase and decrease metrics collection on your clusters, edit the
@@ -792,6 +813,9 @@ observability add-on:
         name: <addon-deploy-config-name>
         namespace: <managed-cluster-name>
     ```
+
+    **Note:** The `spec.installNamespace` field is deprecated. See
+    Product deprecations and removals to learn more.
 
 5.  Verify the proxy settings. If you successfully configured the proxy
     settings, the metric collector deployed by the observability add-on
@@ -1278,13 +1302,18 @@ administrator.
 
 - You must configure an object store to create a storage solution.
 
-  - **Important:** When you configure your object store, ensure that you
-    meet the encryption requirements that are necessary when sensitive
-    data is persisted. The Observability service uses Thanos supported,
-    stable object stores. You might not be able to share an object store
-    bucket by multiple Red Hat Advanced Cluster Management Observability
-    installations. Therefore, for each installation, provide a separate
-    object store bucket.
+  **Important:**
+
+  - When you configure your object store, ensure that you meet the
+    encryption requirements that are necessary when sensitive data is
+    persisted. The Observability service uses Thanos supported, stable
+    object stores.
+
+  - You must use a separate object storage bucket for each hub cluster.
+    Each Observability installation requires a dedicated, unique bucket.
+    Multiple writes to the same storage path at the same time causes
+    data corruption, historical metrics loss, and stops the Thanos
+    Compactor.
 
   - Red Hat Advanced Cluster Management supports the following cloud
     providers with stable object stores:
@@ -1970,17 +1999,6 @@ disabling and uninstalling the Observability service. From the OpenShift
 Container Platform console navigation, select **Operators** \>
 **Installed Operators** \> **Advanced Cluster Manager for Kubernetes**.
 Remove the `MultiClusterObservability` custom resource.
-
-### Additional resources
-
-- 
-
-- See Using Observability.
-
-- To learn more about customizing the observability service, see
-  Observability advanced configuration.
-
-- For more related topics, return to the Observability service.
 
 ## Using Observability
 
@@ -3105,6 +3123,12 @@ Binds the policy and placement together.
 
 **Required access:** Editor
 
+**Prerequisites**
+
+- You have `MultiClusterObservability` operator enabled on your hub
+  cluster. To learn how to enable the Observability, see Enabling the
+  Observability service.
+
 #### Enabling *RightSizingRecommendation* for namespaces (Technology Preview)
 
 Complete the following steps to enable `RightSizingRecommendation` for
@@ -3152,6 +3176,12 @@ resources for your namespaces. Edit the `rs-namespace-config`
 `ConfigMap` resource.
 
 **Required access:** Editor
+
+**Prerequisites**
+
+- You have enabled the `RightSizingRecommendation` specification. For
+  more details, see Optimizing workloads by using
+  RightSizingRecommendation guides for namespaces (Technology Preview).
 
 Complete the following steps:
 
@@ -3270,6 +3300,16 @@ Binds the policy and placement together.
 
 **Required access:** Editor
 
+**Prerequisites**
+
+- You have the `MultiClusterObservability` operator enabled on your hub
+  cluster. To learn how to enable the Observability, see Enabling the
+  Observability service.
+
+- You have the Red Hat OpenShift Virtualization operator installed on
+  your related managed cluster or hub cluster. For more information, see
+  Installing OpenShift Virtualization.
+
 Complete the following steps to enable right-sizing for your virtual
 machines:
 
@@ -3316,6 +3356,12 @@ machines:
 You can customize the `RightSizingRecommendation` specification to
 optimize CPU and memory resources for your virtual machines. Edit the
 `MultiClusterObservability` resource.
+
+**Prerequisites**
+
+- You have enabled the `RightSizingRecommendation` specification. For
+  more information, see Enabling RightSizingRecommendation for
+  Virtualization workloads (Technology Preview).
 
 Complete the following steps:
 
@@ -3558,6 +3604,14 @@ cluster.
 
 **Required access:** Cluster administrator
 
+**Prerequisites**
+
+- You must enable the Observability service on your hub cluster. For
+  more details, see Enabling the Observability service.
+
+- You must install the Red Hat OpenShift Cluster Observability Operator.
+  For more information, see Cluster Observability Operator overview.
+
 <div class="formalpara">
 
 <div class="title">
@@ -3632,6 +3686,12 @@ resources for the multicluster observability add-on: `PrometheusAgent`,
 `ScrapeConfigs`, and `PrometheusRules`.
 
 **Required access:** Cluster administrator
+
+**Prerequisites**
+
+- You have installed and enabled the multicluster observability add-on.
+  For more information, see Enabling the multicluster observability
+  add-on.
 
 <div class="formalpara">
 
@@ -3733,6 +3793,12 @@ resource to the `PrometheusAgent` resource.
 
 **Requierd access:** Cluster administrator
 
+**Prerequisites**
+
+- You have installed and enabled the multicluster observability add-on.
+  For more information, see Enabling the multicluster observability
+  add-on.
+
 Complete the following steps to add custom metrics for the multicluster
 observability add-on:
 
@@ -3792,13 +3858,7 @@ OpenShift Container Platform cluster.
 
 **Required access:** Cluster administrator
 
-<div>
-
-<div class="title">
-
-Prerequisites
-
-</div>
+**Prerequisites**
 
 - User workload monitoring is enabled on your managed cluster.
 
@@ -3811,8 +3871,6 @@ Prerequisites
 
 - The `ScrapeConfig` resources are referenced in the configurations list
   of the `ClusterManagementAddOn` for the target placements.
-
-</div>
 
 <div class="formalpara">
 
@@ -3856,6 +3914,12 @@ or globally in the `remoteWrite` configuration of the `PrometheusAgent`
 resource.
 
 **Required access:** Cluster administrator
+
+**Prerequisites**
+
+- You have installed and enabled the multicluster observability add-on.
+  For more information, see Enabling the multicluster observability
+  add-on.
 
 <div class="formalpara">
 
@@ -3915,6 +3979,12 @@ helps you improve resiliency during network partitions between your
 managed and hub clusters for up to two hours.
 
 **Required access:** Cluster administrator
+
+**Prerequisites**
+
+- You have installed and enabled the multicluster observability add-on.
+  For more information, see Enabling the multicluster observability
+  add-on.
 
 <div class="formalpara">
 
@@ -3978,6 +4048,11 @@ Create a policy to configure alert forwarding when you use the
 multicluster observability add-on.
 
 **Required access:** Cluster administrator
+
+**Prerequisites**
+
+- You must have the multicluster observability add-on is enabled. For
+  more details, see Enabling the multicluster observability add-on.
 
 <div class="formalpara">
 

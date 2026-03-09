@@ -1,12 +1,14 @@
-import os
 import json
+
 import pytest
-from pathlib import Path
+
 from scripts.extract_ids import extract_ids_from_xml
+
 
 @pytest.fixture
 def temp_dir(tmp_path):
     return tmp_path
+
 
 @pytest.mark.parametrize(
     "xml_content, expected_output",
@@ -26,8 +28,8 @@ def temp_dir(tmp_path):
             {
                 "Book Title": ["book_id"],
                 "Section 1 Title": ["sec_1"],
-                "Section 2 Title": ["sec_2"]
-            }
+                "Section 2 Title": ["sec_2"],
+            },
         ),
         # Missing namespaces and 'id' instead of 'xml:id'
         (
@@ -38,10 +40,7 @@ def temp_dir(tmp_path):
                     <title>Section 1 No NS</title>
                 </section>
             </book>""",
-            {
-                "Book No NS": ["book_id_no_ns"],
-                "Section 1 No NS": ["sec_1_no_ns"]
-            }
+            {"Book No NS": ["book_id_no_ns"], "Section 1 No NS": ["sec_1_no_ns"]},
         ),
         # Duplicate titles mapped to lists of IDs
         (
@@ -55,9 +54,7 @@ def temp_dir(tmp_path):
                     <title>Duplicate Title</title>
                 </section>
             </book>""",
-            {
-                "Duplicate Title": ["sec_1", "sec_2", "book_1"]
-            }
+            {"Duplicate Title": ["sec_1", "sec_2", "book_1"]},
         ),
         # Deeply nested tags
         (
@@ -78,8 +75,8 @@ def temp_dir(tmp_path):
                 "Root": ["root"],
                 "Part 1": ["part_1"],
                 "Chapter 1": ["chap_1"],
-                "Deep Section": ["sec_deep"]
-            }
+                "Deep Section": ["sec_deep"],
+            },
         ),
         # Missing title entirely
         (
@@ -88,8 +85,7 @@ def temp_dir(tmp_path):
                 <section id="no_title_sec">
                 </section>
             </book>""",
-            {
-            }
+            {},
         ),
         # Empty title tag
         (
@@ -97,21 +93,21 @@ def temp_dir(tmp_path):
             <book id="root">
                 <title></title>
             </book>""",
-            {}
-        )
-    ]
+            {},
+        ),
+    ],
 )
 def test_extract_ids_from_xml(temp_dir, xml_content, expected_output):
     xml_file = temp_dir / "test.xml"
     json_file = temp_dir / "output.json"
-    
+
     xml_file.write_text(xml_content)
-    
+
     extract_ids_from_xml(str(xml_file), str(json_file))
-    
+
     assert json_file.exists()
-    
-    with open(json_file, 'r') as f:
+
+    with open(json_file) as f:
         data = json.load(f)
-        
+
     assert data == expected_output

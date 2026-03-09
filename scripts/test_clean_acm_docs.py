@@ -1,51 +1,56 @@
-import pytest
 import xml.etree.ElementTree as ET
-from scripts.clean_acm_docs import is_navigation_list, clean_docbook, NS
+
+import pytest
+
+from scripts.clean_acm_docs import NS, clean_docbook, is_navigation_list
+
 
 def create_itemizedlist(xml_string):
-    ET.register_namespace('db', NS['db'])
+    ET.register_namespace("db", NS["db"])
     xml_with_ns = f'<db:itemizedlist xmlns:db="{NS["db"]}">{xml_string}</db:itemizedlist>'
     return ET.fromstring(xml_with_ns)
 
-@pytest.mark.parametrize("xml_content, expected", [
-    (
-        """
+
+@pytest.mark.parametrize(
+    "xml_content, expected",
+    [
+        (
+            """
         <db:listitem>
             <db:para>
                 <db:link linkend="id1">Only link text</db:link>
             </db:para>
         </db:listitem>
         """,
-        True
-    ),
-    (
-        """
+            True,
+        ),
+        (
+            """
         <db:listitem>
             <db:para>
                 This is some regular text that happens to have a <db:link linkend="id1">link</db:link> in it.
             </db:para>
         </db:listitem>
         """,
-        False
-    ),
-    (
-        """
+            False,
+        ),
+        (
+            """
         <db:listitem>
             <db:para>
                 Just text, no links at all.
             </db:para>
         </db:listitem>
         """,
-        False
-    ),
-    (
-        "",
-        False
-    )
-])
+            False,
+        ),
+        ("", False),
+    ],
+)
 def test_is_navigation_list(xml_content, expected):
     ulist = create_itemizedlist(xml_content)
     assert is_navigation_list(ulist) == expected
+
 
 def test_removes_navigation_lists(tmp_path):
     input_xml = """<?xml version='1.0' encoding='utf-8'?>
@@ -60,9 +65,10 @@ def test_removes_navigation_lists(tmp_path):
     test_file.write_text(input_xml, encoding="utf-8")
     clean_docbook(str(test_file))
     root = ET.parse(str(test_file)).getroot()
-    assert len(root.findall('.//db:itemizedlist', NS)) == 0
-    paras = ["".join(p.itertext()).strip() for p in root.findall('.//db:para', NS)]
+    assert len(root.findall(".//db:itemizedlist", NS)) == 0
+    paras = ["".join(p.itertext()).strip() for p in root.findall(".//db:para", NS)]
     assert "See also:" not in paras
+
 
 def test_converts_tables_to_lists(tmp_path):
     input_xml = """<?xml version='1.0' encoding='utf-8'?>
@@ -83,10 +89,11 @@ def test_converts_tables_to_lists(tmp_path):
     test_file.write_text(input_xml, encoding="utf-8")
     clean_docbook(str(test_file))
     root = ET.parse(str(test_file)).getroot()
-    assert len(root.findall('.//db:table', NS)) == 0
-    list_items = root.findall('.//db:listitem', NS)
+    assert len(root.findall(".//db:table", NS)) == 0
+    list_items = root.findall(".//db:listitem", NS)
     assert len(list_items) == 1
     assert "H1: V1 - H2: V2" in "".join(list_items[0].itertext()).strip()
+
 
 def test_extracts_list_titles(tmp_path):
     input_xml = """<?xml version='1.0' encoding='utf-8'?>
@@ -101,10 +108,11 @@ def test_extracts_list_titles(tmp_path):
     test_file.write_text(input_xml, encoding="utf-8")
     clean_docbook(str(test_file))
     root = ET.parse(str(test_file)).getroot()
-    assert len(root.findall('.//db:itemizedlist/db:title', NS)) == 0
+    assert len(root.findall(".//db:itemizedlist/db:title", NS)) == 0
     strong = root.find('.//db:emphasis[@role="strong"]', NS)
     assert strong is not None
     assert strong.text == "Prerequisites"
+
 
 def test_removes_additional_resources(tmp_path):
     input_xml = """<?xml version='1.0' encoding='utf-8'?>
@@ -119,10 +127,11 @@ def test_removes_additional_resources(tmp_path):
     test_file.write_text(input_xml, encoding="utf-8")
     clean_docbook(str(test_file))
     root = ET.parse(str(test_file)).getroot()
-    section_titles = [ "".join(t.itertext()).strip().lower() for t in root.findall('.//db:title', NS)]
+    section_titles = ["".join(t.itertext()).strip().lower() for t in root.findall(".//db:title", NS)]
     assert "additional resources" not in section_titles
-    paras = ["".join(p.itertext()).strip() for p in root.findall('.//db:para', NS)]
+    paras = ["".join(p.itertext()).strip() for p in root.findall(".//db:para", NS)]
     assert "Content to remove" not in paras
+
 
 def test_removes_images(tmp_path):
     input_xml = """<?xml version='1.0' encoding='utf-8'?>
@@ -139,6 +148,6 @@ def test_removes_images(tmp_path):
     test_file.write_text(input_xml, encoding="utf-8")
     clean_docbook(str(test_file))
     root = ET.parse(str(test_file)).getroot()
-    assert len(root.findall('.//db:figure', NS)) == 0
-    paras = ["".join(p.itertext()).strip() for p in root.findall('.//db:para', NS)]
+    assert len(root.findall(".//db:figure", NS)) == 0
+    paras = ["".join(p.itertext()).strip() for p in root.findall(".//db:para", NS)]
     assert "Following image:" not in paras

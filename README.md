@@ -11,48 +11,41 @@ The project provides:
 
 ## Prerequisites
 
--   Python 3.12+
+-   Python 3.12
+-   `uv`
 -   `make`
 -   `podman` (for containerized generation)
 
 ## Setup
 
 1.  Clone the repository.
-2.  Install dependencies (if running locally):
+2.  Install dependencies:
     ```bash
-    pip install -r requirements.txt
+    uv sync
     ```
-    (Note: The project is set up to use `uv` for dependency management if available, but requirements are provided).
 
 ## Usage
 
 ### Generating Embeddings (Local)
 
-To generate the vector database locally on your machine:
+To generate the vector database locally on your machine, run the generation command from the root of the repository:
 
-1.  Navigate to the `embedding_generator` directory:
-    ```bash
-    cd embedding_generator
-    ```
+```bash
+make generate-embeddings-local
+```
 
-2.  Run the generation command:
-    ```bash
-    make generate-local
-    ```
-
-    This will:
-    -   Download the embedding model (if not present) to `embeddings_model/`.
-    -   Process the documents in `docs/acm/2.15`.
-    -   Generate the vector database in `vector_db/acm/2.15`.
-    -   Automatically rename the output file to `faiss_index.bin` for compatibility.
+This will:
+-   Download the embedding model (if not present) to `embeddings_model/`.
+-   Process the documents in `docs/acm/2.15`.
+-   Generate the vector database in `vector_db/acm/2.15`.
+-   Automatically rename the output file to `faiss_index.bin` for compatibility.
 
 ### Generating Embeddings (Container)
 
-To generate the vector database using a container (requires Podman):
+To generate the vector database using a container (requires Podman), run the following from the root of the repository:
 
 ```bash
-cd embedding_generator
-make generate-container
+make generate-embeddings-container
 ```
 
 ### Querying the Vector Database
@@ -60,13 +53,13 @@ make generate-container
 A helper script is provided to query the generated local vector database.
 
 ```bash
-python scripts/query_local.py --query "Your question here"
+uv run scripts/query_local.py --query "Your question here"
 ```
 
 **Example:**
 
 ```bash
-python scripts/query_local.py --query "What is OpenShift Container Platform?"
+uv run scripts/query_local.py --query "What is ACM Observability?"
 ```
 
 This will load the FAISS index and metadata from `vector_db/acm/2.15` and return the most relevant document chunks.
@@ -88,10 +81,9 @@ To create a single vector database from documentation spanning multiple products
     ```
 
 3.  **Generate the embeddings, pointing to the combined directory:**
-    Navigate to `embedding_generator` and override the `DOCS_FOLDER` variable:
+    Override the `DOCS_FOLDER` variable:
     ```bash
-    cd embedding_generator
-    make generate-local DOCS_FOLDER=../docs/combined_docs PRODUCT=combined VERSION=v1
+    make generate-embeddings-local DOCS_FOLDER=docs/combined_docs PRODUCT=combined VERSION=v1
     ```
     *Note: The `PRODUCT` and `VERSION` parameters here (`combined` and `v1`) will determine the output directory (`vector_db/combined/v1`) and the `INDEX_NAME` for the combined database.*
 
@@ -99,7 +91,7 @@ To create a single vector database from documentation spanning multiple products
 
 4.  **Query the combined database:**
     ```bash
-    python scripts/query_local.py --product combined --version v1 --query "How do I manage multi-cluster applications with ACM?"
+    uv run scripts/query_local.py --product combined --version v1 --query "How do I manage multi-cluster applications with ACM?"
     ```
 
 ## Directory Structure
@@ -107,10 +99,10 @@ To create a single vector database from documentation spanning multiple products
 -   `docs/`: Source documentation files.
 -   `embeddings_model/`: Local cache for the HuggingFace embedding model (should be ignored by git).
 -   `vector_db/`: Output directory for the generated vector database (should be ignored by git).
--   `embedding_generator/`: Contains scripts and Makefile for the generation process.
+-   `embedding_generator/`: Contains logic for the generation process.
 -   `scripts/`: Helper scripts (e.g., for querying).
 
 ## Troubleshooting
 
 -   **Segmentation Faults (macOS):** The `Makefile` includes specific environment variables (`TOKENIZERS_PARALLELISM=false`, `OMP_NUM_THREADS=1`) to prevent common concurrency issues with `faiss` and `torch` on macOS.
--   **UnicodeDecodeError:** If you see this when querying, ensure `vector_db/acm/2.15/default__vector_store.json` has been renamed to `faiss_index.bin`. The `make generate-local` command does this automatically.
+-   **UnicodeDecodeError:** If you see this when querying, ensure `vector_db/acm/2.15/default__vector_store.json` has been renamed to `faiss_index.bin`. The `make generate-embeddings-local` command does this automatically.

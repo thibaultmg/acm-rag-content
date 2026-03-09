@@ -89,7 +89,9 @@ def main() -> int:
     except ValueError as e:
         print(f"load_index_from_storage failed: {e}")
         print("Attempting to reconstruct VectorStoreIndex directly...")
-        index = VectorStoreIndex.from_vector_store(vector_store=vector_store, storage_context=storage_context)
+        index = VectorStoreIndex.from_vector_store(
+            vector_store=vector_store, storage_context=storage_context, show_progress=True
+        )
         print("Reconstructed VectorStoreIndex.")
 
     # Create a query engine
@@ -98,15 +100,38 @@ def main() -> int:
     query_text = args.query
     print(f"\nQuerying: '{query_text}'")
     response = query_engine.query(query_text)
-    print(f"Response: {response}")
 
     # You can also get more detailed information, like the source nodes
-    print("\nSource Nodes:")
-    for node in response.source_nodes:
-        print(f"  Score: {node.score}")
-        print(f"  Text: {node.text[:200]}...")  # Print first 200 characters of the text
-        print(f"  Metadata: {node.metadata}")
+    print("\n" + "=" * 80)
+    print(f"{'SOURCE NODES':^80}")
+    print("=" * 80)
+    for i, node in enumerate(response.source_nodes, 1):
+        print(f"\n[NODE {i}] Score: {node.score:.4f}")
+        print("-" * 40)
+
+        # Metadata section
+        print("METADATA:")
+        for key, value in node.metadata.items():
+            print(f"  {key:15}: {value}")
+
         print("-" * 20)
+
+        # Content section
+        print("CONTENT:")
+        # Indent content for better readability and show start/end if too long
+        text = node.node.get_content().strip()
+        lines = text.splitlines()
+        if len(lines) > 10:
+            start_lines = "\n".join("    " + line for line in lines[:5])
+            end_lines = "\n".join("    " + line for line in lines[-5:])
+            print(start_lines)
+            print("    " + "." * 10)
+            print(end_lines)
+        else:
+            indented_text = "\n".join("    " + line for line in lines)
+            print(indented_text)
+
+        print("\n" + "=" * 80)
 
     return 0
 

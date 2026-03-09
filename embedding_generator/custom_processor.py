@@ -64,7 +64,7 @@ def get_anchor_id(file_path: str, header_text: str) -> str:
 
     custom_id = header_map.get(header_text)
     if custom_id:
-        return custom_id
+        return custom_id.lstrip("_")
 
     return slugify(header_text)
 
@@ -95,28 +95,44 @@ class AnchorLinkNodeParser(MarkdownNodeParser):
         # Post-process nodes to add anchor links using public node attributes
         count = 0
         for node in nodes:
-            header_path = node.metadata.get("header_path")
             base_url = node.metadata.get("docs_url")
             file_path = node.metadata.get("file_path")
 
-            if (
-                isinstance(header_path, str)
-                and header_path
-                and isinstance(base_url, str)
-                and base_url
-                and isinstance(file_path, str)
-                and file_path
-            ):
-                # header_path is typically "/Title/Subtitle/Section/"
-                headers = [h for h in header_path.split("/") if h]
-                if headers:
-                    leaf_header = headers[-1]
+            if isinstance(base_url, str) and base_url and isinstance(file_path, str) and file_path:
+                leaf_header = ""
 
+                # Try to extract the header from the node's text
+                if hasattr(node, "text") and node.text:
+                    first_line = node.text.lstrip().split("\n", 1)[0]
+                    match = re.match(r"^(#+)\s+(.*)", first_line)
+                    if match:
+                        leaf_header = match.group(2).strip()
+
+                # Fallback to header_path if no header in text
+                if not leaf_header:
+                    header_path = node.metadata.get("header_path")
+                    if isinstance(header_path, str) and header_path:
+                        headers = [h for h in header_path.split("/") if h]
+                        if headers:
+                            leaf_header = headers[-1]
+
+                if leaf_header:
                     # Get anchor (custom ID or slug)
                     anchor = get_anchor_id(file_path, leaf_header)
 
                     # Construct deep link
                     deep_link = f"{base_url}#{anchor}"
+
+                    # Construct full title path
+                    header_path_str = node.metadata.get("header_path", "")
+                    headers = [h for h in header_path_str.split("/") if h] if isinstance(header_path_str, str) else []
+
+                    if headers and leaf_header != headers[-1]:
+                        full_title = " - ".join(headers + [leaf_header])
+                    elif headers:
+                        full_title = " - ".join(headers)
+                    else:
+                        full_title = leaf_header
 
                     # Defensive copy before mutation
                     node.metadata = node.metadata.copy()
@@ -124,6 +140,7 @@ class AnchorLinkNodeParser(MarkdownNodeParser):
                     # Update metadata
                     node.metadata["docs_url"] = deep_link
                     node.metadata["url"] = deep_link
+                    node.metadata["title"] = full_title
                     count += 1
 
         logging.debug("Updated URLs for %d nodes with anchor links.", count)

@@ -1,0 +1,6 @@
+.venv
+.git
+__pycache__
+tmp
+vector_db
+embeddings_model

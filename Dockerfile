@@ -1,30 +1,23 @@
-# Use a lightweight Python base image
-FROM python:3.13-slim
+FROM quay.io/lightspeed-core/rag-content-cpu:latest
 
-# Prevent writing .pyc files and buffering stdout
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+WORKDIR /opt/app-root/src
 
-# Set the working directory
-WORKDIR /app
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-# Install system dependencies (Git, Pandoc, Make)
-# We accept the default pandoc from Debian repositories for stability
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    git \
-    pandoc \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
+USER root
 
-# Install Ruby gem dependencies
-RUN gem install asciidoctor
+# Note: The base image uses Python 3.12. We install specific dependencies 
+# here rather than the full pyproject.toml to avoid overwriting the pre-compiled 
+# data science libraries (like torch) provided by the base image.
+RUN uv pip install --system --no-cache-dir pyyaml==6.0.2 llama-index-core==0.14.10
 
-# Install Python dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Ensure the rag user exists (the base image typically provides it as uid 1000)
+RUN id -u rag &>/dev/null || useradd -ms /bin/bash rag
+USER rag
 
-# Copy application logic into the container
-COPY . .
+# Copy the processor script and default config
+COPY embedding_generator/custom_processor.py .
+COPY embedding_generator/config.yaml .
 
-# By default, provide a shell, but this can be overridden to run make
-CMD ["/bin/bash"]
+ENTRYPOINT ["python", "custom_processor.py"]

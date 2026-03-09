@@ -86,6 +86,7 @@ class TestCustomProcessor(unittest.TestCase):
                     {
                         "Known Header": "custom-id-123",
                         "List Header": ["custom-id-list-1", "custom-id-list-2"],
+                        "Underscore Header": "_custom-id-underscore",
                     },
                     f,
                 )
@@ -99,6 +100,11 @@ class TestCustomProcessor(unittest.TestCase):
                     "List Header",
                     "custom-id-list-1",
                 ),  # Match first element of list
+                (
+                    mock_file,
+                    "Underscore Header",
+                    "custom-id-underscore",
+                ),  # Leading underscore removed
                 (mock_file, "Unknown Header", "unknown-header"),  # Fallback to slugify
                 (None, "Valid Header", "valid-header"),  # Type safety for file_path
                 ("", "Valid Header", "valid-header"),  # Type safety for file_path
@@ -130,9 +136,9 @@ class TestCustomProcessor(unittest.TestCase):
         target_node = nodes[1]
 
         self.assertIn("docs_url", target_node.metadata)
-        # The header leaf is 'Top Level', so anchor should be 'top-level'
-        self.assertEqual(target_node.metadata["docs_url"], "http://example.com/page#top-level")
-        self.assertEqual(target_node.metadata["url"], "http://example.com/page#top-level")
+        # The header leaf is 'Main Title' from the node text, so anchor should be 'main-title'
+        self.assertEqual(target_node.metadata["docs_url"], "http://example.com/page#main-title")
+        self.assertEqual(target_node.metadata["url"], "http://example.com/page#main-title")
 
         # Type safety / Missing metadata checks
         doc2 = Document(text="No metadata doc.")

@@ -3,7 +3,7 @@ FETCHED_DOCS_DIR = tmp/rhacm-docs
 PROCESSED_DOCS_DIR = docs/acm/$(ACM_VERSION)
 PYTHON ?= python3
 
-.PHONY: fetch-docs render-pandoc clean check-deps update-docs test
+.PHONY: fetch-docs render-pandoc clean check-deps update-docs test lint
 
 check-deps:
 	@which git > /dev/null || (echo "Error: git is not installed" && exit 1)
@@ -38,3 +38,7 @@ update-docs: fetch-docs render-pandoc clean
 
 test:
 	PYTHONPATH=. uv run pytest
+
+lint:
+	uv run ruff check .
+	uv run ruff format --check .
